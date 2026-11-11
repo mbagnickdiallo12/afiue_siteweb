@@ -326,21 +326,64 @@ function retrieve(chunks: Chunk[], query: string, k = 6): Chunk[] {
    ---------------------------------------------------------------------------- */
 
 function buildSystemPrompt(config: SophieConfig, context: Chunk[]): string {
-  return `Tu es Sophie, la conseillère virtuelle officielle d'AFI-L'UE (L'Université de l'Entreprise, Dakar et Thiès, Sénégal).
-Ton rôle : orienter les futurs étudiants, informer les visiteurs et répondre à leurs questions sur AFI-L'UE.
+  return `Tu es Sophie, la conseillère d'orientation et d'admission officielle d'AFI-L'UE (L'Université de l'Entreprise, Dakar et Thiès, Sénégal).
 
-Règles strictes :
-- Réponds UNIQUEMENT à partir des INFORMATIONS OFFICIELLES ci-dessous. N'invente jamais un chiffre, une formation, une date ou un prix.
-- Si l'information n'y figure pas, dis-le simplement et propose de contacter un conseiller : +221 77 508 87 28 (WhatsApp) ou afi@afi-ue.sn.
-- Refuse poliment les sujets sans rapport avec AFI-L'UE et ramène la conversation vers l'université.
-- Réponds en français (ou dans la langue de l'utilisateur), de façon chaleureuse, claire et concise : 2 à 6 phrases ou une courte liste.
-- Pour orienter, pose une question sur le niveau (Bac, Licence, professionnel) ou le domaine d'intérêt si nécessaire.
-- Quand c'est utile, mentionne le lien de la page concernée (ex. /candidater, /formations/...).
-${config.extra_instructions ? `\nConsignes supplémentaires de l'administration :\n${config.extra_instructions}\n` : ""}
-INFORMATIONS OFFICIELLES :
+Ta personnalité et ton style de communication :
+- Tu t'exprimes comme une VRAIE personne humaine : chaleureuse, empathique, souriante, professionnelle et dynamique.
+- Tu accueilles les visiteurs comme s'ils franchissaient les portes de l'université.
+- Tu ne récites PAS des blocs de texte administratif froids : tu engages une vraie discussion naturelle, vivante et fluide.
+- Tu écoutes le projet de l'étudiant, tu poses une question pertinente si besoin (son niveau actuel, son domaine de prédilection, ses ambitions professionnelles) pour lui faire une recommandation personnalisée.
+- Utilise un français élégant, naturel et accessible. N'hésite pas à être encourageante ("C'est une excellente filière !", "Félicitations pour votre démarche").
+
+Règles de vérité :
+- Base toutes tes informations factuelles (filières existantes, diplômes d'État reconnus par le CAMES, régimes soir/weekend/jour, campus Dakar Point E et Thiès) UNIQUEMENT sur la BASE DE CONNAISSANCES OFFICIELLE fournie ci-dessous.
+- N'invente jamais un tarif, une filière inexistante ou une modalité non mentionnée.
+- Si une précision pointue n'est pas dans ta base (ex: demande de bourse exceptionnelle, cas particulier), réponds avec bienveillance et donne les coordonnées directes du secrétariat d'admission : Téléphone / WhatsApp au +221 77 508 87 28 ou par email à afi@afi-ue.sn.
+- Tu peux insérer des liens utiles en markdown vers les pages du site (ex: [Déposer une candidature](/candidater), [Catalogue des Formations](/formations), [Cours du Soir & Week-end](/cours-du-weekend)).
+
+${config.extra_instructions ? `\nConsignes spécifiques de la direction :\n${config.extra_instructions}\n` : ""}
+INFORMATIONS OFFICIELLES AFI-L'UE :
 ${context.map((c, i) => `[${i + 1}] ${c.title}${c.url ? ` (${c.url})` : ""}\n${c.content}`).join("\n\n")}`;
 }
 
+/** Appel OpenAI (ChatGPT : gpt-4o-mini ou gpt-4o) */
+async function callOpenAI(
+  system: string,
+  messages: SophieChatMessage[],
+): Promise<string | null> {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) return null;
+  const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
+  try {
+    const res = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model,
+        messages: [
+          { role: "system", content: system },
+          ...messages.map((m) => ({ role: m.role, content: m.content })),
+        ],
+        temperature: 0.5,
+        max_tokens: 800,
+      }),
+    });
+    if (!res.ok) {
+      console.error("Sophie OpenAI error:", res.status, await res.text());
+      return null;
+    }
+    const data = await res.json();
+    return data?.choices?.[0]?.message?.content?.trim() || null;
+  } catch (err) {
+    console.error("Sophie OpenAI fetch error:", err);
+    return null;
+  }
+}
+
+/** Appel Google Gemini (gemini-2.5-flash / gemini-2.0-flash) */
 async function callGemini(
   system: string,
   messages: SophieChatMessage[],
@@ -360,7 +403,7 @@ async function callGemini(
             role: m.role === "assistant" ? "model" : "user",
             parts: [{ text: m.content }],
           })),
-          generationConfig: { temperature: 0.3, maxOutputTokens: 800 },
+          generationConfig: { temperature: 0.4, maxOutputTokens: 800 },
         }),
       },
     );
@@ -380,23 +423,23 @@ async function callGemini(
   }
 }
 
-/** Réponse locale (sans clé IA) : renvoie les passages officiels les plus pertinents. */
+/** Réponse locale naturelle (sans clé IA) : formulation humaine et bienveillante */
 function localAnswer(query: string, context: Chunk[]): string {
   const q = query.toLowerCase();
   if (/^(bonjour|salut|hello|bonsoir|hi)\b/.test(q.trim()) && q.length < 25) {
-    return "Bonjour ! Je suis Sophie, la conseillère virtuelle d'AFI-L'UE. Dites-moi votre niveau d'études ou le domaine qui vous intéresse, et je vous oriente vers la bonne formation.";
+    return "Bonjour et bienvenue à AFI-L'UE ! 😊 Je suis Sophie, votre conseillère d'orientation. Quel est votre parcours actuel ou la formation qui vous intéresse ?";
   }
   if (context.length === 0) {
-    return "Je n'ai pas encore cette information. Un conseiller peut vous répondre directement au +221 77 508 87 28 (WhatsApp) ou par email à afi@afi-ue.sn.";
+    return "Je n'ai pas cette précision exacte sous la main, mais notre équipe des admissions est disponible pour vous renseigner directement par WhatsApp au +221 77 508 87 28 ou par email à afi@afi-ue.sn.";
   }
   const best = context.slice(0, 2);
   const body = best
     .map((c) => {
-      const text = c.content.length > 520 ? `${c.content.slice(0, 520).trim()}…` : c.content;
-      return `**${c.title}**\n${text}${c.url ? `\n→ ${c.url}` : ""}`;
+      const text = c.content.length > 400 ? `${c.content.slice(0, 400).trim()}…` : c.content;
+      return `📌 **${c.title}**\n${text}${c.url ? `\n🔗 [Consulter cette formation](${c.url})` : ""}`;
     })
     .join("\n\n");
-  return `${body}\n\nBesoin de plus de détails ? Contactez un conseiller au +221 77 508 87 28.`;
+  return `Voici les informations officielles correspondantes :\n\n${body}\n\nSouhaitez-vous que je vous aide à candidater ou avez-vous une autre question ? 😊`;
 }
 
 export async function answerSophie(
@@ -412,10 +455,17 @@ export async function answerSophie(
   const query = `${lastUser.content} ${prevUser?.content || ""}`;
   const context = retrieve(chunks, query, 7);
 
-  const llm = await callGemini(
-    buildSystemPrompt(store.config, context.length ? context : INSTITUTION_FACTS),
-    messages.slice(-10),
-  );
+  const systemPrompt = buildSystemPrompt(store.config, context.length ? context : INSTITUTION_FACTS);
+  const last10 = messages.slice(-10);
+
+  // 1. Essayer OpenAI (ChatGPT gpt-4o-mini)
+  let llm = await callOpenAI(systemPrompt, last10);
+
+  // 2. Si pas d'OpenAI, essayer Google Gemini
+  if (!llm) {
+    llm = await callGemini(systemPrompt, last10);
+  }
+
   const rawReply = llm ?? localAnswer(lastUser.content, retrieve(chunks, lastUser.content, 3));
   const reply = rawReply.replace(/https?:\/\/[^\s]*21st\.dev[^\s)]*/gi, "").trim();
   const sources = context.slice(0, 3).map((c) => c.title);
