@@ -447,8 +447,8 @@ async function callGemini(
   // Modèles officiels avec quota complet disponibles sur Google AI Studio
   const models = [
     process.env.GEMINI_MODEL,
-    "gemini-3.5-flash",
     "gemini-flash-lite-latest",
+    "gemini-3.5-flash",
     "gemini-3.1-flash-lite",
     "gemini-flash-latest",
   ].filter(Boolean) as string[];
@@ -469,7 +469,11 @@ async function callGemini(
               role: m.role === "assistant" ? "model" : "user",
               parts: [{ text: m.content }],
             })),
-            generationConfig: { temperature: 0.4, maxOutputTokens: 2048 },
+            generationConfig: {
+              temperature: 0.3,
+              maxOutputTokens: 3000,
+              thinkingConfig: { thinkingBudget: 0 },
+            },
           }),
         },
       );
