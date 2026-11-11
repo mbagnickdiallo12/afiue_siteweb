@@ -1,3 +1,4 @@
+// AFI-L'UE Site Officiel — Déploiement Vercel Production avec Sophie AI
 import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
