@@ -45,8 +45,8 @@ export function KeyNumbersDark() {
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 space-y-10 sm:space-y-12">
         {/* Section Header: Clean centered title with FadeIn */}
-        <FadeIn className="text-center max-w-3xl mx-auto">
-          <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-white tracking-widest uppercase">
+        <FadeIn className="text-center max-w-4xl mx-auto">
+          <h2 className="font-heading font-black text-xl xs:text-2xl sm:text-3xl lg:text-4xl text-white tracking-widest uppercase whitespace-nowrap">
             QUELQUES CHIFFRES CLÉS
           </h2>
         </FadeIn>

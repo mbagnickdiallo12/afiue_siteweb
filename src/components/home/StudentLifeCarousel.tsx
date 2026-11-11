@@ -27,8 +27,8 @@ export function StudentLifeCarousel({ items }: StudentLifeCarouselProps) {
           <span className="inline-block text-[11px] font-bold uppercase tracking-widest text-afi-red">
             Campus &amp; Épanouissement
           </span>
-          <h2 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-slate-900 tracking-tight uppercase">
-            VIE ÉTUDIANTE À AFI-L&apos;UE
+          <h2 className="font-heading font-black text-xl xs:text-2xl sm:text-3xl lg:text-4xl text-slate-900 tracking-tight uppercase whitespace-nowrap">
+            VIE ÉTUDIANTE À AFI&#8209;L&apos;UE
           </h2>
         </div>
 

@@ -28,11 +28,10 @@ export function DomainsQuadrantGrid({ domains }: DomainsQuadrantGridProps) {
   return (
     <section className="pt-16 sm:pt-20 pb-8 sm:pb-10 bg-white relative select-none">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-12">
-        {/* Section Header: Clean 2-line title */}
-        <FadeIn className="text-center max-w-2xl mx-auto">
-          <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight leading-[1.15]">
-            Nos 4 Grands Domaines
-            <span className="block">d&apos;Enseignement</span>
+        {/* Section Header: Clean 1-line title */}
+        <FadeIn className="text-center max-w-4xl mx-auto">
+          <h2 className="font-heading font-black text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-slate-900 tracking-tight whitespace-nowrap">
+            Nos 4 Grands Domaines d&apos;Enseignement
           </h2>
         </FadeIn>
 

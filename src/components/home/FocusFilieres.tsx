@@ -208,7 +208,7 @@ export function FocusFilieres({
               {eyebrow}
             </span>
           )}
-          <h2 className="font-heading font-black text-3xl sm:text-4xl text-slate-900 tracking-tight">
+          <h2 className="font-heading font-black text-2xl xs:text-3xl sm:text-4xl text-slate-900 tracking-tight whitespace-nowrap">
             {title}
           </h2>
           {subtitle && (
