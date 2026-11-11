@@ -383,44 +383,53 @@ async function callOpenAI(
   }
 }
 
-/** Appel Google Gemini (gemini-2.5-flash / gemini-2.0-flash) */
+/** Appel Google Gemini (gemini-2.0-flash / gemini-1.5-flash avec fallback automatique) */
 async function callGemini(
   system: string,
   messages: SophieChatMessage[],
 ): Promise<string | null> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) return null;
-  const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
-  try {
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          systemInstruction: { parts: [{ text: system }] },
-          contents: messages.map((m) => ({
-            role: m.role === "assistant" ? "model" : "user",
-            parts: [{ text: m.content }],
-          })),
-          generationConfig: { temperature: 0.4, maxOutputTokens: 800 },
-        }),
-      },
-    );
-    if (!res.ok) {
-      console.error("Sophie Gemini error:", res.status, await res.text());
-      return null;
+
+  // On teste les modèles officiels gratuits disponibles sur Google AI Studio
+  const models = [
+    process.env.GEMINI_MODEL,
+    "gemini-2.0-flash",
+    "gemini-1.5-flash",
+  ].filter(Boolean) as string[];
+
+  for (const model of models) {
+    try {
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: system }] },
+            contents: messages.map((m) => ({
+              role: m.role === "assistant" ? "model" : "user",
+              parts: [{ text: m.content }],
+            })),
+            generationConfig: { temperature: 0.4, maxOutputTokens: 800 },
+          }),
+        },
+      );
+      if (res.ok) {
+        const data = await res.json();
+        const text = data?.candidates?.[0]?.content?.parts
+          ?.map((p: { text?: string }) => p.text || "")
+          .join("")
+          .trim();
+        if (text) return text;
+      } else {
+        console.warn(`Sophie Gemini (${model}) returned status:`, res.status);
+      }
+    } catch (err) {
+      console.error(`Sophie Gemini (${model}) fetch error:`, err);
     }
-    const data = await res.json();
-    const text = data?.candidates?.[0]?.content?.parts
-      ?.map((p: { text?: string }) => p.text || "")
-      .join("")
-      .trim();
-    return text || null;
-  } catch (err) {
-    console.error("Sophie Gemini fetch error:", err);
-    return null;
   }
+  return null;
 }
 
 /** Réponse locale naturelle (sans clé IA) : formulation humaine et bienveillante */
