@@ -383,7 +383,7 @@ async function callOpenAI(
   }
 }
 
-/** Appel Google Gemini (gemini-2.0-flash / gemini-1.5-flash avec fallback automatique) */
+/** Appel Google Gemini (gemini-flash-latest / gemini-2.0-flash / gemini-1.5-flash avec fallback automatique) */
 async function callGemini(
   system: string,
   messages: SophieChatMessage[],
@@ -391,9 +391,10 @@ async function callGemini(
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) return null;
 
-  // On teste les modèles officiels gratuits disponibles sur Google AI Studio
+  // Modèles officiels gratuits sur Google AI Studio
   const models = [
     process.env.GEMINI_MODEL,
+    "gemini-flash-latest",
     "gemini-2.0-flash",
     "gemini-1.5-flash",
   ].filter(Boolean) as string[];
@@ -401,17 +402,20 @@ async function callGemini(
   for (const model of models) {
     try {
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            "X-goog-api-key": apiKey,
+          },
           body: JSON.stringify({
             systemInstruction: { parts: [{ text: system }] },
             contents: messages.map((m) => ({
               role: m.role === "assistant" ? "model" : "user",
               parts: [{ text: m.content }],
             })),
-            generationConfig: { temperature: 0.4, maxOutputTokens: 800 },
+            generationConfig: { temperature: 0.5, maxOutputTokens: 800 },
           }),
         },
       );
@@ -423,7 +427,8 @@ async function callGemini(
           .trim();
         if (text) return text;
       } else {
-        console.warn(`Sophie Gemini (${model}) returned status:`, res.status);
+        const errBody = await res.text().catch(() => "");
+        console.warn(`Sophie Gemini (${model}) returned status:`, res.status, errBody);
       }
     } catch (err) {
       console.error(`Sophie Gemini (${model}) fetch error:`, err);
