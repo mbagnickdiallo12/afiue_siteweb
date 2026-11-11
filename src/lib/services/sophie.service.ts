@@ -391,6 +391,11 @@ async function callGemini(
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) return null;
 
+  // Google Gemini exige impérativement que le premier message de `contents` ait le rôle 'user'
+  const firstUserIdx = messages.findIndex((m) => m.role === "user");
+  const validMessages = firstUserIdx >= 0 ? messages.slice(firstUserIdx) : messages;
+  if (validMessages.length === 0) return null;
+
   // Modèles officiels gratuits sur Google AI Studio
   const models = [
     process.env.GEMINI_MODEL,
@@ -411,7 +416,7 @@ async function callGemini(
           },
           body: JSON.stringify({
             systemInstruction: { parts: [{ text: system }] },
-            contents: messages.map((m) => ({
+            contents: validMessages.map((m) => ({
               role: m.role === "assistant" ? "model" : "user",
               parts: [{ text: m.content }],
             })),
