@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { answerSophie, readSophieStore, type SophieChatMessage } from "@/lib/services/sophie.service";
 
 export const dynamic = "force-dynamic";
+export const maxDuration = 60; // Autorise jusqu'à 60s sur Vercel pour les réponses IA sans timeout
 
 export async function GET() {
   return NextResponse.json({
