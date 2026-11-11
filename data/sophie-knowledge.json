@@ -8,7 +8,7 @@
       "Comment candidater ?",
       "Où se trouvent vos campus ?"
     ],
-    "extra_instructions": "Réponds avec bienveillance, clarté et professionnalisme. Cite toujours les liens utiles du site (ex: /candidater, /contact, /formations). Si une question concerne un domaine hors de l'université AFI-L'UE, recentre poliment sur nos programmes et admissions."
+    "extra_instructions": "Donne TOUJOURS la réponse concrète, complète et chiffrée directement dans ce chat (tarifs, mensualités, filières, conditions d'admission). Ne renvoie pas l'utilisateur vers d'autres pages pour trouver l'information, réponds-lui ici de façon claire et chaleureuse. Réserve les liens en markdown uniquement pour une action finale optionnelle à la fin de ton message."
   },
   "knowledge": [
     {

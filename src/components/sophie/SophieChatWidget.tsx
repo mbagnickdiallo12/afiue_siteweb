@@ -40,36 +40,92 @@ function uid() {
   return Math.random().toString(36).slice(2, 10);
 }
 
-/** Rendu léger : **gras**, liens internes (/page) et retours à la ligne. */
+/** Rendu des messages : Markdown links [texte](url), gras **texte**, puces et retours à la ligne */
 function renderRich(text: string, onNavigate: () => void): ReactNode[] {
   const sanitized = text.replace(/https?:\/\/21st\.dev[^\s)]*/gi, "").trim();
-  return sanitized.split("\n").map((line, li) => {
-    const parts = line.split(/(\*\*[^*]+\*\*|(?:→\s*)?\/[a-z0-9\-/?=&]+)/gi).filter(Boolean);
+  return sanitized.split("\n").map((rawLine, li) => {
+    let line = rawLine;
+    let isBullet = false;
+    if (/^\s*[*•-]\s+/.test(line)) {
+      isBullet = true;
+      line = line.replace(/^\s*[*•-]\s+/, "");
+    }
+
+    // On découpe en segments : liens markdown [label](url), gras **texte**, liens internes bruts (/chemin)
+    const tokenRegex = /(\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*|(?:→\s*)?\/[a-z0-9\-/?=&]+)/gi;
+    const parts = line.split(tokenRegex).filter(Boolean);
+
+    const content = parts.map((p, pi) => {
+      // 1. Lien Markdown [Label](url)
+      const mdLink = p.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+      if (mdLink) {
+        const [, label, href] = mdLink;
+        const isExternal = href.startsWith("http");
+        if (isExternal) {
+          return (
+            <a
+              key={pi}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-rose-300 underline underline-offset-2 hover:text-white transition-colors"
+            >
+              {label}
+            </a>
+          );
+        }
+        return (
+          <Link
+            key={pi}
+            href={href}
+            onClick={onNavigate}
+            className="font-semibold text-rose-300 underline underline-offset-2 hover:text-white transition-colors"
+          >
+            {label}
+          </Link>
+        );
+      }
+
+      // 2. Texte en gras **texte**
+      if (p.startsWith("**") && p.endsWith("**") && p.length > 4) {
+        return (
+          <strong key={pi} className="font-semibold text-white">
+            {p.slice(2, -2)}
+          </strong>
+        );
+      }
+
+      // 3. Lien interne brut /chemin
+      const bareLink = p.match(/^(?:→\s*)?(\/[a-z0-9\-/?=&]+)$/i);
+      if (bareLink) {
+        const href = bareLink[1];
+        return (
+          <Link
+            key={pi}
+            href={href}
+            onClick={onNavigate}
+            className="font-semibold text-rose-300 underline underline-offset-2 hover:text-white transition-colors"
+          >
+            {href === "/candidater" ? "Candidater en ligne" : href} →
+          </Link>
+        );
+      }
+
+      return <span key={pi}>{p}</span>;
+    });
+
+    if (isBullet) {
+      return (
+        <span key={li} className="flex items-start gap-2 my-0.5 pl-1">
+          <span className="text-rose-400 select-none mt-1 text-xs">•</span>
+          <span className="flex-1">{content}</span>
+        </span>
+      );
+    }
+
     return (
-      <span key={li} className="block min-h-[1em]">
-        {parts.map((p, pi) => {
-          if (p.startsWith("**") && p.endsWith("**")) {
-            return (
-              <strong key={pi} className="font-semibold text-white">
-                {p.slice(2, -2)}
-              </strong>
-            );
-          }
-          const m = p.match(/^(?:→\s*)?(\/[a-z0-9\-/?=&]+)$/i);
-          if (m) {
-            return (
-              <Link
-                key={pi}
-                href={m[1]}
-                onClick={onNavigate}
-                className="font-medium text-[#ff8a8a] underline underline-offset-2 hover:text-white"
-              >
-                {m[1] === "/candidater" ? "Candidater en ligne" : "Voir la page"} →
-              </Link>
-            );
-          }
-          return <span key={pi}>{p}</span>;
-        })}
+      <span key={li} className="block min-h-[1.2em]">
+        {content}
       </span>
     );
   });

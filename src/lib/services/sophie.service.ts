@@ -168,15 +168,15 @@ const INSTITUTION_FACTS: Chunk[] = [
     url: "/formations",
   },
   {
-    title: "Frais de scolarité Licence",
+    title: "Frais de scolarité, tarifs et coût d'une Licence",
     content:
-      "Licence : inscription 170 000 FCFA. Formation Initiale Multiprogramme : 75 000 FCFA/mois en L1, 80 000 en L2, 85 000 en L3 (10 mois, octobre à juillet). Parcours International Leader : 95 000 FCFA/mois. Cours du soir : 70 000 FCFA/mois (10 mois). Week-end : 80 000 FCFA/mois (9 mois). E-learning : inscription 200 000 FCFA + 90 000 FCFA/mois. Frais annexes : uniforme L1/L2 50 000 FCFA, bootcamp L1 40 000 FCFA, bibliothèque numérique 10 000 FCFA/an, mémoire L3 70 000 FCFA, graduation L3 70 000 FCFA.",
+      "Tarifs et frais de scolarité en Licence (Bac+3, 3 ans) à AFI-L'UE : Frais d'inscription administrative de 170 000 FCFA. Formation Initiale (Cours du jour, 10 mois, octobre à juillet) : L1 75 000 FCFA/mois (total annuel 920 000 FCFA), L2 80 000 FCFA/mois (total 970 000 FCFA), L3 85 000 FCFA/mois (total 1 020 000 FCFA). Parcours International Leader (cours du jour, double diplôme européen FEDE et TOEIC) : 95 000 FCFA/mois (total 1 120 000 FCFA). Cours du soir (10 mois) : 70 000 FCFA/mois (total 870 000 FCFA). Week-end (9 mois, sam-dim, niveau L3) : 80 000 FCFA/mois (total 890 000 FCFA). E-learning (à distance, 9 mois) : inscription 200 000 FCFA + 90 000 FCFA/mois (total 1 010 000 FCFA). Frais annexes : uniforme L1/L2 50 000 FCFA, bootcamp L1 40 000 FCFA, bibliothèque numérique 10 000 FCFA/an, mémoire L3 70 000 FCFA, graduation L3 70 000 FCFA.",
     url: "/admissions",
   },
   {
-    title: "Frais de scolarité Master",
+    title: "Frais de scolarité, tarifs et coût d'un Master",
     content:
-      "Master : inscription 180 000 FCFA, puis 95 000 FCFA/mois en cours du soir (10 mois) ou week-end (9 mois). E-learning : inscription 200 000 FCFA + 100 000 FCFA/mois. Frais annexes : bibliothèque numérique 10 000 FCFA, mémoire et encadrement M2 100 000 FCFA, graduation M2 70 000 FCFA.",
+      "Tarifs et frais de scolarité en Master (Bac+5, 2 ans) à AFI-L'UE : Frais d'inscription administrative de 180 000 FCFA (ou 200 000 FCFA en E-learning). Cours du soir (10 mois, 17h30–20h45) : 95 000 FCFA/mois (total annuel 1 130 000 FCFA). Week-end (9 mois, sam-dim 09h00–17h00) : 95 000 FCFA/mois (total annuel 1 035 000 FCFA). E-learning (à distance, 9 mois) : inscription 200 000 FCFA + 100 000 FCFA/mois (total 1 100 000 FCFA). Frais annexes : bibliothèque numérique 10 000 FCFA/an, mémoire et encadrement M2 100 000 FCFA, graduation M2 70 000 FCFA.",
     url: "/admissions",
   },
   {
@@ -253,13 +253,13 @@ async function buildSiteChunks(): Promise<Chunk[]> {
    ---------------------------------------------------------------------------- */
 
 const STOPWORDS = new Set(
-  "le la les un une des de du d l et ou a au aux en dans pour par sur avec est sont je tu il elle nous vous ils elles mon ma mes votre vos quel quelle quels quelles comment combien que qui quoi ce cet cette ces se sa son ses ne pas plus y t on me moi faire peut puis il".split(
+  "le la les un une des de du d l et ou a au aux en dans pour par sur avec est sont je tu il elle nous vous ils elles mon ma mes votre vos ce cet cette ces se sa son ses ne pas plus y t on me moi faire peut puis il".split(
     " ",
   ),
 );
 
 function tokenize(text: string): string[] {
-  return text
+  const base = text
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
@@ -267,6 +267,14 @@ function tokenize(text: string): string[] {
     .split(" ")
     .filter((t) => t.length > 1 && !STOPWORDS.has(t))
     .map((t) => (t.length > 4 && t.endsWith("s") ? t.slice(0, -1) : t));
+
+  // Expansion sémantique pour les requêtes tarifaires / financières
+  const isCostQuery = text.match(/(cout|coût|prix|tarif|frais|payer|montant|combien|scolarit|mensualit)/i);
+  if (isCostQuery) {
+    base.push("frais", "scolarite", "tarif", "mensualite", "inscription");
+  }
+
+  return base;
 }
 
 function splitLong(c: Chunk): Chunk[] {
@@ -314,11 +322,24 @@ function retrieve(chunks: Chunk[], query: string, k = 6): Chunk[] {
     }
     return { c, score };
   });
-  return scored
+
+  const top = scored
     .filter((s) => s.score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, k)
     .map((s) => s.c);
+
+  // Si la question porte sur les prix / frais, garantir que les fiches frais sont toujours injectées
+  if (query.match(/(cout|coût|prix|tarif|frais|payer|montant|combien|scolarit|mensualit)/i)) {
+    const feeChunks = chunks.filter((c) => c.title.toLowerCase().includes("frais de scolarité"));
+    for (const fc of feeChunks) {
+      if (!top.some((t) => t.title === fc.title)) {
+        top.unshift(fc);
+      }
+    }
+  }
+
+  return top.slice(0, k);
 }
 
 /* ----------------------------------------------------------------------------
@@ -328,22 +349,49 @@ function retrieve(chunks: Chunk[], query: string, k = 6): Chunk[] {
 function buildSystemPrompt(config: SophieConfig, context: Chunk[]): string {
   return `Tu es Sophie, la conseillère d'orientation et d'admission officielle d'AFI-L'UE (L'Université de l'Entreprise, Dakar et Thiès, Sénégal).
 
-Ta personnalité et ton style de communication :
-- Tu t'exprimes comme une VRAIE personne humaine : chaleureuse, empathique, souriante, professionnelle et dynamique.
-- Tu accueilles les visiteurs comme s'ils franchissaient les portes de l'université.
-- Tu ne récites PAS des blocs de texte administratif froids : tu engages une vraie discussion naturelle, vivante et fluide.
-- Tu écoutes le projet de l'étudiant, tu poses une question pertinente si besoin (son niveau actuel, son domaine de prédilection, ses ambitions professionnelles) pour lui faire une recommandation personnalisée.
-- Utilise un français élégant, naturel et accessible. N'hésite pas à être encourageante ("C'est une excellente filière !", "Félicitations pour votre démarche").
+RÈGLE ABSOLUE — RÉPONSES DIRECTES ET CHIFFRÉES DANS CE CHAT :
+1. Tu dois TOUJOURS répondre de manière directe, détaillée, complète et chiffrée DIRECTEMENT DANS CE CHAT.
+2. Ne demande JAMAIS au visiteur d'aller consulter une autre page, une brochure ou de cliquer sur un lien pour trouver l'information qu'il te demande. Tu DOIS lui donner l'information ici même.
+3. Si le visiteur te demande un tarif, un coût, une filière, un programme ou une condition : donne-lui IMMÉDIATEMENT tous les montants précis (frais d'inscription, mensualités selon les formules jour/soir/week-end/distance, totaux annuels) sous une forme claire et agréable à lire.
+4. N'insère PAS de liens cassés ou tronqués au milieu du texte comme "[Nom](Voir la page ->)". Si tu mentionnes une formation, cite simplement son nom en texte clair ou en gras.
+5. Réserve les liens en Markdown uniquement pour un bouton d'action final utile à la fin du message (par exemple : "Pour démarrer votre inscription, vous pouvez [Déposer votre candidature ici](/candidater).").
 
-Règles de vérité :
-- Base toutes tes informations factuelles (filières existantes, diplômes d'État reconnus par le CAMES, régimes soir/weekend/jour, campus Dakar Point E et Thiès) UNIQUEMENT sur la BASE DE CONNAISSANCES OFFICIELLE fournie ci-dessous.
-- N'invente jamais un tarif, une filière inexistante ou une modalité non mentionnée.
-- Si une précision pointue n'est pas dans ta base (ex: demande de bourse exceptionnelle, cas particulier), réponds avec bienveillance et donne les coordonnées directes du secrétariat d'admission : Téléphone / WhatsApp au +221 77 508 87 28 ou par email à afi@afi-ue.sn.
-- Tu peux insérer des liens utiles en markdown vers les pages du site (ex: [Déposer une candidature](/candidater), [Catalogue des Formations](/formations), [Cours du Soir & Week-end](/cours-du-weekend)).
+GRILLE TARIFAIRE OFFICIELLE AFI-L'UE (À TRANSMETTRE DIRECTEMENT AU VISITEUR) :
+• LICENCES (Bac+3 en 3 ans) :
+  - Frais d'inscription administrative : 170 000 FCFA
+  - Formation Initiale (Cours du Jour, 10 mois d'octobre à juillet, lun–ven 08h–17h) :
+    * Licence 1 : 75 000 FCFA / mois (Coût annuel scolarité : 920 000 FCFA)
+    * Licence 2 : 80 000 FCFA / mois (Coût annuel scolarité : 970 000 FCFA)
+    * Licence 3 : 85 000 FCFA / mois (Coût annuel scolarité : 1 020 000 FCFA)
+  - Parcours International Leader (Jour, 10 mois, double diplôme État du Sénégal + diplôme européen FEDE + TOEIC + leadership) : 95 000 FCFA / mois (Coût annuel : 1 120 000 FCFA)
+  - Cours du Soir (10 mois, 17h30 à 20h45) : 70 000 FCFA / mois (Coût annuel : 870 000 FCFA)
+  - Régime Week-end (9 mois, samedi et dimanche 09h–17h, niveau L3) : 80 000 FCFA / mois (Coût annuel : 890 000 FCFA)
+  - E-learning (À distance, 9 mois) : 200 000 FCFA à l'inscription + 90 000 FCFA / mois (Coût annuel : 1 010 000 FCFA)
+  - Frais annexes Licence : Uniforme L1/L2 (50 000 FCFA), Bootcamp L1 (40 000 FCFA), Bibliothèque numérique (10 000 FCFA/an), Mémoire L3 (70 000 FCFA), Cérémonie graduation L3 (70 000 FCFA).
 
-${config.extra_instructions ? `\nConsignes spécifiques de la direction :\n${config.extra_instructions}\n` : ""}
-INFORMATIONS OFFICIELLES AFI-L'UE :
-${context.map((c, i) => `[${i + 1}] ${c.title}${c.url ? ` (${c.url})` : ""}\n${c.content}`).join("\n\n")}`;
+• MASTERS (Bac+5 en 2 ans) :
+  - Frais d'inscription administrative : 180 000 FCFA (ou 200 000 FCFA en E-learning)
+  - Cours du Soir (10 mois, 17h30 à 20h45) : 95 000 FCFA / mois (Coût annuel : 1 130 000 FCFA)
+  - Régime Week-end (9 mois, samedi et dimanche 09h–17h) : 95 000 FCFA / mois (Coût annuel : 1 035 000 FCFA)
+  - E-learning (À distance, 9 mois) : 200 000 FCFA inscription + 100 000 FCFA / mois (Coût annuel : 1 100 000 FCFA)
+  - Frais annexes Master : Bibliothèque numérique (10 000 FCFA/an), Mémoire & encadrement M2 (100 000 FCFA), Graduation M2 (70 000 FCFA).
+
+MODALITÉS DE PAIEMENT & BOURSES :
+- Paiement échelonné des mensualités chaque mois.
+- Réductions d'excellence possibles sur dossier pour les bacheliers avec mention Bien ou Très Bien.
+
+PROCÉDURE D'ADMISSION :
+- Étape 1 : Choisir sa filière et soumettre son dossier en ligne sur /candidater
+- Étape 2 : Entretien d'admission (en présentiel ou visioconférence)
+- Étape 3 : Réponse et admission sous 72h, puis finalisation de l'inscription
+
+COORDONNÉES & CAMPUS :
+- Campus AFI Dakar (siège) : Zone B, Rue G (proche du Point E). Tél / WhatsApp : +221 77 508 87 28 / +221 33 824 71 10. Email : afi@afi-ue.sn.
+- Campus AFI Thiès : Quartier Caritas, en face Cité Malick Sy (Mbour 4). Tél : +221 33 951 00 00.
+
+${config.extra_instructions ? `\nConsignes complémentaires de la direction :\n${config.extra_instructions}\n` : ""}
+INFORMATIONS COMPLÉMENTAIRES SUR LE CATALOGUE :
+${context.map((c, i) => `[${i + 1}] ${c.title}\n${c.content}`).join("\n\n")}`;
 }
 
 /** Appel OpenAI (ChatGPT : gpt-4o-mini ou gpt-4o) */
@@ -368,7 +416,7 @@ async function callOpenAI(
           ...messages.map((m) => ({ role: m.role, content: m.content })),
         ],
         temperature: 0.5,
-        max_tokens: 800,
+        max_tokens: 2048,
       }),
     });
     if (!res.ok) {
@@ -421,13 +469,14 @@ async function callGemini(
               role: m.role === "assistant" ? "model" : "user",
               parts: [{ text: m.content }],
             })),
-            generationConfig: { temperature: 0.5, maxOutputTokens: 800 },
+            generationConfig: { temperature: 0.4, maxOutputTokens: 2048 },
           }),
         },
       );
       if (res.ok) {
         const data = await res.json();
-        const text = data?.candidates?.[0]?.content?.parts
+        const candidate = data?.candidates?.[0];
+        const text = candidate?.content?.parts
           ?.map((p: { text?: string }) => p.text || "")
           .join("")
           .trim();
