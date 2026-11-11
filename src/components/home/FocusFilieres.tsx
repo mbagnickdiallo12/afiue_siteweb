@@ -93,8 +93,8 @@ export function FocusFilieres({
       const durationText = f.duration_years
         ? `${f.duration_years} an${f.duration_years > 1 ? "s" : ""}`
         : isLicence
-        ? "3 ans"
-        : "2 ans (Bac+5)";
+          ? "3 ans"
+          : "2 ans (Bac+5)";
 
       return {
         ...f,
@@ -249,24 +249,22 @@ export function FocusFilieres({
               <button
                 type="button"
                 onClick={() => setLevelDropdownOpen((prev) => !prev)}
-                className={`flex items-center gap-2 px-3.5 sm:px-4 py-2.5 rounded-full bg-white border shadow-xs transition-all text-xs font-semibold cursor-pointer ${
-                  selectedLevel !== "all"
-                    ? "border-afi-navy text-afi-navy bg-slate-50 font-bold"
-                    : "border-slate-200/90 text-slate-700 hover:border-slate-300 hover:text-slate-950"
-                }`}
+                className={`flex items-center gap-2 px-3.5 sm:px-4 py-2.5 rounded-full bg-white border shadow-xs transition-all text-xs font-semibold cursor-pointer ${selectedLevel !== "all"
+                  ? "border-afi-navy text-afi-navy bg-slate-50 font-bold"
+                  : "border-slate-200/90 text-slate-700 hover:border-slate-300 hover:text-slate-950"
+                  }`}
               >
                 <GraduationCap className="w-4 h-4 text-afi-navy shrink-0" />
                 <span className="whitespace-nowrap">
                   {selectedLevel === "all"
                     ? "Tous cycles"
                     : selectedLevel === "licence"
-                    ? "Licence"
-                    : "Master"}
+                      ? "Licence"
+                      : "Master"}
                 </span>
                 <ChevronDown
-                  className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${
-                    levelDropdownOpen ? "rotate-180" : ""
-                  }`}
+                  className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${levelDropdownOpen ? "rotate-180" : ""
+                    }`}
                 />
               </button>
 
@@ -278,11 +276,10 @@ export function FocusFilieres({
                       setSelectedLevel("all");
                       setLevelDropdownOpen(false);
                     }}
-                    className={`w-full flex items-center justify-between px-4 py-2.5 text-xs transition-colors cursor-pointer ${
-                      selectedLevel === "all"
-                        ? "text-afi-red font-bold bg-slate-50"
-                        : "text-slate-700 hover:bg-slate-50 font-medium"
-                    }`}
+                    className={`w-full flex items-center justify-between px-4 py-2.5 text-xs transition-colors cursor-pointer ${selectedLevel === "all"
+                      ? "text-afi-red font-bold bg-slate-50"
+                      : "text-slate-700 hover:bg-slate-50 font-medium"
+                      }`}
                   >
                     <span>Tous les cycles</span>
                     {selectedLevel === "all" && (
@@ -296,11 +293,10 @@ export function FocusFilieres({
                       setSelectedLevel("licence");
                       setLevelDropdownOpen(false);
                     }}
-                    className={`w-full flex items-center justify-between px-4 py-2.5 text-xs transition-colors cursor-pointer ${
-                      selectedLevel === "licence"
-                        ? "text-afi-red font-bold bg-slate-50"
-                        : "text-slate-700 hover:bg-slate-50 font-medium"
-                    }`}
+                    className={`w-full flex items-center justify-between px-4 py-2.5 text-xs transition-colors cursor-pointer ${selectedLevel === "licence"
+                      ? "text-afi-red font-bold bg-slate-50"
+                      : "text-slate-700 hover:bg-slate-50 font-medium"
+                      }`}
                   >
                     <span className="flex items-center gap-2">
                       <GraduationCap className="w-3.5 h-3.5 text-slate-500" />
@@ -317,11 +313,10 @@ export function FocusFilieres({
                       setSelectedLevel("master");
                       setLevelDropdownOpen(false);
                     }}
-                    className={`w-full flex items-center justify-between px-4 py-2.5 text-xs transition-colors cursor-pointer ${
-                      selectedLevel === "master"
-                        ? "text-afi-red font-bold bg-slate-50"
-                        : "text-slate-700 hover:bg-slate-50 font-medium"
-                    }`}
+                    className={`w-full flex items-center justify-between px-4 py-2.5 text-xs transition-colors cursor-pointer ${selectedLevel === "master"
+                      ? "text-afi-red font-bold bg-slate-50"
+                      : "text-slate-700 hover:bg-slate-50 font-medium"
+                      }`}
                   >
                     <span className="flex items-center gap-2">
                       <Award className="w-3.5 h-3.5 text-slate-500" />
@@ -349,11 +344,10 @@ export function FocusFilieres({
                 key={tab.id}
                 type="button"
                 onClick={() => setSelectedFilter(tab.id)}
-                className={`px-3.5 sm:px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap flex-shrink-0 transition-all cursor-pointer ${
-                  selectedFilter === tab.id
-                    ? "bg-afi-navy text-white shadow-sm"
-                    : "text-slate-600 hover:text-slate-950 hover:bg-slate-50"
-                }`}
+                className={`px-3.5 sm:px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap flex-shrink-0 transition-all cursor-pointer ${selectedFilter === tab.id
+                  ? "bg-afi-navy text-white shadow-sm"
+                  : "text-slate-600 hover:text-slate-950 hover:bg-slate-50"
+                  }`}
               >
                 {tab.label}
               </button>
