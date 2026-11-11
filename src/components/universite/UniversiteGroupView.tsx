@@ -154,7 +154,7 @@ export function UniversiteGroupView() {
                 <HoverLift className="flex justify-center">
                   <div className="relative w-[280px] sm:w-[320px] lg:w-[340px] h-[370px] sm:h-[420px] lg:h-[450px] rounded-2xl overflow-hidden">
                     <Image
-                      src="/images/universite/sophie-diouf-coulibaly.jpg?v=2026-portrait"
+                      src="/images/universite/sophie-diouf-coulibaly.jpg"
                       alt="Mme Sophie Diouf COULIBALY - Directrice Générale du Groupe AFI-L'UE"
                       fill
                       unoptimized

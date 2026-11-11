@@ -96,12 +96,11 @@ export function HeroSlider({ slides }: HeroSliderProps) {
             {/* Background High-Res Slide Image */}
             <div className="absolute inset-0">
               <Image
-                src={`${slide.image_url}?v=1920x800-orig`}
+                src={slide.image_url || "/images/slides/hero-slide-1.jpg"}
                 alt={slide.title}
                 fill
                 priority={index === 0}
                 unoptimized
-                quality={100}
                 className="object-cover object-center transform scale-100 transition-transform duration-7000 ease-out"
                 sizes="100vw"
               />
