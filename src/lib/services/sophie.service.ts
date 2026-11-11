@@ -396,12 +396,13 @@ async function callGemini(
   const validMessages = firstUserIdx >= 0 ? messages.slice(firstUserIdx) : messages;
   if (validMessages.length === 0) return null;
 
-  // Modèles officiels gratuits sur Google AI Studio
+  // Modèles officiels avec quota complet disponibles sur Google AI Studio
   const models = [
     process.env.GEMINI_MODEL,
+    "gemini-3.5-flash",
+    "gemini-flash-lite-latest",
+    "gemini-3.1-flash-lite",
     "gemini-flash-latest",
-    "gemini-2.0-flash",
-    "gemini-1.5-flash",
   ].filter(Boolean) as string[];
 
   for (const model of models) {

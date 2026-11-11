@@ -156,29 +156,34 @@ export function SophieChatWidget() {
       setMessages(next);
       setInput("");
       setLoading(true);
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000);
       try {
         const res = await fetch("/api/sophie/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          signal: controller.signal,
           body: JSON.stringify({
             messages: next.slice(-12).map((m) => ({ role: m.role, content: m.content })),
           }),
         });
-        const data = await res.json();
+        clearTimeout(timeoutId);
+        const data = await res.json().catch(() => ({}));
         const reply =
           data.reply ||
           data.error ||
-          "Désolée, je n'ai pas pu répondre. Contactez-nous au +221 77 508 87 28.";
+          "Désolée, je n'ai pas pu répondre. Contactez un conseiller au +221 77 508 87 28.";
         setMessages((prev) => [...prev, { id: uid(), role: "assistant", content: reply, at: Date.now() }]);
         setSpeaking(true);
         setTimeout(() => setSpeaking(false), 2200);
       } catch {
+        clearTimeout(timeoutId);
         setMessages((prev) => [
           ...prev,
           {
             id: uid(),
             role: "assistant",
-            content: "La connexion a échoué. Réessayez ou appelez-nous au +221 77 508 87 28.",
+            content: "Je suis désolée, une petite coupure réseau est survenue. N'hésitez pas à reposer votre question ou à nous contacter sur WhatsApp au +221 77 508 87 28.",
             at: Date.now(),
           },
         ]);
