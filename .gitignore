@@ -39,3 +39,4 @@ yarn-error.log*
 # Coolify / temp
 .coolify
 node_modules
+tsconfig.tsbuildinfo

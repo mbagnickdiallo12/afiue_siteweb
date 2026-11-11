@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="uuid-e180b9d6-71a5-4107-a210-402ba292ddb3" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 595.28 841.89">
+  <defs>
+    <style>
+      .uuid-755c4ee0-4bef-4aae-ae9c-a46b38adde96, .uuid-d84bd398-c043-44fd-96fa-a89cd7aaa3db, .uuid-cacbe34a-81cc-4485-a946-9379c30f7b61, .uuid-743e8710-1f22-4ebd-9073-f9877d261a64, .uuid-7b8dd67f-f5a0-434e-b2d1-d4aafbc3841f {
+        fill: #1d1d1b;
+      }
+
+      .uuid-755c4ee0-4bef-4aae-ae9c-a46b38adde96, .uuid-d84bd398-c043-44fd-96fa-a89cd7aaa3db, .uuid-7b8dd67f-f5a0-434e-b2d1-d4aafbc3841f {
+        font-size: 12px;
+      }
+
+      .uuid-d84bd398-c043-44fd-96fa-a89cd7aaa3db, .uuid-cacbe34a-81cc-4485-a946-9379c30f7b61, .uuid-3baa0461-1fd7-4981-8954-571fbc53eaa0 {
+        font-family: CenturyGothic, 'Century Gothic';
+      }
+
+      .uuid-ee8049e6-1bf5-4e33-a696-203b8a932ac8 {
+        fill: none;
+        stroke: #1d1d1b;
+        stroke-miterlimit: 10;
+        stroke-width: .5px;
+      }
+
+      .uuid-d32ccc6b-79ee-43bd-b408-f5381a4e5a64 {
+        letter-spacing: 1.88em;
+      }
+
+      .uuid-cacbe34a-81cc-4485-a946-9379c30f7b61 {
+        font-size: 8px;
+      }
+
+      .uuid-aa645ced-c810-46df-bf36-0a8db0e0b574 {
+        fill: #fff;
+        font-size: 14px;
+      }
+
+      .uuid-aa645ced-c810-46df-bf36-0a8db0e0b574, .uuid-743e8710-1f22-4ebd-9073-f9877d261a64, .uuid-0101181c-dee5-4207-abfc-ac60b3f555f1, .uuid-7b8dd67f-f5a0-434e-b2d1-d4aafbc3841f {
+        font-family: CenturyGothic-Bold, 'Century Gothic';
+        font-weight: 700;
+      }
+
+      .uuid-f4214306-54aa-4c88-a052-0f1cba50924b {
+        letter-spacing: 2.72em;
+      }
+
+      .uuid-743e8710-1f22-4ebd-9073-f9877d261a64 {
+        font-size: 10px;
+      }
+
+      .uuid-7f475f3d-6434-4d87-957d-c4450f53a72a {
+        fill: #ad1b1a;
+      }
+    </style>
+  </defs>
+  <rect class="uuid-ee8049e6-1bf5-4e33-a696-203b8a932ac8" x="19.48" y="62.29" width="554.7" height="96.77"/>
+  <rect class="uuid-ee8049e6-1bf5-4e33-a696-203b8a932ac8" x="203.31" y="62.29" width="370.87" height="96.77"/>
+  <rect class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" x="15.23" y="19.43" width="565.35" height="23.94"/>
+  <text class="uuid-aa645ced-c810-46df-bf36-0a8db0e0b574" transform="translate(206.5 37.08)"><tspan x="0" y="0" xml:space="preserve">CONSTITUTION DU  DOSSIER</tspan></text>
+  <rect class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" x="15.23" y="393.37" width="565.35" height="23.94"/>
+  <text class="uuid-aa645ced-c810-46df-bf36-0a8db0e0b574" transform="translate(241.08 411.03)"><tspan x="0" y="0">DROIT À L’IMAGE</tspan></text>
+  <rect class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" x="15.23" y="485.02" width="565.35" height="23.94"/>
+  <text class="uuid-aa645ced-c810-46df-bf36-0a8db0e0b574" transform="translate(104.33 502.67)"><tspan x="0" y="0">ATTESTATION SUR L’HONNEUR À REMPLIR PAR LE CANDIDAT</tspan></text>
+  <text class="uuid-cacbe34a-81cc-4485-a946-9379c30f7b61" transform="translate(231.56 152.41)"><tspan x="0" y="0">Deux (2) photos d’identité</tspan></text>
+  <text class="uuid-743e8710-1f22-4ebd-9073-f9877d261a64" transform="translate(36.2 112.5)"><tspan x="0" y="0">PIECES A FOURNIR COMMUNES</tspan><tspan x="18.2" y="12">A TOUS LES CANDIDATS</tspan></text>
+  <path class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" d="M218.3,77.12v-6.35c0-.16.17-.26.31-.19l6.35,3.18c.16.08.16.3,0,.38l-6.35,3.18c-.14.07-.31-.03-.31-.19Z"/>
+  <text class="uuid-cacbe34a-81cc-4485-a946-9379c30f7b61" transform="translate(231.56 137.39)"><tspan x="0" y="0" xml:space="preserve">Un (1)  extrait de naissance</tspan></text>
+  <path class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" d="M218.3,107.15v-6.35c0-.16.17-.26.31-.19l6.35,3.18c.16.08.16.3,0,.38l-6.35,3.18c-.14.07-.31-.03-.31-.19Z"/>
+  <text class="uuid-cacbe34a-81cc-4485-a946-9379c30f7b61" transform="translate(231.56 122.37)"><tspan x="0" y="0">Photocopie légalisée de la carte d’identité ou du passeport</tspan></text>
+  <path class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" d="M218.3,122.17v-6.35c0-.16.17-.26.31-.19l6.35,3.18c.16.08.16.3,0,.38l-6.35,3.18c-.14.07-.31-.03-.31-.19Z"/>
+  <text class="uuid-cacbe34a-81cc-4485-a946-9379c30f7b61" transform="translate(231.56 77.32)"><tspan x="0" y="0">Photocopie légalisée de l’attestation de réussite ou du diplôme du baccalauréat</tspan></text>
+  <path class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" d="M218.3,92.14v-6.35c0-.16.17-.26.31-.19l6.35,3.18c.16.08.16.3,0,.38l-6.35,3.18c-.14.07-.31-.03-.31-.19Z"/>
+  <text class="uuid-cacbe34a-81cc-4485-a946-9379c30f7b61" transform="translate(231.56 92.33)"><tspan x="0" y="0">Attestation authenticité du BAC (uniquement pour les baccalauréats non sénégalais)</tspan></text>
+  <path class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" d="M218.3,137.18v-6.35c0-.16.17-.26.31-.19l6.35,3.18c.16.08.16.3,0,.38l-6.35,3.18c-.14.07-.31-.03-.31-.19Z"/>
+  <text class="uuid-cacbe34a-81cc-4485-a946-9379c30f7b61" transform="translate(231.56 107.35)"><tspan x="0" y="0">Photocopie légalisée du relevé de notes du baccalauréat </tspan></text>
+  <path class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" d="M218.3,152.19v-6.35c0-.16.17-.26.31-.19l6.35,3.18c.16.08.16.3,0,.38l-6.35,3.18c-.14.07-.31-.03-.31-.19Z"/>
+  <rect class="uuid-ee8049e6-1bf5-4e33-a696-203b8a932ac8" x="19.48" y="158.96" width="554.7" height="23.62"/>
+  <rect class="uuid-ee8049e6-1bf5-4e33-a696-203b8a932ac8" x="203.31" y="158.96" width="370.87" height="23.62"/>
+  <text class="uuid-cacbe34a-81cc-4485-a946-9379c30f7b61" transform="translate(231.56 174.14)"><tspan x="0" y="0" xml:space="preserve">Photocopie légalisée du relevé de notes du baccalauréat  </tspan></text>
+  <text class="uuid-743e8710-1f22-4ebd-9073-f9877d261a64" transform="translate(85.4 174.14)"><tspan x="0" y="0">LICENCE 1</tspan></text>
+  <rect class="uuid-ee8049e6-1bf5-4e33-a696-203b8a932ac8" x="19.48" y="182.58" width="554.7" height="37.93"/>
+  <rect class="uuid-ee8049e6-1bf5-4e33-a696-203b8a932ac8" x="203.31" y="182.58" width="370.87" height="115.97"/>
+  <text class="uuid-743e8710-1f22-4ebd-9073-f9877d261a64" transform="translate(85.4 204.39)"><tspan x="0" y="0">LICENCE 2</tspan></text>
+  <path class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" d="M220.71,170.84v-2.67h1.78v2.67h2.66v1.78h-2.66v2.66h-1.78v-2.66h-2.66v-1.78h2.66Z"/>
+  <path class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" d="M220.71,195.46v-2.67h1.78v2.67h2.66v1.78h-2.66v2.66h-1.78v-2.66h-2.66v-1.78h2.66Z"/>
+  <path class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" d="M220.71,210.4v-2.67h1.78v2.67h2.66v1.78h-2.66v2.66h-1.78v-2.66h-2.66v-1.78h2.66Z"/>
+  <path class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" d="M220.71,232.29v-2.67h1.78v2.67h2.66v1.78h-2.66v2.66h-1.78v-2.66h-2.66v-1.78h2.66Z"/>
+  <path class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" d="M220.71,247.06v-2.67h1.78v2.67h2.66v1.78h-2.66v2.66h-1.78v-2.66h-2.66v-1.78h2.66Z"/>
+  <path class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" d="M220.71,270.48v-2.67h1.78v2.67h2.66v1.78h-2.66v2.66h-1.78v-2.66h-2.66v-1.78h2.66Z"/>
+  <path class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" d="M220.71,286.07v-2.67h1.78v2.67h2.66v1.78h-2.66v2.66h-1.78v-2.66h-2.66v-1.78h2.66Z"/>
+  <path class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" d="M220.71,311.91v-2.67h1.78v2.67h2.66v1.78h-2.66v2.66h-1.78v-2.66h-2.66v-1.78h2.66Z"/>
+  <path class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" d="M220.71,329.1v-2.67h1.78v2.67h2.66v1.78h-2.66v2.66h-1.78v-2.66h-2.66v-1.78h2.66Z"/>
+  <path class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" d="M220.71,344.84v-2.67h1.78v2.67h2.66v1.78h-2.66v2.66h-1.78v-2.66h-2.66v-1.78h2.66Z"/>
+  <path class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" d="M220.71,359.47v-2.67h1.78v2.67h2.66v1.78h-2.66v2.66h-1.78v-2.66h-2.66v-1.78h2.66Z"/>
+  <text class="uuid-cacbe34a-81cc-4485-a946-9379c30f7b61" transform="translate(231.56 213.71)"><tspan x="0" y="0">Photocopies légalisées des relevés de notes des semestres 1 et 2</tspan></text>
+  <text class="uuid-cacbe34a-81cc-4485-a946-9379c30f7b61" transform="translate(231.56 198.67)"><tspan x="0" y="0">Photocopie légalisée de l’attestation de réussite de la Licence 1</tspan></text>
+  <rect class="uuid-ee8049e6-1bf5-4e33-a696-203b8a932ac8" x="19.48" y="220.51" width="554.7" height="38.97"/>
+  <text class="uuid-cacbe34a-81cc-4485-a946-9379c30f7b61" transform="translate(231.56 251.21)"><tspan x="0" y="0">Photocopies légalisées des relevés de notes des semestres 1, 2, 3 et 4</tspan></text>
+  <text class="uuid-743e8710-1f22-4ebd-9073-f9877d261a64" transform="translate(85.4 244.43)"><tspan x="0" y="0">LICENCE 3</tspan></text>
+  <text class="uuid-cacbe34a-81cc-4485-a946-9379c30f7b61" transform="translate(231.56 236.17)"><tspan x="0" y="0" xml:space="preserve">Photocopies légalisées des attestations de réussite de L1 et  L2</tspan></text>
+  <rect class="uuid-ee8049e6-1bf5-4e33-a696-203b8a932ac8" x="19.48" y="259.37" width="554.7" height="39.19"/>
+  <text class="uuid-cacbe34a-81cc-4485-a946-9379c30f7b61" transform="translate(231.56 274.35)"><tspan x="0" y="0">Photocopie légalisée du diplôme ou de l’attestation de réussite de la Licence 3</tspan></text>
+  <text class="uuid-743e8710-1f22-4ebd-9073-f9877d261a64" transform="translate(89.4 281.52)"><tspan x="0" y="0">Master 1</tspan></text>
+  <text class="uuid-cacbe34a-81cc-4485-a946-9379c30f7b61" transform="translate(231.56 316.35)"><tspan x="0" y="0">Photocopie légalisée du diplôme ou de l’attestation de réussite de la Licence 3</tspan></text>
+  <text class="uuid-cacbe34a-81cc-4485-a946-9379c30f7b61" transform="translate(231.56 289.39)"><tspan x="0" y="0" xml:space="preserve">Photocopies légalisées des relevés de notes de L1, L2 et L3  </tspan></text>
+  <rect class="uuid-ee8049e6-1bf5-4e33-a696-203b8a932ac8" x="19.48" y="298.77" width="554.7" height="73.14"/>
+  <rect class="uuid-ee8049e6-1bf5-4e33-a696-203b8a932ac8" x="203.31" y="298.77" width="370.87" height="73.14"/>
+  <text class="uuid-cacbe34a-81cc-4485-a946-9379c30f7b61" transform="translate(231.56 333.55)"><tspan x="0" y="0">Photocopie légalisée de l’attestation de réussite de Master 1</tspan></text>
+  <text class="uuid-743e8710-1f22-4ebd-9073-f9877d261a64" transform="translate(89.4 339.06)"><tspan x="0" y="0">Master 2</tspan></text>
+  <text class="uuid-cacbe34a-81cc-4485-a946-9379c30f7b61" transform="translate(231.56 348.59)"><tspan x="0" y="0">Photocopie légalisée des relevés de notes des semestres 7 et 8</tspan></text>
+  <text class="uuid-7b8dd67f-f5a0-434e-b2d1-d4aafbc3841f" transform="translate(20.29 447.14)"><tspan x="0" y="0">Les photos prises lors des activités pédagogiques, peuvent être utilisées pour le contenu</tspan><tspan x="0" y="14.4">audiovisuel de l’université. </tspan></text>
+  <text class="uuid-cacbe34a-81cc-4485-a946-9379c30f7b61" transform="translate(231.56 363.63)"><tspan x="0" y="0" xml:space="preserve">Photocopies légalisées des relevés de notes de L1, L2 et L3  </tspan></text>
+  <text class="uuid-d84bd398-c043-44fd-96fa-a89cd7aaa3db" transform="translate(20.43 539.62)"><tspan x="0" y="0">Je soussigné (e), Mme, Mlle, M. .............................................................................................................</tspan></text>
+  <text class="uuid-755c4ee0-4bef-4aae-ae9c-a46b38adde96" transform="translate(20.43 675.7)"><tspan class="uuid-3baa0461-1fd7-4981-8954-571fbc53eaa0" x="0" y="0">Par suite, je demande mon inscription à </tspan><tspan class="uuid-0101181c-dee5-4207-abfc-ac60b3f555f1" x="233.37" y="0">AFI-L’Université de l’Entreprise</tspan><tspan class="uuid-3baa0461-1fd7-4981-8954-571fbc53eaa0" x="405.18" y="0">. </tspan></text>
+  <text class="uuid-7b8dd67f-f5a0-434e-b2d1-d4aafbc3841f" transform="translate(18.64 737.74)"><tspan x="0" y="0">Fait à ................................, le .............................</tspan></text>
+  <text class="uuid-7b8dd67f-f5a0-434e-b2d1-d4aafbc3841f" transform="translate(404.02 737.74)"><tspan x="0" y="0">Signature</tspan><tspan x="-96.24" y="14.4">Précédée de la mention « lu et approuvé »</tspan></text>
+  <text class="uuid-d84bd398-c043-44fd-96fa-a89cd7aaa3db" transform="translate(45.06 571.79)"><tspan x="0" y="0">Atteste sur l’honneur de l’exactitude des renseignements et des pièces fournies et </tspan><tspan class="uuid-d32ccc6b-79ee-43bd-b408-f5381a4e5a64" x="478.17" y="0">	</tspan><tspan class="uuid-f4214306-54aa-4c88-a052-0f1cba50924b" x="504" y="0">	</tspan><tspan x="0" y="14.4">m’engage à prévenir l’établissement de tout changement éventuel (adresse, problème </tspan><tspan x="0" y="28.8">de santé, situation familiale ...).</tspan></text>
+  <text class="uuid-d84bd398-c043-44fd-96fa-a89cd7aaa3db" transform="translate(45.06 630.58)"><tspan x="0" y="0">Reconnais avoir pris connaissance des réglements intérieur et financier dont j’approuve </tspan><tspan x="0" y="14.4">les contenus et m’engage à m’y conformer.</tspan></text>
+  <rect class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" x="36.42" y="562.96" width="5.97" height="5.97"/>
+  <rect class="uuid-7f475f3d-6434-4d87-957d-c4450f53a72a" x="36.42" y="621.75" width="5.97" height="5.97"/>
+</svg>

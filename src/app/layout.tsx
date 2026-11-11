@@ -1,59 +1,55 @@
 import type { Metadata } from "next";
-import { Montserrat, Inter } from "next/font/google";
+import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
-  variable: "--font-montserrat",
-  display: "swap",
-});
+import { SiteLayoutWrapper } from "@/components/layout/SiteLayoutWrapper";
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
   variable: "--font-inter",
   display: "swap",
 });
 
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  display: "swap",
+  weight: ["500", "600", "700", "800", "900"],
+});
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://afi-ue.sn"),
   title: {
-    default: "AFI-L'UE | L'Université de l'Entreprise — Dakar, Sénégal",
-    template: "%s | AFI-L'UE",
+    default: "AFI-L'UE — L'Université de l'Entreprise | Dakar & Thiès",
+    template: "%s | AFI-L'Université de l'Entreprise",
   },
   description:
-    "AFI-L'Université de l'Entreprise à Dakar : Établissement privé d'enseignement supérieur d'excellence reconnu CAMES et ANAQ-Sup. Licences, Masters, Formations continues et Executive Education.",
+    "Grande école et université privée de référence au Sénégal. Formations d'excellence en Licence et Master reconnues CAMES et habilitées ANAQ-Sup.",
   keywords: [
     "AFI",
-    "AFI-UE",
-    "Université Dakar",
+    "AFI-L'UE",
     "Université de l'Entreprise",
-    "Licence Dakar",
-    "Master Sénégal",
+    "Dakar",
+    "Sénégal",
     "CAMES",
     "ANAQ-Sup",
+    "Licence",
+    "Master",
     "Intelligence Artificielle",
-    "Gestion",
-    "Informatique",
+    "Génie Logiciel",
+    "Audit et Contrôle de Gestion",
+    "Banque Finance",
+    "Supply Chain",
+    "Cours du soir",
   ],
-  authors: [{ name: "Université AFI-L'UE" }],
+  authors: [{ name: "AFI-L'UE" }],
+  creator: "Université AFI-L'UE",
   openGraph: {
     type: "website",
     locale: "fr_SN",
     url: "https://afi-ue.sn",
-    siteName: "AFI-L'UE — Université de l'Entreprise",
-    title: "AFI-L'UE | L'Université de l'Entreprise — Dakar, Sénégal",
+    siteName: "AFI-L'Université de l'Entreprise",
+    title: "AFI-L'UE — L'Université de l'Entreprise",
     description:
-      "Formations d'élite en Sciences de Gestion, Droit, Ingénierie & Technologies. Diplômes accrédités CAMES.",
-    images: [
-      {
-        url: "https://afi-ue.sn/wp-content/uploads/2025/10/Logo-AFI-LUniversite-de-lEntreprise-version-officielle-1280x523.png",
-        width: 1280,
-        height: 523,
-        alt: "Logo AFI-L'UE",
-      },
-    ],
+      "Formations d'excellence en Licence et Master reconnues CAMES et habilitées ANAQ-Sup à Dakar Point E et Thiès.",
   },
 };
 
@@ -63,9 +59,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${montserrat.variable} ${inter.variable}`}>
-      <body className="min-h-screen flex flex-col font-body bg-slate-50 text-slate-900">
-        {children}
+    <html
+      lang="fr"
+      suppressHydrationWarning
+      className={`${inter.variable} ${montserrat.variable} scroll-smooth`}
+    >
+      <body
+        suppressHydrationWarning
+        className="min-h-screen flex flex-col bg-white text-slate-800 antialiased font-body selection:bg-afi-red selection:text-white"
+      >
+        <SiteLayoutWrapper>{children}</SiteLayoutWrapper>
       </body>
     </html>
   );

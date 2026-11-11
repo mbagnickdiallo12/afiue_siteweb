@@ -8,7 +8,7 @@
   
   --color-primary: #AD1B18;
   --color-navy: #191D38;
-  --color-gold: #D4AF37;
+  --color-gold: #CBD5E1;
 }
 
 @layer base {
@@ -19,6 +19,15 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading tracking-tight;
   }
+
+  a,
+  button,
+  a:focus,
+  a:focus-visible,
+  button:focus,
+  button:focus-visible {
+    outline: none !important;
+  }
 }
 
 @layer utilities {
@@ -28,5 +37,148 @@
   
   .glass-panel {
     @apply bg-white/90 backdrop-blur-md border border-slate-200/60 shadow-subtle;
+  }
+
+  /* Cross-browser scrollbar hiding */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Futuristic Fluid Hero Animations */
+  @keyframes floatSlow {
+    0%, 100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    50% {
+      transform: translate(30px, -20px) scale(1.08);
+    }
+  }
+
+  @keyframes floatReverse {
+    0%, 100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    50% {
+      transform: translate(-25px, 25px) scale(0.94);
+    }
+  }
+
+  @keyframes shimmerBeam {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(200%);
+    }
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.7;
+      transform: scale(1.15);
+    }
+  }
+
+  .animate-float-slow {
+    animation: floatSlow 12s ease-in-out infinite;
+  }
+
+  .animate-float-reverse {
+    animation: floatReverse 15s ease-in-out infinite;
+  }
+
+  .animate-shimmer-beam {
+    animation: shimmerBeam 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulseGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes marqueeScroll {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .animate-marquee-scroll {
+    animation: marqueeScroll 48s linear infinite;
+    will-change: transform;
+  }
+
+  .animate-marquee-scroll:hover {
+    animation-play-state: paused;
+  }
+
+  .animate-marquee-partners {
+    animation: marqueeScroll 28s linear infinite;
+    will-change: transform;
+  }
+
+  .animate-marquee-partners:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes marqueeContinuous {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-100%, 0, 0);
+    }
+  }
+
+  .animate-marquee-continuous {
+    animation: marqueeContinuous 32s linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .animate-marquee-continuous:hover {
+    animation-play-state: paused;
+  }
+
+  .pattern-grid-dots {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1.5px, transparent 1.5px);
+    background-size: 36px 36px;
+  }
+
+  .mask-radial-faded {
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 100%);
+  }
+
+  /* Custom sleek scrollbar for admin tables & restricted panels */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 9999px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
   }
 }

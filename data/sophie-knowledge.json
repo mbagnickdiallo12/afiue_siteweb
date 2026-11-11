@@ -1,0 +1,66 @@
+{
+  "config": {
+    "is_enabled": true,
+    "welcome_message": "Bonjour, je suis Sophie, la conseillère virtuelle d'AFI-L'UE. Je peux vous orienter vers la bonne formation, vous expliquer les admissions et les frais. Que puis-je faire pour vous ?",
+    "suggestions": [
+      "Quels Masters proposez-vous ?",
+      "Quels sont les frais de scolarité ?",
+      "Comment candidater ?",
+      "Où se trouvent vos campus ?"
+    ],
+    "extra_instructions": "Réponds avec bienveillance, clarté et professionnalisme. Cite toujours les liens utiles du site (ex: /candidater, /contact, /formations). Si une question concerne un domaine hors de l'université AFI-L'UE, recentre poliment sur nos programmes et admissions."
+  },
+  "knowledge": [
+    {
+      "id": "init-bourses-01",
+      "title": "Bourses d'études et facilités de paiement",
+      "category": "frais",
+      "content": "AFI-L'UE propose des facilités de paiement échelonnées sur 10 mois (ou 9 mois en week-end). Des réductions de scolarité ou bourses d'excellence peuvent être accordées aux bacheliers avec mention (Très Bien ou Bien) et aux étudiants majeurs de promotion. Pour en bénéficier, soumettre une demande motivée lors de l'admission avec les relevés de notes officiels.",
+      "source": "manual",
+      "is_active": true,
+      "created_at": "2026-11-11T10:00:00.000Z",
+      "updated_at": "2026-11-11T10:00:00.000Z"
+    },
+    {
+      "id": "init-cames-02",
+      "title": "Accréditations CAMES et ANAQ-Sup",
+      "category": "general",
+      "content": "Tous les diplômes d'AFI-L'UE sont conformes au système LMD (Licence, Master, Doctorat). Les filières sont accréditées par l'ANAQ-Sup (Autorité Nationale d'Assurance Qualité de l'Enseignement Supérieur du Sénégal) et reconnues par le CAMES (Conseil Africain et Malgache pour l'Enseignement Supérieur), garantissant une reconnaissance internationale et l'équivalence pour la fonction publique ou la poursuite d'études à l'étranger.",
+      "source": "manual",
+      "is_active": true,
+      "created_at": "2026-11-11T10:00:00.000Z",
+      "updated_at": "2026-11-11T10:00:00.000Z"
+    },
+    {
+      "id": "init-stages-03",
+      "title": "Stages, alternance et insertion professionnelle",
+      "category": "vie_etudiante",
+      "content": "Le Service Partenariats & Insertion Professionnelle d'AFI-L'UE accompagne chaque étudiant dans la recherche de stage obligatoire en L3 (3 mois minimum) et Master 2 (6 mois avec rédaction de mémoire professionnel). AFI-L'UE collabore avec plus de 150 entreprises partenaires (banques, cabinets d'audit, opérateurs télécoms, startups de la tech). Taux d'insertion des diplômés supérieur à 85% dans les 6 mois.",
+      "source": "manual",
+      "is_active": true,
+      "created_at": "2026-11-11T10:00:00.000Z",
+      "updated_at": "2026-11-11T10:00:00.000Z"
+    },
+    {
+      "id": "init-elearning-04",
+      "title": "Modalités d'apprentissage en E-Learning (À distance)",
+      "category": "formations",
+      "content": "La plateforme e-learning d'AFI-L'UE permet de suivre les cours 100% à distance depuis n'importe quel pays : cours vidéo enregistrés, classes virtuelles interactives le soir et le week-end, ressources pédagogiques téléchargeables 24/7 et suivi individuel par un tuteur. Les examens peuvent se dérouler en ligne surveillée ou dans un centre partenaire pour les étudiants internationaux.",
+      "source": "manual",
+      "is_active": true,
+      "created_at": "2026-11-11T10:00:00.000Z",
+      "updated_at": "2026-11-11T10:00:00.000Z"
+    },
+    {
+      "id": "init-tenue-05",
+      "title": "Tenue vestimentaire et code de conduite",
+      "category": "campus",
+      "content": "En tant qu'Université de l'Entreprise, AFI-L'UE exige une tenue correcte et professionnelle sur tous ses campus. Le port de l'uniforme officiel AFI est obligatoire pour les étudiants de Licence 1 et Licence 2 en cours du jour du lundi au jeudi. Le vendredi est réservé à une tenue africaine soignée ou business casual.",
+      "source": "manual",
+      "is_active": true,
+      "created_at": "2026-11-11T10:00:00.000Z",
+      "updated_at": "2026-11-11T10:00:00.000Z"
+    }
+  ]
+}
+

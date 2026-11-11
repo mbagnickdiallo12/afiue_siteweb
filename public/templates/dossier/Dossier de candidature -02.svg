@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="uuid-5491a6c0-e28d-419d-ae89-dd8412979151" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 595.28 841.89">
+  <defs>
+    <style>
+      .uuid-8b6a5de2-6f58-445f-b262-6f2fc54bfaac, .uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3, .uuid-011c277b-b0f1-4bb6-ba49-1d10039725d6 {
+        font-family: CenturyGothic, 'Century Gothic';
+      }
+
+      .uuid-8b6a5de2-6f58-445f-b262-6f2fc54bfaac, .uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3, .uuid-011c277b-b0f1-4bb6-ba49-1d10039725d6, .uuid-233d195f-e7d6-4013-816b-a271e5ffbc44, .uuid-5d08799e-586b-4f0f-8521-b8407c0ea356 {
+        fill: #1d1d1b;
+      }
+
+      .uuid-8b6a5de2-6f58-445f-b262-6f2fc54bfaac, .uuid-5d08799e-586b-4f0f-8521-b8407c0ea356 {
+        font-size: 10px;
+      }
+
+      .uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3 {
+        font-size: 11px;
+      }
+
+      .uuid-011c277b-b0f1-4bb6-ba49-1d10039725d6 {
+        font-size: 13.59px;
+      }
+
+      .uuid-8a990b0a-e2e9-4d23-b478-12dcd9e94342 {
+        fill: #dadada;
+      }
+
+      .uuid-8a990b0a-e2e9-4d23-b478-12dcd9e94342, .uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693 {
+        stroke: #1d1d1b;
+        stroke-miterlimit: 10;
+        stroke-width: .5px;
+      }
+
+      .uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693 {
+        fill: none;
+      }
+
+      .uuid-233d195f-e7d6-4013-816b-a271e5ffbc44 {
+        font-size: 7.49px;
+      }
+
+      .uuid-233d195f-e7d6-4013-816b-a271e5ffbc44, .uuid-dac6d154-f9e1-4a79-825f-0c6b64c756f7, .uuid-5d08799e-586b-4f0f-8521-b8407c0ea356 {
+        font-family: CenturyGothic-Bold, 'Century Gothic';
+        font-weight: 700;
+      }
+
+      .uuid-dac6d154-f9e1-4a79-825f-0c6b64c756f7 {
+        fill: #fff;
+        font-size: 14px;
+      }
+
+      .uuid-30f57bc9-b721-4e02-81f0-7423f2bd5b55 {
+        fill: #ad1b1a;
+      }
+    </style>
+  </defs>
+  <rect class="uuid-8a990b0a-e2e9-4d23-b478-12dcd9e94342" x="15.9" y="316.79" width="108.93" height="18.72"/>
+  <rect class="uuid-8a990b0a-e2e9-4d23-b478-12dcd9e94342" x="17.57" y="43.87" width="134.01" height="19.91"/>
+  <rect class="uuid-8a990b0a-e2e9-4d23-b478-12dcd9e94342" x="151.58" y="43.87" width="214.84" height="19.91"/>
+  <rect class="uuid-8a990b0a-e2e9-4d23-b478-12dcd9e94342" x="366.41" y="43.87" width="214.84" height="19.91"/>
+  <rect class="uuid-8a990b0a-e2e9-4d23-b478-12dcd9e94342" x="124.83" y="316.65" width="161.74" height="19.01"/>
+  <rect class="uuid-8a990b0a-e2e9-4d23-b478-12dcd9e94342" x="286.56" y="316.65" width="181.14" height="19.01"/>
+  <rect class="uuid-8a990b0a-e2e9-4d23-b478-12dcd9e94342" x="467.7" y="316.65" width="113.55" height="19.01"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="15.9" y="335.35" width="108.93" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="124.83" y="335.35" width="161.74" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="286.56" y="335.35" width="181.14" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="467.7" y="335.35" width="113.55" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="15.9" y="359.91" width="108.93" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="17.57" y="63.78" width="134.01" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="151.58" y="63.78" width="214.84" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="366.41" y="63.78" width="214.84" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="17.57" y="80.64" width="134.01" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="151.58" y="80.64" width="214.84" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="366.41" y="80.64" width="214.84" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="17.57" y="97.66" width="134.01" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="151.58" y="97.66" width="214.84" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="366.41" y="97.66" width="214.84" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="17.57" y="114.69" width="134.01" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="151.58" y="114.69" width="214.84" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="366.41" y="114.69" width="214.84" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="17.57" y="131.72" width="134.01" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="151.58" y="131.72" width="214.84" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="366.41" y="131.72" width="214.84" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="124.83" y="359.91" width="161.74" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="286.56" y="359.91" width="181.14" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="467.7" y="359.91" width="113.55" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="15.9" y="384.47" width="108.93" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="124.83" y="384.47" width="161.74" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="286.56" y="384.47" width="181.14" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="467.7" y="384.47" width="113.55" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="15.9" y="409.04" width="108.93" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="124.83" y="409.04" width="161.74" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="286.56" y="409.04" width="181.14" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="467.7" y="409.04" width="113.55" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="15.9" y="433.6" width="108.93" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="124.83" y="433.6" width="161.74" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="286.56" y="433.6" width="181.14" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="467.7" y="433.6" width="113.55" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="15.9" y="458.17" width="108.93" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="124.83" y="458.17" width="161.74" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="286.56" y="458.17" width="181.14" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="467.7" y="458.17" width="113.55" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="15.9" y="482.73" width="108.93" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="124.83" y="482.73" width="161.74" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="286.56" y="482.73" width="181.14" height="24.56"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="467.7" y="482.73" width="113.55" height="24.56"/>
+  <text class="uuid-011c277b-b0f1-4bb6-ba49-1d10039725d6" transform="translate(25.21 308.06)"><tspan x="0" y="0">DE LA TERMINALE À VOTRE DERNIÈRE ANNÉE D’ÉTUDES</tspan></text>
+  <rect class="uuid-30f57bc9-b721-4e02-81f0-7423f2bd5b55" x="16.56" y="14.27" width="565.35" height="23.94"/>
+  <text class="uuid-dac6d154-f9e1-4a79-825f-0c6b64c756f7" transform="translate(269.7 31.77)"><tspan x="0" y="0">TUTEUR / BAILLEUR</tspan></text>
+  <rect class="uuid-30f57bc9-b721-4e02-81f0-7423f2bd5b55" x="16.56" y="263.4" width="565.35" height="23.94"/>
+  <text class="uuid-dac6d154-f9e1-4a79-825f-0c6b64c756f7" transform="translate(204.32 282.05)"><tspan x="0" y="0">VOTRE PARCOURS SCOLAIRE</tspan></text>
+  <rect class="uuid-30f57bc9-b721-4e02-81f0-7423f2bd5b55" x="16.56" y="515.37" width="565.35" height="23.94"/>
+  <text class="uuid-dac6d154-f9e1-4a79-825f-0c6b64c756f7" transform="translate(268.16 532.02)"><tspan x="0" y="0">LANGUES</tspan></text>
+  <rect class="uuid-30f57bc9-b721-4e02-81f0-7423f2bd5b55" x="16.56" y="677.44" width="565.35" height="23.94"/>
+  <text class="uuid-dac6d154-f9e1-4a79-825f-0c6b64c756f7" transform="translate(137.56 694.09)"><tspan x="0" y="0">COMMENT AVEZ-VOUS CONNU L’ÉTABLISSEMENT</tspan></text>
+  <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(17.56 717.43)"><tspan x="0" y="0">Cochez une ou plusieurs réponses</tspan></text>
+  <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(34.44 736.94)"><tspan x="0" y="0">Publicité presse (précisez) ........................</tspan></text>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="17.97" y="726.74" width="12.24" height="12.24"/>
+  <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(34.44 754.53)"><tspan x="0" y="0">Salons (précisez) .......................................</tspan></text>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="17.97" y="744.33" width="12.24" height="12.24"/>
+  <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(34.44 772.12)"><tspan x="0" y="0">Affichage</tspan></text>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="17.97" y="761.92" width="12.24" height="12.24"/>
+  <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(34.44 789.71)"><tspan x="0" y="0">Site Internet</tspan></text>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="17.97" y="779.5" width="12.24" height="12.24"/>
+  <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(34.44 807.3)"><tspan x="0" y="0">Article de presse</tspan></text>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="17.97" y="797.09" width="12.24" height="12.24"/>
+  <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(34.44 824.88)"><tspan x="0" y="0">Bouche à oreille</tspan></text>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="17.97" y="814.68" width="12.24" height="12.24"/>
+  <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(282.3 736.94)"><tspan x="0" y="0">Étudiant de AFI-L’UE</tspan></text>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="265.83" y="726.74" width="12.24" height="12.24"/>
+  <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(282.3 754.53)"><tspan x="0" y="0">Présentation / information dans votre établissement</tspan></text>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="265.83" y="744.33" width="12.24" height="12.24"/>
+  <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(282.3 772.12)"><tspan x="0" y="0">Évènement de AFI-L’UE (conférence, JOM, Graduation) </tspan></text>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="265.83" y="761.92" width="12.24" height="12.24"/>
+  <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(282.3 789.71)"><tspan x="0" y="0">Conseiller d’orientation</tspan></text>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="265.83" y="779.5" width="12.24" height="12.24"/>
+  <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(282.3 807.3)"><tspan x="0" y="0">Réseaux sociaux</tspan></text>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="265.83" y="797.09" width="12.24" height="12.24"/>
+  <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(282.3 824.88)"><tspan x="0" y="0">Courrier / Mailing</tspan></text>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="265.83" y="814.68" width="12.24" height="12.24"/>
+  <g>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(17.56 569.36)"><tspan x="0" y="0">1</tspan></text>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(23.66 565.7) scale(.58)"><tspan x="0" y="0">ère</tspan></text>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(33.92 569.36)"><tspan x="0" y="0" xml:space="preserve"> langue : ...................................................................... Niveau</tspan></text>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(395.06 569.36)"><tspan x="0" y="0">faible</tspan></text>
+    <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="379.58" y="559.16" width="12.24" height="12.24"/>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(459.18 569.36)"><tspan x="0" y="0">moyen</tspan></text>
+    <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="443.7" y="559.16" width="12.24" height="12.24"/>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(533.47 569.36)"><tspan x="0" y="0">élevé</tspan></text>
+    <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="518" y="559.16" width="12.24" height="12.24"/>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(23.57 599.74)"><tspan x="0" y="0">2</tspan></text>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(29.67 596.08) scale(.58)"><tspan x="0" y="0">e</tspan></text>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(33.83 599.74)"><tspan x="0" y="0" xml:space="preserve"> langue : ...................................................................... Niveau</tspan></text>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(395.06 599.74)"><tspan x="0" y="0">faible</tspan></text>
+    <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="379.58" y="589.54" width="12.24" height="12.24"/>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(459.18 599.74)"><tspan x="0" y="0">moyen</tspan></text>
+    <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="443.7" y="589.54" width="12.24" height="12.24"/>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(533.47 599.74)"><tspan x="0" y="0">élevé</tspan></text>
+    <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="518" y="589.54" width="12.24" height="12.24"/>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(23.57 630.12)"><tspan x="0" y="0">3</tspan></text>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(29.67 626.46) scale(.58)"><tspan x="0" y="0">e</tspan></text>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(33.83 630.12)"><tspan x="0" y="0" xml:space="preserve"> langue : ...................................................................... Niveau</tspan></text>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(395.06 630.12)"><tspan x="0" y="0">faible</tspan></text>
+    <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="379.58" y="619.92" width="12.24" height="12.24"/>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(459.18 630.12)"><tspan x="0" y="0">moyen</tspan></text>
+    <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="443.7" y="619.92" width="12.24" height="12.24"/>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(533.47 630.12)"><tspan x="0" y="0">élevé</tspan></text>
+    <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="518" y="619.92" width="12.24" height="12.24"/>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(41.42 658.37)"><tspan x="0" y="0">Autres : ...................................................................... Niveau</tspan></text>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(395.06 658.1)"><tspan x="0" y="0">faible</tspan></text>
+    <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="379.58" y="647.9" width="12.24" height="12.24"/>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(459.18 658.1)"><tspan x="0" y="0">moyen</tspan></text>
+    <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="443.7" y="647.9" width="12.24" height="12.24"/>
+    <text class="uuid-dc41d7a3-7e95-4ba8-8380-25777b2374e3" transform="translate(533.47 658.1)"><tspan x="0" y="0">élevé</tspan></text>
+    <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="518" y="647.9" width="12.24" height="12.24"/>
+  </g>
+  <text class="uuid-8b6a5de2-6f58-445f-b262-6f2fc54bfaac" transform="translate(53.53 329.74)"><tspan x="0" y="0">Année</tspan></text>
+  <text class="uuid-5d08799e-586b-4f0f-8521-b8407c0ea356" transform="translate(259 58.24)"><tspan x="0" y="0">Père</tspan></text>
+  <text class="uuid-233d195f-e7d6-4013-816b-a271e5ffbc44" transform="translate(28.08 75.54)"><tspan x="0" y="0">Nom/Prénom (s)</tspan></text>
+  <text class="uuid-233d195f-e7d6-4013-816b-a271e5ffbc44" transform="translate(28.08 91.81)"><tspan x="0" y="0">Profession</tspan></text>
+  <text class="uuid-233d195f-e7d6-4013-816b-a271e5ffbc44" transform="translate(28.08 108.59)"><tspan x="0" y="0">Adresse</tspan></text>
+  <text class="uuid-233d195f-e7d6-4013-816b-a271e5ffbc44" transform="translate(28.08 125.39)"><tspan x="0" y="0">Email</tspan></text>
+  <text class="uuid-233d195f-e7d6-4013-816b-a271e5ffbc44" transform="translate(28.08 142.18)"><tspan x="0" y="0">Téléphone (avec indicatif)</tspan></text>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="17.57" y="168.23" width="134.01" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="151.58" y="168.23" width="429.67" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="17.57" y="185.08" width="134.01" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="151.58" y="185.08" width="429.67" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="17.57" y="202.11" width="134.01" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="151.58" y="202.11" width="429.67" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="17.57" y="219.14" width="134.01" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="151.58" y="219.14" width="429.67" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="17.57" y="236.16" width="134.01" height="16.6"/>
+  <rect class="uuid-5eb2f8b8-f214-445d-903c-337a1ccc6693" x="151.58" y="236.16" width="429.67" height="16.6"/>
+  <text class="uuid-233d195f-e7d6-4013-816b-a271e5ffbc44" transform="translate(28.08 179.99)"><tspan x="0" y="0">Nom/Prénom (s)</tspan></text>
+  <text class="uuid-233d195f-e7d6-4013-816b-a271e5ffbc44" transform="translate(28.08 196.26)"><tspan x="0" y="0">Profession</tspan></text>
+  <text class="uuid-233d195f-e7d6-4013-816b-a271e5ffbc44" transform="translate(28.08 213.04)"><tspan x="0" y="0">Adresse</tspan></text>
+  <text class="uuid-233d195f-e7d6-4013-816b-a271e5ffbc44" transform="translate(28.08 229.84)"><tspan x="0" y="0">Email</tspan></text>
+  <text class="uuid-233d195f-e7d6-4013-816b-a271e5ffbc44" transform="translate(28.08 246.63)"><tspan x="0" y="0">Téléphone (avec indicatif)</tspan></text>
+  <text class="uuid-5d08799e-586b-4f0f-8521-b8407c0ea356" transform="translate(458.76 58.24)"><tspan x="0" y="0">Mère</tspan></text>
+  <rect class="uuid-8a990b0a-e2e9-4d23-b478-12dcd9e94342" x="17.57" y="148.31" width="134.01" height="19.91"/>
+  <rect class="uuid-8a990b0a-e2e9-4d23-b478-12dcd9e94342" x="151.58" y="148.31" width="429.67" height="19.91"/>
+  <text class="uuid-5d08799e-586b-4f0f-8521-b8407c0ea356" transform="translate(352.74 162.69)"><tspan x="0" y="0">Autre que les parents</tspan></text>
+  <text class="uuid-8b6a5de2-6f58-445f-b262-6f2fc54bfaac" transform="translate(484.61 329.74)"><tspan x="0" y="0">Date d’obtention</tspan></text>
+  <text class="uuid-8b6a5de2-6f58-445f-b262-6f2fc54bfaac" transform="translate(153.79 329.74)"><tspan x="0" y="0">Diplôme ou titre préparé</tspan></text>
+  <text class="uuid-8b6a5de2-6f58-445f-b262-6f2fc54bfaac" transform="translate(308.79 329.74)"><tspan x="0" y="0">Nom et adresse établissement</tspan></text>
+</svg>

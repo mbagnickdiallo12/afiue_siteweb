@@ -47,9 +47,9 @@ const config: Config = {
             950: "#0D0F1F",
           },
           gold: {
-            DEFAULT: "#D4AF37",
-            light: "#F5E6AB",
-            dark: "#997A15",
+            DEFAULT: "#CBD5E1",
+            light: "#F1F5F9",
+            dark: "#94A3B8",
           },
           accent: {
             DEFAULT: "#0C71C3",
