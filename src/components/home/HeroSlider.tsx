@@ -15,6 +15,8 @@ interface HeroSliderProps {
 export function HeroSlider({ slides }: HeroSliderProps) {
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchEndX, setTouchEndX] = useState<number | null>(null);
 
   const nextSlide = useCallback(() => {
     setCurrent((prev) => (prev + 1) % slides.length);
@@ -41,13 +43,42 @@ export function HeroSlider({ slides }: HeroSliderProps) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [prevSlide, nextSlide]);
 
+  // Touch Swipe Gesture for mobile
+  const minSwipeDistance = 50;
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEndX(null);
+    setTouchStartX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEndX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX || !touchEndX) return;
+    const distance = touchStartX - touchEndX;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    if (isLeftSwipe) {
+      nextSlide();
+    } else if (isRightSwipe) {
+      prevSlide();
+    }
+    setTouchStartX(null);
+    setTouchEndX(null);
+  };
+
   if (!slides || slides.length === 0) return null;
 
   return (
     <section
-      className="relative w-full overflow-hidden bg-afi-navy-950 text-white min-h-[500px] sm:min-h-[560px] lg:min-h-[640px] flex items-center justify-center select-none"
+      className="relative w-full overflow-hidden bg-afi-navy-950 text-white min-h-[520px] sm:min-h-[580px] lg:min-h-[660px] flex items-center justify-center select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
       role="region"
       aria-label="Diaporama des formations AFI-L'UE"
     >
@@ -76,8 +107,8 @@ export function HeroSlider({ slides }: HeroSliderProps) {
               />
             </div>
 
-            {/* Cinematic Minimalist Dark Vignette Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/45 z-10" />
+            {/* Cinematic Minimalist Dark Vignette Overlay: Reinforced on mobile for 100% text readability */}
+            <div className="absolute inset-0 bg-gradient-to-b from-afi-navy-950/80 via-black/60 to-afi-navy-950/85 sm:bg-gradient-to-t sm:from-black/80 sm:via-black/30 sm:to-black/50 z-10" />
 
             {/* DotPattern Superposition Overlay right above the image & vignette */}
             <DotPattern
@@ -85,48 +116,48 @@ export function HeroSlider({ slides }: HeroSliderProps) {
               cy={1}
               cr={1}
               className={cn(
-                "z-10 fill-white/30 md:fill-white/40 [mask-image:radial-gradient(560px_circle_at_center,white,transparent)]",
+                "z-10 fill-white/20 sm:fill-white/35 md:fill-white/40 [mask-image:radial-gradient(560px_circle_at_center,white,transparent)]",
               )}
             />
 
             {/* Centralized Clean & Minimal Content */}
-            <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col items-center justify-center text-center py-24 sm:py-32">
-              <div className="space-y-5 max-w-3xl">
+            <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col items-center justify-center text-center pt-20 pb-20 sm:py-28 lg:py-32">
+              <div className="space-y-3.5 sm:space-y-5 max-w-3xl w-full">
                 {/* Minimalist Top Tag */}
                 {slide.badge && (
-                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-slate-200 text-xs font-semibold tracking-wider uppercase animate-in fade-in slide-in-from-bottom-2 duration-500">
+                  <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-slate-200 text-[11px] sm:text-xs font-semibold tracking-wider uppercase animate-in fade-in slide-in-from-bottom-2 duration-500 shadow-sm">
                     <span className="w-1.5 h-1.5 rounded-full bg-afi-red animate-pulse" />
-                    <span>{slide.badge}</span>
+                    <span className="truncate max-w-[260px] sm:max-w-none">{slide.badge}</span>
                   </div>
                 )}
 
-                {/* Main Slide Title (Monumental & Clean) */}
-                <h1 className="font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.1] drop-shadow-md animate-in fade-in slide-in-from-bottom-3 duration-700">
+                {/* Main Slide Title (Monumental, Clean & Fluid Responsive) */}
+                <h1 className="font-heading font-black text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-[1.18] sm:leading-[1.1] drop-shadow-md sm:drop-shadow-lg animate-in fade-in slide-in-from-bottom-3 duration-700 px-1">
                   {slide.title}
                 </h1>
 
-                {/* Subtitle (Short, 1-2 lines max) */}
+                {/* Subtitle (Calibrated font and leading for perfect readability on mobile) */}
                 {slide.subtitle && (
-                  <p className="text-sm sm:text-lg text-slate-200 font-normal max-w-2xl mx-auto leading-relaxed drop-shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-700">
+                  <p className="text-xs xs:text-sm sm:text-base lg:text-lg text-slate-100/90 font-normal max-w-2xl mx-auto leading-snug sm:leading-relaxed drop-shadow animate-in fade-in slide-in-from-bottom-4 duration-700 px-2 sm:px-0">
                     {slide.subtitle}
                   </p>
                 )}
 
-                {/* Minimalist Action Button (Matching authentic AFI white pill with red text) */}
+                {/* Mobile-Adapted Action Buttons (Full-width stacked on mobile, row on tablet/desktop) */}
                 {slide.cta_primary_text && slide.cta_primary_url && (
-                  <div className="pt-4 flex items-center justify-center gap-4 animate-in fade-in slide-in-from-bottom-5 duration-700">
+                  <div className="pt-2 sm:pt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5 sm:gap-4 w-full sm:w-auto max-w-xs sm:max-w-none mx-auto animate-in fade-in slide-in-from-bottom-5 duration-700">
                     <Link
                       href={slide.cta_primary_url}
-                      className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-white text-afi-red hover:bg-slate-100 font-bold text-xs sm:text-sm uppercase tracking-wider shadow-2xl hover:scale-105 active:scale-95 transition-all"
+                      className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-white text-afi-red hover:bg-slate-100 active:bg-slate-200 font-bold text-xs sm:text-sm uppercase tracking-wider shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all text-center"
                     >
                       <span>{slide.cta_primary_text}</span>
-                      <ArrowRight className="w-4 h-4 text-afi-red" />
+                      <ArrowRight className="w-4 h-4 text-afi-red shrink-0" />
                     </Link>
 
                     {slide.cta_secondary_text && slide.cta_secondary_url && (
                       <Link
                         href={slide.cta_secondary_url}
-                        className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm backdrop-blur-md border border-white/25 transition-all"
+                        className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3.5 rounded-full bg-white/15 hover:bg-white/25 active:bg-white/30 text-white font-semibold text-xs sm:text-sm backdrop-blur-md border border-white/25 transition-all text-center"
                       >
                         <span>{slide.cta_secondary_text}</span>
                       </Link>
@@ -139,26 +170,26 @@ export function HeroSlider({ slides }: HeroSliderProps) {
         );
       })}
 
-      {/* Floating Left Chevron */}
+      {/* Floating Left Chevron (Discreet on desktop, hidden on mobile in favor of intuitive touch swipe) */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/30 hover:bg-black/60 text-white/80 hover:text-white flex items-center justify-center backdrop-blur-md border border-white/10 transition-all cursor-pointer opacity-70 hover:opacity-100 hover:scale-110"
+        className="hidden md:flex absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/35 hover:bg-black/65 text-white/85 hover:text-white items-center justify-center backdrop-blur-md border border-white/15 transition-all cursor-pointer opacity-70 hover:opacity-100 hover:scale-110"
         aria-label="Diapositive précédente"
       >
         <ChevronLeft className="w-5 h-5" />
       </button>
 
-      {/* Floating Right Chevron */}
+      {/* Floating Right Chevron (Discreet on desktop, hidden on mobile in favor of intuitive touch swipe) */}
       <button
         onClick={nextSlide}
-        className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/30 hover:bg-black/60 text-white/80 hover:text-white flex items-center justify-center backdrop-blur-md border border-white/10 transition-all cursor-pointer opacity-70 hover:opacity-100 hover:scale-110"
+        className="hidden md:flex absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/35 hover:bg-black/65 text-white/85 hover:text-white items-center justify-center backdrop-blur-md border border-white/15 transition-all cursor-pointer opacity-70 hover:opacity-100 hover:scale-110"
         aria-label="Diapositive suivante"
       >
         <ChevronRight className="w-5 h-5" />
       </button>
 
-      {/* Segmented Red Dash Indicators (Matching user screenshots) */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
+      {/* Segmented Red Dash Indicators */}
+      <div className="absolute bottom-5 sm:bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1.5 sm:gap-2">
         {slides.map((_, i) => {
           const isActive = i === current;
           return (
@@ -167,8 +198,8 @@ export function HeroSlider({ slides }: HeroSliderProps) {
               onClick={() => setCurrent(i)}
               className={`h-1.5 transition-all rounded-full cursor-pointer ${
                 isActive
-                  ? "w-10 sm:w-12 bg-afi-red shadow-md shadow-afi-red/50"
-                  : "w-5 sm:w-6 bg-red-950/70 hover:bg-red-800/80 border border-red-900/30"
+                  ? "w-8 sm:w-12 bg-afi-red shadow-md shadow-afi-red/50"
+                  : "w-4 sm:w-6 bg-red-950/70 hover:bg-red-800/80 border border-red-900/30"
               }`}
               aria-label={`Aller à la diapositive ${i + 1}`}
             />
