@@ -3,6 +3,14 @@ import { answerSophie, readSophieStore, type SophieChatMessage } from "@/lib/ser
 
 export const dynamic = "force-dynamic";
 
+export async function GET() {
+  return NextResponse.json({
+    status: "ok",
+    has_gemini_key: Boolean(process.env.GEMINI_API_KEY),
+    key_prefix: process.env.GEMINI_API_KEY ? process.env.GEMINI_API_KEY.slice(0, 7) + "..." : "none",
+  });
+}
+
 export async function POST(request: Request) {
   try {
     if (!readSophieStore().config.is_enabled) {
