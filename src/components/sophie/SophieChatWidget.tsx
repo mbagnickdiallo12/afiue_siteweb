@@ -203,6 +203,27 @@ export function SophieChatWidget() {
     };
   }, [open]);
 
+  // Verrouillage du défilement d'arrière-plan sur mobile quand le chat Sophie est ouvert
+  useEffect(() => {
+    if (!open) return;
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+    if (isMobile) {
+      const originalBodyOverflow = document.body.style.overflow;
+      const originalHtmlOverflow = document.documentElement.style.overflow;
+      const originalTouchAction = document.body.style.touchAction;
+
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
+
+      return () => {
+        document.body.style.overflow = originalBodyOverflow;
+        document.documentElement.style.overflow = originalHtmlOverflow;
+        document.body.style.touchAction = originalTouchAction;
+      };
+    }
+  }, [open]);
+
   const send = useCallback(
     async (raw: string) => {
       const text = raw.trim();
@@ -319,6 +340,21 @@ export function SophieChatWidget() {
         )}
       </AnimatePresence>
 
+      {/* ================= Backdrop Mobile ================= */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setOpen(false)}
+            onTouchMove={(e) => e.preventDefault()}
+            className="fixed inset-0 z-[65] bg-slate-950/60 backdrop-blur-xs sm:hidden overscroll-none"
+            aria-hidden="true"
+          />
+        )}
+      </AnimatePresence>
+
       {/* ================= Fenêtre de chat ================= */}
       <AnimatePresence>
         {open && (
@@ -329,7 +365,7 @@ export function SophieChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.97 }}
             transition={{ type: "spring", stiffness: 330, damping: 30 }}
-            className="fixed z-[70] inset-x-2 bottom-2 top-16 sm:inset-x-auto sm:top-auto sm:right-6 sm:bottom-6 sm:w-[420px] sm:h-[min(650px,calc(100vh-48px))] flex flex-col overflow-hidden rounded-[30px] bg-gradient-to-b from-[#0e1629] via-[#090e1c] to-[#05070f] text-[#ededed] shadow-[0_30px_80px_-15px_rgba(5,10,25,0.9)] border border-white/10 ring-1 ring-white/5"
+            className="fixed z-[70] inset-x-2 bottom-2 top-16 sm:inset-x-auto sm:top-auto sm:right-6 sm:bottom-6 sm:w-[420px] sm:h-[min(650px,calc(100vh-48px))] flex flex-col overflow-hidden rounded-[30px] bg-gradient-to-b from-[#0e1629] via-[#090e1c] to-[#05070f] text-[#ededed] shadow-[0_30px_80px_-15px_rgba(5,10,25,0.9)] border border-white/10 ring-1 ring-white/5 overscroll-contain touch-auto"
           >
             {/* Dot Pattern d'AFI-L'UE sur l'ensemble du fond */}
             <DotPattern
@@ -376,7 +412,7 @@ export function SophieChatWidget() {
             </div>
 
             {/* Messages */}
-            <div ref={scrollRef} className="relative z-10 flex-1 overflow-y-auto px-5 py-5 space-y-5">
+            <div ref={scrollRef} className="relative z-10 flex-1 overflow-y-auto px-5 py-5 space-y-5 overscroll-contain touch-pan-y">
               {/* Message d'accueil */}
               <div className="max-w-[88%]">
                 <p className="mb-1.5 text-[11px] font-bold text-sky-400 tracking-wide uppercase">Sophie AI</p>

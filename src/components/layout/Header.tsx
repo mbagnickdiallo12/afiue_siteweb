@@ -53,6 +53,25 @@ export function Header() {
     setMobileMenuOpen(false);
   }, [pathname]);
 
+  // Lock background scroll when mobile drawer is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      const originalBodyOverflow = document.body.style.overflow;
+      const originalHtmlOverflow = document.documentElement.style.overflow;
+      const originalTouchAction = document.body.style.touchAction;
+
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
+
+      return () => {
+        document.body.style.overflow = originalBodyOverflow;
+        document.documentElement.style.overflow = originalHtmlOverflow;
+        document.body.style.touchAction = originalTouchAction;
+      };
+    }
+  }, [mobileMenuOpen]);
+
   // Global keyboard shortcut (⌘K or Ctrl+K)
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -345,10 +364,10 @@ export function Header() {
         </div>
 
         {/* =========================================================
-            3. MOBILE SLIDE-DOWN DRAWER (Glassmorphic)
+            3. MOBILE SLIDE-DOWN DRAWER (Glassmorphic & Scroll-locked)
             ========================================================= */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-slate-100 bg-white/98 backdrop-blur-2xl px-4 pt-3 pb-6 space-y-4 shadow-2xl animate-in slide-in-from-top duration-200">
+          <div className="lg:hidden border-t border-slate-100 bg-white/98 backdrop-blur-2xl px-4 pt-3 pb-8 space-y-4 shadow-2xl animate-in slide-in-from-top duration-200 max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain touch-pan-y relative z-50">
             {/* Quick Search Bar */}
             <button
               onClick={() => {
@@ -464,6 +483,16 @@ export function Header() {
           </div>
         )}
       </header>
+
+      {/* Mobile Backdrop for Navigation Drawer */}
+      {mobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-slate-950/50 backdrop-blur-xs lg:hidden overscroll-none"
+          onClick={() => setMobileMenuOpen(false)}
+          onTouchMove={(e) => e.preventDefault()}
+          aria-hidden="true"
+        />
+      )}
 
       {/* Global Instant Search Modal */}
       <SearchModal
