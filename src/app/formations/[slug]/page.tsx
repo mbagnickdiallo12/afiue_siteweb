@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
   Award,
@@ -408,32 +409,59 @@ export default async function FormationDetailPage({
                 </ul>
               </div>
 
-              {/* Carte Reconnaissances Officielles (Fond Bleu AFI + DotPattern) */}
-              <div className="relative overflow-hidden rounded-[24px] bg-gradient-to-br from-[#0B0F19] via-[#13182E] to-[#232B52] text-white p-6 sm:p-7 shadow-md space-y-4">
+              {/* Carte Reconnaissances Officielles (Fond Rouge Dégradé AFI + Logos Officiels) */}
+              <div className="relative overflow-hidden rounded-[24px] bg-gradient-to-br from-[#380606] via-[#7A0D0B] to-[#C8232C] text-white p-6 sm:p-7 shadow-lg space-y-4 border border-red-500/30">
                 <DotPattern
                   cx={1}
                   cy={1}
                   cr={1}
-                  className="fill-white/25 [mask-image:radial-gradient(280px_circle_at_center,white,transparent)]"
+                  className="fill-white/20 [mask-image:radial-gradient(280px_circle_at_center,white,transparent)]"
                 />
 
-                <span className="relative z-10 block text-[10px] font-bold uppercase tracking-[0.18em] text-white/60">
+                <span className="relative z-10 block text-[10px] font-bold uppercase tracking-[0.18em] text-white/80">
                   RECONNAISSANCE & ACCRÉDITATIONS
                 </span>
 
                 <div className="relative z-10 grid grid-cols-1 gap-2.5">
-                  <div className="flex items-center gap-3 bg-white/[0.08] backdrop-blur-md rounded-xl px-4 py-3 border border-white/15 text-xs sm:text-[13px] font-medium text-white">
-                    <span className="text-sm shrink-0">🇸🇳</span>
+                  {/* 1. Habilité État du Sénégal avec Drapeau SVG officiel */}
+                  <div className="flex items-center gap-3 bg-white/10 hover:bg-white/15 backdrop-blur-md rounded-xl px-4 py-3 border border-white/20 text-xs sm:text-[13px] font-semibold text-white transition-colors">
+                    <div className="w-7 h-5 rounded-[3px] overflow-hidden shrink-0 shadow-xs border border-white/30 flex items-center justify-center bg-black/20">
+                      <Image
+                        src="/images/accreditations/flag-senegal.svg"
+                        alt="Drapeau du Sénégal"
+                        width={28}
+                        height={20}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                     <span>Programme habilité par l&apos;État du Sénégal</span>
                   </div>
 
-                  <div className="flex items-center gap-3 bg-white/[0.08] backdrop-blur-md rounded-xl px-4 py-3 border border-white/15 text-xs sm:text-[13px] font-medium text-white">
-                    <ShieldCheck className="w-4 h-4 text-slate-300 shrink-0" />
+                  {/* 2. Accrédité ANAQ-Sup avec Logo officiel */}
+                  <div className="flex items-center gap-3 bg-white/10 hover:bg-white/15 backdrop-blur-md rounded-xl px-4 py-3 border border-white/20 text-xs sm:text-[13px] font-semibold text-white transition-colors">
+                    <div className="w-7 h-7 rounded-md overflow-hidden shrink-0 shadow-xs bg-white p-1 flex items-center justify-center">
+                      <Image
+                        src="/images/accreditations/logo-anaq-sup.jpg"
+                        alt="Logo ANAQ-Sup"
+                        width={28}
+                        height={28}
+                        className="w-full h-auto object-contain"
+                      />
+                    </div>
                     <span>Programme accrédité par l&apos;ANAQ-Sup</span>
                   </div>
 
-                  <div className="flex items-center gap-3 bg-white/[0.08] backdrop-blur-md rounded-xl px-4 py-3 border border-white/15 text-xs sm:text-[13px] font-medium text-white">
-                    <Award className="w-4 h-4 text-emerald-400 shrink-0" />
+                  {/* 3. Accrédité CAMES avec Logo officiel */}
+                  <div className="flex items-center gap-3 bg-white/10 hover:bg-white/15 backdrop-blur-md rounded-xl px-4 py-3 border border-white/20 text-xs sm:text-[13px] font-semibold text-white transition-colors">
+                    <div className="w-7 h-7 rounded-md overflow-hidden shrink-0 shadow-xs bg-white p-0.5 flex items-center justify-center">
+                      <Image
+                        src="/images/accreditations/logo-cames.jpg"
+                        alt="Logo CAMES"
+                        width={28}
+                        height={28}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
                     <span>
                       {isCames
                         ? "Programme accrédité par le CAMES"
