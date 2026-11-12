@@ -132,14 +132,14 @@ export function EventLateralPopup({ config }: EventLateralPopupProps) {
     return null;
   }
 
-  // Positioning classes: on mobile, centered at bottom with safe margin
+  // Positioning classes: on mobile, raised higher (bottom-24) to completely clear the floating Sophie AI button
   const position = config.position || "bottom-left";
   const positionClasses =
     position === "bottom-right"
-      ? "bottom-3 sm:bottom-6 right-3 sm:right-6 left-3 sm:left-auto"
+      ? "bottom-24 sm:bottom-6 right-3 sm:right-6 left-3 sm:left-auto"
       : position === "center-modal"
       ? "inset-0 flex items-center justify-center p-3 sm:p-4 bg-slate-950/60 backdrop-blur-xs z-50"
-      : "bottom-3 sm:bottom-6 left-3 sm:left-6 right-3 sm:right-auto"; // default bottom-left
+      : "bottom-24 sm:bottom-6 left-3 sm:left-6 right-3 sm:right-auto"; // default bottom-left
 
   const isModal = position === "center-modal";
 
@@ -165,7 +165,7 @@ export function EventLateralPopup({ config }: EventLateralPopupProps) {
             transition={{ type: "spring", stiffness: 350, damping: 28 }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="relative w-full max-w-[320px] xs:max-w-[340px] sm:max-w-[400px] mx-auto sm:mx-0 bg-white rounded-xl shadow-[0_15px_45px_-10px_rgba(0,0,0,0.35)] border border-slate-200/90 overflow-visible text-slate-800"
+            className="relative w-full max-w-[295px] xs:max-w-[315px] sm:max-w-[400px] mx-auto sm:mx-0 bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border border-slate-200/90 overflow-visible text-slate-800"
           >
             {/* Top Close Button (floating badge matching reference styling in AFI Red) */}
             <button
@@ -177,10 +177,10 @@ export function EventLateralPopup({ config }: EventLateralPopupProps) {
               <X className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
             </button>
 
-            {/* Main Content Container: compact on mobile */}
-            <div className="p-3 sm:p-5 space-y-2.5 sm:space-y-4">
-              {/* Slider Image Container: aspect-[16/10] on mobile to preserve screen space */}
-              <div className="relative w-full aspect-[16/10] sm:aspect-square rounded-lg overflow-hidden bg-slate-900 shadow-xs group">
+            {/* Main Content Container */}
+            <div className="p-3 sm:p-5 space-y-2 sm:space-y-4">
+              {/* Slider Image Container: strictly square 1:1 on mobile and desktop */}
+              <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-slate-900 shadow-xs group">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentSlide.id}
@@ -281,8 +281,8 @@ export function EventLateralPopup({ config }: EventLateralPopupProps) {
                   {!timeRemaining.isExpired ? (
                     <div className="flex items-center justify-center gap-1 sm:gap-2 pt-0.5">
                       {/* Jours */}
-                      <div className="flex flex-col items-center justify-center bg-slate-900 text-white rounded-md sm:rounded-lg py-1 sm:py-1.5 px-1.5 sm:px-2 min-w-[40px] sm:min-w-[50px] shadow-xs">
-                        <span className="font-mono font-black text-sm sm:text-lg leading-none">
+                      <div className="flex flex-col items-center justify-center bg-slate-900 text-white rounded-md sm:rounded-lg py-1 sm:py-1.5 px-1 sm:px-2 min-w-[36px] sm:min-w-[50px] shadow-xs">
+                        <span className="font-mono font-black text-xs sm:text-lg leading-none">
                           {String(timeRemaining.days).padStart(2, "0")}
                         </span>
                         <span className="text-[7px] sm:text-[8px] font-bold uppercase tracking-wider text-slate-400 mt-0.5">
@@ -293,8 +293,8 @@ export function EventLateralPopup({ config }: EventLateralPopupProps) {
                       <span className="font-bold text-slate-400 text-xs sm:text-sm">:</span>
 
                       {/* Heures */}
-                      <div className="flex flex-col items-center justify-center bg-slate-900 text-white rounded-md sm:rounded-lg py-1 sm:py-1.5 px-1.5 sm:px-2 min-w-[40px] sm:min-w-[50px] shadow-xs">
-                        <span className="font-mono font-black text-sm sm:text-lg leading-none">
+                      <div className="flex flex-col items-center justify-center bg-slate-900 text-white rounded-md sm:rounded-lg py-1 sm:py-1.5 px-1 sm:px-2 min-w-[36px] sm:min-w-[50px] shadow-xs">
+                        <span className="font-mono font-black text-xs sm:text-lg leading-none">
                           {String(timeRemaining.hours).padStart(2, "0")}
                         </span>
                         <span className="text-[7px] sm:text-[8px] font-bold uppercase tracking-wider text-slate-400 mt-0.5">
@@ -305,8 +305,8 @@ export function EventLateralPopup({ config }: EventLateralPopupProps) {
                       <span className="font-bold text-slate-400 text-xs sm:text-sm">:</span>
 
                       {/* Minutes */}
-                      <div className="flex flex-col items-center justify-center bg-slate-900 text-white rounded-md sm:rounded-lg py-1 sm:py-1.5 px-1.5 sm:px-2 min-w-[40px] sm:min-w-[50px] shadow-xs">
-                        <span className="font-mono font-black text-sm sm:text-lg leading-none">
+                      <div className="flex flex-col items-center justify-center bg-slate-900 text-white rounded-md sm:rounded-lg py-1 sm:py-1.5 px-1 sm:px-2 min-w-[36px] sm:min-w-[50px] shadow-xs">
+                        <span className="font-mono font-black text-xs sm:text-lg leading-none">
                           {String(timeRemaining.minutes).padStart(2, "0")}
                         </span>
                         <span className="text-[7px] sm:text-[8px] font-bold uppercase tracking-wider text-slate-400 mt-0.5">
@@ -317,8 +317,8 @@ export function EventLateralPopup({ config }: EventLateralPopupProps) {
                       <span className="font-bold text-slate-400 text-xs sm:text-sm">:</span>
 
                       {/* Secondes */}
-                      <div className="flex flex-col items-center justify-center bg-afi-red text-white rounded-md sm:rounded-lg py-1 sm:py-1.5 px-1.5 sm:px-2 min-w-[40px] sm:min-w-[50px] shadow-xs">
-                        <span className="font-mono font-black text-sm sm:text-lg leading-none">
+                      <div className="flex flex-col items-center justify-center bg-afi-red text-white rounded-md sm:rounded-lg py-1 sm:py-1.5 px-1 sm:px-2 min-w-[36px] sm:min-w-[50px] shadow-xs">
+                        <span className="font-mono font-black text-xs sm:text-lg leading-none">
                           {String(timeRemaining.seconds).padStart(2, "0")}
                         </span>
                         <span className="text-[7px] sm:text-[8px] font-bold uppercase tracking-wider text-red-200 mt-0.5">
