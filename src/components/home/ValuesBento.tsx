@@ -13,7 +13,7 @@ export function ValuesBento() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-12">
         {/* Section Header */}
         <FadeIn className="text-center max-w-4xl mx-auto space-y-3">
-          <h2 className="font-heading font-black text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-slate-900 tracking-tight whitespace-nowrap">
+          <h2 className="font-heading font-black text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-slate-900 tracking-tight sm:whitespace-nowrap">
             Pourquoi Choisir AFI&#8209;L&apos;UE ?
           </h2>
           <p className="text-slate-600 text-sm sm:text-base leading-relaxed">

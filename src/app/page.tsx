@@ -49,7 +49,7 @@ export default async function HomePage() {
   ]);
 
   return (
-    <div className="flex flex-col w-full bg-white text-slate-900">
+    <div className="flex flex-col w-full max-w-full overflow-x-hidden bg-white text-slate-900">
       {/* 1. Ultra-Modern Minimalist Hero Slider (Exact AFI-L'UE formations slides) */}
       <HeroSlider slides={slides} />
 
@@ -75,7 +75,7 @@ export default async function HomePage() {
       <section className="py-16 sm:py-20 bg-slate-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-12">
           <FadeIn className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <h2 className="font-heading font-black text-xl xs:text-2xl sm:text-3xl lg:text-4xl text-slate-900 tracking-tight uppercase whitespace-nowrap">
+            <h2 className="font-heading font-black text-xl xs:text-2xl sm:text-3xl lg:text-4xl text-slate-900 tracking-tight uppercase sm:whitespace-nowrap">
               FOCUS SUR L&apos;ACTUALITÉ
             </h2>
 

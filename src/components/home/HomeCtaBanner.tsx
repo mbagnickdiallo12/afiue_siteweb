@@ -18,7 +18,7 @@ export function HomeCtaBanner() {
             <div className="relative z-10 max-w-3xl mx-auto text-center flex flex-col items-center space-y-6 sm:space-y-8">
               {/* Concise Title & Reduced Text */}
               <FadeIn className="space-y-3">
-                <h2 className="font-heading font-black text-xl xs:text-2xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-[1.15] whitespace-nowrap">
+                <h2 className="font-heading font-black text-xl xs:text-2xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-[1.15] sm:whitespace-nowrap">
                   Prêt à Rejoindre l&apos;AFI&#8209;L&apos;UE ?
                 </h2>
                 <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl mx-auto">

@@ -11,14 +11,14 @@ export function SiteLayoutWrapper({ children }: { children: React.ReactNode }) {
   const isAdminRoute = pathname?.startsWith("/admin");
 
   if (isAdminRoute) {
-    return <main className="flex-1 flex flex-col">{children}</main>;
+    return <main className="flex-1 flex flex-col w-full max-w-full overflow-x-hidden">{children}</main>;
   }
 
   return (
     <>
       <ScrollProgress />
       <Header />
-      <main className="flex-1 flex flex-col">{children}</main>
+      <main className="flex-1 flex flex-col w-full max-w-full overflow-x-hidden">{children}</main>
       <Footer />
       <SophieChatWidget />
     </>

@@ -132,14 +132,14 @@ export function EventLateralPopup({ config }: EventLateralPopupProps) {
     return null;
   }
 
-  // Positioning classes
+  // Positioning classes: on mobile, centered at bottom with safe margin
   const position = config.position || "bottom-left";
   const positionClasses =
     position === "bottom-right"
-      ? "bottom-4 right-4 sm:bottom-6 sm:right-6"
+      ? "bottom-3 sm:bottom-6 right-3 sm:right-6 left-3 sm:left-auto"
       : position === "center-modal"
-      ? "inset-0 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm z-50"
-      : "bottom-4 left-4 sm:bottom-6 sm:left-6"; // default bottom-left
+      ? "inset-0 flex items-center justify-center p-3 sm:p-4 bg-slate-950/60 backdrop-blur-xs z-50"
+      : "bottom-3 sm:bottom-6 left-3 sm:left-6 right-3 sm:right-auto"; // default bottom-left
 
   const isModal = position === "center-modal";
 
@@ -149,7 +149,7 @@ export function EventLateralPopup({ config }: EventLateralPopupProps) {
         <div
           className={`${
             isModal
-              ? "fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs"
+              ? "fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/60 backdrop-blur-xs"
               : "fixed z-50 " + positionClasses
           }`}
           onClick={(e) => {
@@ -159,28 +159,28 @@ export function EventLateralPopup({ config }: EventLateralPopupProps) {
           }}
         >
           <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 25, scale: 0.95 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 350, damping: 28 }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="relative w-full max-w-[380px] sm:max-w-[410px] bg-white rounded-xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.35)] border border-slate-200/90 overflow-visible text-slate-800"
+            className="relative w-full max-w-[320px] xs:max-w-[340px] sm:max-w-[400px] mx-auto sm:mx-0 bg-white rounded-xl shadow-[0_15px_45px_-10px_rgba(0,0,0,0.35)] border border-slate-200/90 overflow-visible text-slate-800"
           >
             {/* Top Close Button (floating badge matching reference styling in AFI Red) */}
             <button
               type="button"
               onClick={handleClose}
               aria-label="Fermer le popup"
-              className="absolute -top-3.5 -right-3.5 z-30 w-9 h-9 rounded-full bg-afi-red hover:bg-red-700 text-white flex items-center justify-center shadow-lg transition-transform hover:scale-110 active:scale-95 cursor-pointer border-2 border-white"
+              className="absolute -top-2.5 -right-2.5 sm:-top-3.5 sm:-right-3.5 z-30 w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-afi-red hover:bg-red-700 text-white flex items-center justify-center shadow-lg transition-transform hover:scale-110 active:scale-95 cursor-pointer border-2 border-white"
             >
-              <X className="w-5 h-5 stroke-[2.5]" />
+              <X className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
             </button>
 
-            {/* Main Content Container */}
-            <div className="p-4 sm:p-5 space-y-4">
-              {/* Slider Image Container (Square / 1:1) */}
-              <div className="relative w-full aspect-square rounded-lg overflow-hidden bg-slate-900 shadow-xs group">
+            {/* Main Content Container: compact on mobile */}
+            <div className="p-3 sm:p-5 space-y-2.5 sm:space-y-4">
+              {/* Slider Image Container: aspect-[16/10] on mobile to preserve screen space */}
+              <div className="relative w-full aspect-[16/10] sm:aspect-square rounded-lg overflow-hidden bg-slate-900 shadow-xs group">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentSlide.id}
@@ -195,7 +195,7 @@ export function EventLateralPopup({ config }: EventLateralPopupProps) {
                       alt={currentSlide.title}
                       fill
                       priority
-                      sizes="(max-width: 640px) 340px, 400px"
+                      sizes="(max-width: 640px) 300px, 400px"
                       className="object-cover"
                     />
 
@@ -217,9 +217,9 @@ export function EventLateralPopup({ config }: EventLateralPopupProps) {
                         handlePrev();
                       }}
                       aria-label="Affiche précédente"
-                      className="absolute left-2.5 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-slate-950/70 hover:bg-slate-900 text-white flex items-center justify-center backdrop-blur-xs transition-transform hover:scale-110 active:scale-95 cursor-pointer opacity-80 hover:opacity-100"
+                      className="absolute left-1.5 sm:left-2.5 top-1/2 -translate-y-1/2 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-950/70 hover:bg-slate-900 text-white flex items-center justify-center backdrop-blur-xs transition-transform hover:scale-110 active:scale-95 cursor-pointer opacity-80 hover:opacity-100"
                     >
-                      <ChevronLeft className="w-4 h-4" />
+                      <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     </button>
 
                     <button
@@ -229,13 +229,13 @@ export function EventLateralPopup({ config }: EventLateralPopupProps) {
                         handleNext();
                       }}
                       aria-label="Affiche suivante"
-                      className="absolute right-2.5 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-slate-950/70 hover:bg-slate-900 text-white flex items-center justify-center backdrop-blur-xs transition-transform hover:scale-110 active:scale-95 cursor-pointer opacity-80 hover:opacity-100"
+                      className="absolute right-1.5 sm:right-2.5 top-1/2 -translate-y-1/2 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-950/70 hover:bg-slate-900 text-white flex items-center justify-center backdrop-blur-xs transition-transform hover:scale-110 active:scale-95 cursor-pointer opacity-80 hover:opacity-100"
                     >
-                      <ChevronRight className="w-4 h-4" />
+                      <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     </button>
 
                     {/* Slider Pagination Dots at bottom of image */}
-                    <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-950/70 backdrop-blur-xs">
+                    <div className="absolute bottom-2 sm:bottom-2.5 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5 px-2 py-0.5 sm:py-1 rounded-full bg-slate-950/70 backdrop-blur-xs">
                       {activeSlides.map((s, idx) => (
                         <button
                           key={s.id}
@@ -244,7 +244,7 @@ export function EventLateralPopup({ config }: EventLateralPopupProps) {
                           aria-label={`Aller à l'affiche ${idx + 1}`}
                           className={`h-1.5 rounded-full transition-all duration-300 ${
                             idx === currentIndex
-                              ? "w-5 bg-white"
+                              ? "w-4 sm:w-5 bg-white"
                               : "w-1.5 bg-white/40 hover:bg-white/70"
                           }`}
                         />
@@ -255,12 +255,12 @@ export function EventLateralPopup({ config }: EventLateralPopupProps) {
               </div>
 
               {/* Title & Subtitle */}
-              <div className="space-y-1 text-center px-1">
-                <h3 className="font-heading font-black text-base sm:text-lg text-slate-900 leading-snug tracking-tight">
+              <div className="space-y-0.5 sm:space-y-1 text-center px-1">
+                <h3 className="font-heading font-black text-sm sm:text-lg text-slate-900 leading-snug tracking-tight line-clamp-2">
                   {currentSlide.title}
                 </h3>
                 {currentSlide.subtitle && (
-                  <p className="text-xs text-slate-600 leading-relaxed line-clamp-2">
+                  <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed line-clamp-1 sm:line-clamp-2">
                     {currentSlide.subtitle}
                   </p>
                 )}
@@ -268,9 +268,9 @@ export function EventLateralPopup({ config }: EventLateralPopupProps) {
 
               {/* Compte à Rebours (Countdown) if enabled */}
               {currentSlide.show_countdown && currentSlide.target_date && (
-                <div className="text-center space-y-2 py-0.5">
-                  <div className="flex items-center justify-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-500">
-                    <Clock className="w-3.5 h-3.5 text-afi-red" />
+                <div className="text-center space-y-1.5 sm:space-y-2 py-0.5">
+                  <div className="flex items-center justify-center gap-1 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                    <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-afi-red" />
                     <span>
                       {timeRemaining.isExpired
                         ? "Événement en cours"
@@ -279,55 +279,55 @@ export function EventLateralPopup({ config }: EventLateralPopupProps) {
                   </div>
 
                   {!timeRemaining.isExpired ? (
-                    <div className="flex items-center justify-center gap-1.5 sm:gap-2 pt-0.5">
+                    <div className="flex items-center justify-center gap-1 sm:gap-2 pt-0.5">
                       {/* Jours */}
-                      <div className="flex flex-col items-center justify-center bg-slate-900 text-white rounded-lg py-1.5 px-2 min-w-[50px] shadow-xs">
-                        <span className="font-mono font-black text-base sm:text-lg leading-none">
+                      <div className="flex flex-col items-center justify-center bg-slate-900 text-white rounded-md sm:rounded-lg py-1 sm:py-1.5 px-1.5 sm:px-2 min-w-[40px] sm:min-w-[50px] shadow-xs">
+                        <span className="font-mono font-black text-sm sm:text-lg leading-none">
                           {String(timeRemaining.days).padStart(2, "0")}
                         </span>
-                        <span className="text-[8px] font-bold uppercase tracking-wider text-slate-400 mt-0.5">
+                        <span className="text-[7px] sm:text-[8px] font-bold uppercase tracking-wider text-slate-400 mt-0.5">
                           Jours
                         </span>
                       </div>
 
-                      <span className="font-bold text-slate-400 text-sm">:</span>
+                      <span className="font-bold text-slate-400 text-xs sm:text-sm">:</span>
 
                       {/* Heures */}
-                      <div className="flex flex-col items-center justify-center bg-slate-900 text-white rounded-lg py-1.5 px-2 min-w-[50px] shadow-xs">
-                        <span className="font-mono font-black text-base sm:text-lg leading-none">
+                      <div className="flex flex-col items-center justify-center bg-slate-900 text-white rounded-md sm:rounded-lg py-1 sm:py-1.5 px-1.5 sm:px-2 min-w-[40px] sm:min-w-[50px] shadow-xs">
+                        <span className="font-mono font-black text-sm sm:text-lg leading-none">
                           {String(timeRemaining.hours).padStart(2, "0")}
                         </span>
-                        <span className="text-[8px] font-bold uppercase tracking-wider text-slate-400 mt-0.5">
+                        <span className="text-[7px] sm:text-[8px] font-bold uppercase tracking-wider text-slate-400 mt-0.5">
                           Heures
                         </span>
                       </div>
 
-                      <span className="font-bold text-slate-400 text-sm">:</span>
+                      <span className="font-bold text-slate-400 text-xs sm:text-sm">:</span>
 
                       {/* Minutes */}
-                      <div className="flex flex-col items-center justify-center bg-slate-900 text-white rounded-lg py-1.5 px-2 min-w-[50px] shadow-xs">
-                        <span className="font-mono font-black text-base sm:text-lg leading-none">
+                      <div className="flex flex-col items-center justify-center bg-slate-900 text-white rounded-md sm:rounded-lg py-1 sm:py-1.5 px-1.5 sm:px-2 min-w-[40px] sm:min-w-[50px] shadow-xs">
+                        <span className="font-mono font-black text-sm sm:text-lg leading-none">
                           {String(timeRemaining.minutes).padStart(2, "0")}
                         </span>
-                        <span className="text-[8px] font-bold uppercase tracking-wider text-slate-400 mt-0.5">
+                        <span className="text-[7px] sm:text-[8px] font-bold uppercase tracking-wider text-slate-400 mt-0.5">
                           Min
                         </span>
                       </div>
 
-                      <span className="font-bold text-slate-400 text-sm">:</span>
+                      <span className="font-bold text-slate-400 text-xs sm:text-sm">:</span>
 
                       {/* Secondes */}
-                      <div className="flex flex-col items-center justify-center bg-afi-red text-white rounded-lg py-1.5 px-2 min-w-[50px] shadow-xs">
-                        <span className="font-mono font-black text-base sm:text-lg leading-none">
+                      <div className="flex flex-col items-center justify-center bg-afi-red text-white rounded-md sm:rounded-lg py-1 sm:py-1.5 px-1.5 sm:px-2 min-w-[40px] sm:min-w-[50px] shadow-xs">
+                        <span className="font-mono font-black text-sm sm:text-lg leading-none">
                           {String(timeRemaining.seconds).padStart(2, "0")}
                         </span>
-                        <span className="text-[8px] font-bold uppercase tracking-wider text-red-200 mt-0.5">
+                        <span className="text-[7px] sm:text-[8px] font-bold uppercase tracking-wider text-red-200 mt-0.5">
                           Sec
                         </span>
                       </div>
                     </div>
                   ) : (
-                    <div className="text-xs font-bold text-emerald-700 bg-white py-1.5 px-3 rounded-lg border border-slate-200 inline-block">
+                    <div className="text-[11px] sm:text-xs font-bold text-emerald-700 bg-white py-1 px-2.5 sm:py-1.5 sm:px-3 rounded-lg border border-slate-200 inline-block">
                       Inscriptions ouvertes dès maintenant !
                     </div>
                   )}
@@ -339,10 +339,10 @@ export function EventLateralPopup({ config }: EventLateralPopupProps) {
                 <Link
                   href={currentSlide.cta_url || "/candidater"}
                   onClick={() => setIsOpen(false)}
-                  className="w-full py-3 px-5 rounded-lg bg-afi-red hover:bg-red-700 text-white text-xs sm:text-sm font-bold tracking-wide transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer active:scale-98"
+                  className="w-full py-2.5 sm:py-3 px-4 sm:px-5 rounded-lg bg-afi-red hover:bg-red-700 text-white text-xs sm:text-sm font-bold tracking-wide transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-1.5 sm:gap-2 group cursor-pointer active:scale-98"
                 >
                   <span>{currentSlide.cta_text}</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               )}
             </div>

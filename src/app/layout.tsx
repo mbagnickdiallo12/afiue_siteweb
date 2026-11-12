@@ -1,8 +1,16 @@
 // AFI-L'UE Site Officiel — Déploiement Vercel Production avec Sophie AI
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import { SiteLayoutWrapper } from "@/components/layout/SiteLayoutWrapper";
+
+// Viewport mobile : désactivation du zoom intempestif au focus d'un champ et garantie de largeur fixe
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
 
 const inter = Inter({
   subsets: ["latin"],
@@ -63,11 +71,11 @@ export default function RootLayout({
     <html
       lang="fr"
       suppressHydrationWarning
-      className={`${inter.variable} ${montserrat.variable} scroll-smooth`}
+      className={`${inter.variable} ${montserrat.variable} scroll-smooth overflow-x-hidden w-full max-w-full`}
     >
       <body
         suppressHydrationWarning
-        className="min-h-screen flex flex-col bg-white text-slate-800 antialiased font-body selection:bg-afi-red selection:text-white"
+        className="min-h-screen flex flex-col bg-white text-slate-800 antialiased font-body selection:bg-afi-red selection:text-white overflow-x-hidden w-full max-w-full relative"
       >
         <SiteLayoutWrapper>{children}</SiteLayoutWrapper>
       </body>
