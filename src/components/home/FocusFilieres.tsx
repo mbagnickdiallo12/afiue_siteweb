@@ -405,7 +405,7 @@ export function FocusFilieres({
               isHoveredRef.current = false;
               setIsPaused(false);
             }}
-            className="flex items-stretch gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden pb-6 pt-1"
+            className="flex items-stretch gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden pt-4 pb-8 -mt-2"
           >
             {filtered.map((filiere) => (
               <div

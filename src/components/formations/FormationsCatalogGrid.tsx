@@ -127,7 +127,7 @@ export function FormationsCatalogGrid({
       <StaggerContainer
         key={currentPage}
         staggerChildren={0.06}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 items-stretch"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 items-stretch pt-2 sm:pt-3 pb-4"
       >
         {paginatedFormations.map((formation) => (
           <StaggerItem key={formation.id} className="h-full flex flex-col">

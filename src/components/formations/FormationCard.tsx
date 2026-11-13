@@ -26,12 +26,13 @@ export function FormationCard({ formation }: FormationCardProps) {
   const imageUrl = formation.image_url || `/images/formations/${formation.slug}.jpg`;
 
   return (
-    <motion.div
-      whileHover={{ y: -6 }}
-      transition={EASINGS.spring}
-      className="group bg-white rounded-xl p-3.5 sm:p-4 border border-slate-200/70 transition-shadow duration-300 hover:shadow-xl hover:border-slate-300 flex flex-col justify-between w-full h-full"
-    >
-      <div className="flex-1 flex flex-col">
+    <div className="pt-2.5 pb-1 h-full w-full flex flex-col">
+      <motion.div
+        whileHover={{ y: -5 }}
+        transition={EASINGS.spring}
+        className="group bg-white rounded-xl p-3.5 sm:p-4 border border-slate-200/70 transition-shadow duration-300 hover:shadow-xl hover:border-slate-300 flex flex-col justify-between w-full h-full relative"
+      >
+        <div className="flex-1 flex flex-col">
         {/* Couverture photo métier originale + dégradé cinématographique AFI + pattern pointillé */}
         <div className="relative w-full aspect-[16/10] rounded-lg overflow-hidden bg-slate-900 shrink-0">
           {/* Photo métier originale */}
@@ -102,5 +103,6 @@ export function FormationCard({ formation }: FormationCardProps) {
         </Link>
       </div>
     </motion.div>
+  </div>
   );
 }

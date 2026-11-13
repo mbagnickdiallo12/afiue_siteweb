@@ -570,7 +570,7 @@ export function CoursDuWeekendView({ formations }: CoursDuWeekendViewProps) {
           </div>
 
           {/* Formations Grid (2 rows of 3 columns = 6 items per page) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2 sm:pt-3 pb-4">
             {paginatedFormations.map((f) => {
               const isMaster = f.level === "master";
               return (

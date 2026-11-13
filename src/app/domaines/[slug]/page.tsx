@@ -120,7 +120,7 @@ export default async function DomainDetailPage({
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch pt-2 sm:pt-3 pb-4">
               {licences.map((f) => (
                 <div key={f.id} className="h-full flex flex-col">
                   <FormationCard formation={f} />
@@ -149,7 +149,7 @@ export default async function DomainDetailPage({
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch pt-2 sm:pt-3 pb-4">
               {masters.map((f) => (
                 <div key={f.id} className="h-full flex flex-col">
                   <FormationCard formation={f} />

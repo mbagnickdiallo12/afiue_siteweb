@@ -326,7 +326,7 @@ export function FormationsCatalogView({
       ) : (
         <div className="space-y-8">
           {/* Grille responsive des formations (3 colonnes) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 items-stretch pt-2 sm:pt-3 pb-4">
             {paginatedFormations.map((formation) => (
               <div key={formation.id} className="h-full flex flex-col">
                 <FormationCard formation={formation} />

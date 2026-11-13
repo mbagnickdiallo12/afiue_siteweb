@@ -573,7 +573,7 @@ export default async function ProgrammeModalityPage({
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch pt-2 sm:pt-3 pb-4">
               {sampleFormations.map((f) => (
                 <div key={f.id} className="h-full flex flex-col">
                   <FormationCard formation={f} />

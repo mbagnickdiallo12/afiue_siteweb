@@ -659,7 +659,7 @@ export default async function FormationDetailPage({
               )}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 items-stretch">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 items-stretch pt-2 sm:pt-3 pb-4">
               {similarFormations.map((f) => (
                 <div key={f.id} className="h-full flex flex-col">
                   <SimilarFormationCard formation={f} />
