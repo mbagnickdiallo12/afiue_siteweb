@@ -16,6 +16,7 @@ import {
   ChevronRight,
   Users,
   Bot,
+  ExternalLink,
 } from "lucide-react";
 import { getAllFormationsAdmin } from "@/lib/services/formations.service";
 import { getAllTestimonialsAdmin } from "@/lib/services/testimonials.service";
@@ -76,57 +77,65 @@ export default async function AdminDashboardPage() {
   return (
     <div className="space-y-8 max-w-7xl mx-auto">
       {/* =========================================================================
-          1. HEADER & ACTIONS RAPIDES
+          1. HEADER ÉPURÉ & ACTIONS ESSENTIELLES (Design Moderne & Équilibré)
           ========================================================================= */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-2">
-        <div className="space-y-1.5">
-          <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest block">
-            Portail d&apos;Administration Centralisé
-          </span>
-          <h1 className="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-slate-900 tracking-tight">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 pb-4 border-b border-slate-200/70">
+        <div className="space-y-1.5 max-w-2xl">
+          <div className="inline-flex items-center gap-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span>Portail Centralisé AFI-L&apos;UE</span>
+          </div>
+          <h1 className="font-heading font-black text-2xl sm:text-3xl text-slate-900 tracking-tight">
             Centre de Contrôle Administratif
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 font-normal leading-relaxed max-w-2xl">
-            Gestion complète et en temps réel de tous les contenus dynamiques de l&apos;Université AFI-L&apos;UE.
+          <p className="text-xs sm:text-sm text-slate-500 font-normal leading-relaxed">
+            Supervision en temps réel des programmes, candidatures et services universitaires.
           </p>
         </div>
 
-        {/* Action Pills */}
-        <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-          <Link
-            href="/admin/formations"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-afi-red hover:bg-red-700 text-white text-xs font-bold tracking-wide shadow-sm hover:shadow transition-all hover:scale-[1.02] active:scale-95"
+        {/* Barre d'actions épurée & hiérarchisée */}
+        <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 shrink-0">
+          <a
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:text-slate-950 hover:bg-slate-50 text-xs font-semibold shadow-2xs transition-all active:scale-95"
+            title="Ouvrir le site public dans un nouvel onglet"
           >
-            <PlusCircle className="w-3.5 h-3.5" />
-            <span>+ Formations</span>
-          </Link>
-          <Link
-            href="/admin/testimonials"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold tracking-wide shadow-sm hover:shadow transition-all hover:scale-[1.02] active:scale-95"
-          >
-            <MessageSquareQuote className="w-3.5 h-3.5" />
-            <span>Témoignages</span>
-          </Link>
+            <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+            <span>Voir le site</span>
+          </a>
+
           <Link
             href="/admin/candidatures"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-afi-navy hover:bg-[#121A38] text-white text-xs font-bold tracking-wide shadow-sm hover:shadow transition-all hover:scale-[1.02] active:scale-95"
+            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:text-slate-950 hover:bg-slate-50 text-xs font-semibold shadow-2xs transition-all active:scale-95"
           >
-            <FileCheck className="w-3.5 h-3.5" />
+            <FileCheck className="w-3.5 h-3.5 text-slate-400" />
             <span>Candidatures</span>
+            {candidaturesEnAttente > 0 && (
+              <span className="px-1.5 py-0.5 rounded-full bg-amber-600 text-white text-[10px] font-bold font-mono">
+                {candidaturesEnAttente}
+              </span>
+            )}
           </Link>
-          <Link
-            href="/admin/utilisateurs"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold tracking-wide shadow-sm hover:shadow transition-all hover:scale-[1.02] active:scale-95"
-          >
-            <Users className="w-3.5 h-3.5" />
-            <span>Utilisateurs</span>
-          </Link>
+
           <Link
             href="/admin/sophie"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold tracking-wide shadow-sm hover:shadow transition-all hover:scale-[1.02] active:scale-95"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:text-slate-950 hover:bg-slate-50 text-xs font-semibold shadow-2xs transition-all active:scale-95"
           >
-            <Bot className="w-3.5 h-3.5" />
-            <span>Agent IA Sophie</span>
+            <Bot className="w-3.5 h-3.5 text-emerald-600" />
+            <span>Sophie AI</span>
+          </Link>
+
+          <Link
+            href="/admin/formations"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-afi-red hover:bg-red-700 text-white text-xs font-bold tracking-wide shadow-xs hover:shadow-md transition-all hover:scale-[1.02] active:scale-95"
+          >
+            <PlusCircle className="w-4 h-4 text-white" />
+            <span>+ Formation</span>
           </Link>
         </div>
       </div>
