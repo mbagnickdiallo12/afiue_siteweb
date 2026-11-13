@@ -174,7 +174,6 @@ export function Header() {
         },
       ],
     },
-    { label: "Contact", href: "/contact" },
   ];
 
   return (
@@ -483,13 +482,22 @@ export function Header() {
                   <span>+221 77 508 87 28</span>
                 </a>
               </div>
-              <a
-                href="mailto:afi@afi-ue.sn"
-                className="flex items-center gap-1.5 hover:text-afi-red transition-colors"
-              >
-                <Mail className="w-3.5 h-3.5 text-slate-400" />
-                <span>afi@afi-ue.sn</span>
-              </a>
+              <div className="flex items-center justify-between gap-2 pt-1">
+                <a
+                  href="mailto:afi@afi-ue.sn"
+                  className="flex items-center gap-1.5 hover:text-afi-red transition-colors"
+                >
+                  <Mail className="w-3.5 h-3.5 text-slate-400" />
+                  <span>afi@afi-ue.sn</span>
+                </a>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-afi-red text-white text-[11px] font-bold tracking-wide uppercase hover:bg-red-700 transition-colors"
+                >
+                  <span>Contact</span>
+                  <ArrowRight className="w-3 h-3" />
+                </Link>
+              </div>
             </div>
           </div>
         )}
