@@ -52,7 +52,51 @@ export async function getArticles(
   return filterArticlesList(published, options);
 }
 
+export async function getArticleBySlug(slug: string): Promise<Article | null> {
+  try {
+    const supabase = await createClient();
+    if (supabase) {
+      const { data, error } = await supabase
+        .from("articles")
+        .select(`*, category:article_categories(*)`)
+        .eq("slug", slug)
+        .maybeSingle();
+
+      if (!error && data) {
+        return data as Article;
+      }
+    }
+  } catch {
+    // fallback to CMS store
+  }
+
+  const store = readCmsStore();
+  const found = store.articles.find((a) => a.slug === slug);
+  if (found) {
+    const cats = store.categories && store.categories.length > 0 ? store.categories : MOCK_CATEGORIES;
+    const cat = cats.find((c) => c.id === found.category_id) || found.category || null;
+    return { ...found, category: cat };
+  }
+  return null;
+}
+
 export async function getAllArticlesAdmin(): Promise<Article[]> {
+  try {
+    const supabase = await createClient();
+    if (supabase) {
+      const { data, error } = await supabase
+        .from("articles")
+        .select(`*, category:article_categories(*)`)
+        .order("created_at", { ascending: false });
+
+      if (!error && data && data.length > 0) {
+        return data as Article[];
+      }
+    }
+  } catch {
+    // fallback
+  }
+
   const store = readCmsStore();
   const cats = store.categories && store.categories.length > 0 ? store.categories : MOCK_CATEGORIES;
   return store.articles
@@ -65,16 +109,68 @@ export async function getAllArticlesAdmin(): Promise<Article[]> {
     );
 }
 
-export async function getArticleBySlug(slug: string): Promise<Article | null> {
-  const store = readCmsStore();
-  const found = store.articles.find((a) => a.slug === slug);
-  return found || null;
-}
-
 export async function getCategories(): Promise<ArticleCategory[]> {
+  try {
+    const supabase = await createClient();
+    if (supabase) {
+      const { data, error } = await supabase
+        .from("article_categories")
+        .select("*")
+        .order("order_index", { ascending: true });
+
+      if (!error && data && data.length > 0) {
+        return data as ArticleCategory[];
+      }
+    }
+  } catch {
+    // fallback
+  }
+
   const store = readCmsStore();
   const cats = store.categories && store.categories.length > 0 ? store.categories : MOCK_CATEGORIES;
   return [...cats].sort((a, b) => a.order_index - b.order_index);
+}
+
+export async function incrementArticleViewCount(slug: string): Promise<number | null> {
+  let updatedCount: number | null = null;
+  try {
+    const supabase = await createClient();
+    if (supabase) {
+      const { data } = await supabase
+        .from("articles")
+        .select("id, view_count")
+        .eq("slug", slug)
+        .maybeSingle();
+
+      if (data) {
+        const nextCount = (data.view_count || 0) + 1;
+        await supabase
+          .from("articles")
+          .update({ view_count: nextCount })
+          .eq("id", data.id);
+        updatedCount = nextCount;
+      }
+    }
+  } catch {
+    // ignore
+  }
+
+  // Also mirror in local CMS store
+  try {
+    const store = readCmsStore();
+    const article = store.articles.find((a) => a.slug === slug);
+    if (article) {
+      article.view_count = (article.view_count || 0) + 1;
+      writeCmsStore(store);
+      if (updatedCount === null) {
+        updatedCount = article.view_count;
+      }
+    }
+  } catch {
+    // ignore
+  }
+
+  return updatedCount;
 }
 
 export async function getAllCategoriesAdmin(): Promise<ArticleCategory[]> {
@@ -191,11 +287,49 @@ export async function saveArticle(article: Partial<Article> & { id?: string }): 
     store.articles.unshift(updated);
   }
 
+  // Sync to Supabase if available
+  try {
+    const supabase = await createClient();
+    if (supabase) {
+      const dbPayload = {
+        id: updated.id,
+        category_id: updated.category_id,
+        author_id: updated.author_id,
+        title: updated.title,
+        slug: updated.slug,
+        excerpt: updated.excerpt,
+        content: updated.content,
+        cover_image_url: updated.cover_image_url,
+        tags: updated.tags,
+        status: updated.status,
+        is_pinned: updated.is_pinned,
+        view_count: updated.view_count,
+        published_at: updated.published_at,
+        meta_title: updated.meta_title,
+        meta_description: updated.meta_description,
+        updated_at: updated.updated_at,
+      };
+      await supabase.from("articles").upsert(dbPayload, { onConflict: "id" });
+    }
+  } catch {
+    // fallback to file
+  }
+
   writeCmsStore(store);
   return updated;
 }
 
 export async function deleteArticle(id: string): Promise<boolean> {
+  // Sync to Supabase if available
+  try {
+    const supabase = await createClient();
+    if (supabase) {
+      await supabase.from("articles").delete().eq("id", id);
+    }
+  } catch {
+    // ignore
+  }
+
   const store = readCmsStore();
   const initialLen = store.articles.length;
   store.articles = store.articles.filter((a) => a.id !== id);

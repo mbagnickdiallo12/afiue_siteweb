@@ -2,6 +2,15 @@ import React from "react";
 import Image from "next/image";
 import { Info, AlertCircle, Lightbulb } from "lucide-react";
 
+export function slugifyHeading(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 interface ArticleContentRendererProps {
   content: string;
   className?: string;
@@ -129,12 +138,15 @@ export function ArticleContentRenderer({
 
     // 3. Headings
     if (line.startsWith("#### ")) {
+      const headingText = line.slice(5).trim();
+      const headingId = slugifyHeading(headingText);
       renderedElements.push(
         <h4
+          id={headingId}
           key={`h4-${i}`}
-          className="font-heading font-bold text-base text-slate-900 mt-6 mb-2"
+          className="scroll-mt-24 font-heading font-bold text-base text-slate-900 mt-6 mb-2"
         >
-          {formatInlineMarkdown(line.slice(5))}
+          {formatInlineMarkdown(headingText)}
         </h4>
       );
       i++;
@@ -142,12 +154,22 @@ export function ArticleContentRenderer({
     }
 
     if (line.startsWith("### ")) {
+      const headingText = line.slice(4).trim();
+      const headingId = slugifyHeading(headingText);
       renderedElements.push(
         <h3
+          id={headingId}
           key={`h3-${i}`}
-          className="font-heading font-black text-lg sm:text-xl text-slate-900 mt-8 mb-3 pt-2"
+          className="scroll-mt-24 font-heading font-black text-lg sm:text-xl text-slate-900 mt-8 mb-3.5 pt-2 flex items-center justify-between group"
         >
-          {formatInlineMarkdown(line.slice(4))}
+          <span>{formatInlineMarkdown(headingText)}</span>
+          <a
+            href={`#${headingId}`}
+            className="text-slate-300 hover:text-afi-red opacity-0 group-hover:opacity-100 transition-opacity text-sm font-normal ml-3"
+            aria-label={`Lien vers ${headingText}`}
+          >
+            #
+          </a>
         </h3>
       );
       i++;
@@ -155,12 +177,22 @@ export function ArticleContentRenderer({
     }
 
     if (line.startsWith("## ")) {
+      const headingText = line.slice(3).trim();
+      const headingId = slugifyHeading(headingText);
       renderedElements.push(
         <h2
+          id={headingId}
           key={`h2-${i}`}
-          className="font-heading font-black text-xl sm:text-2xl text-slate-900 mt-10 mb-4 pb-2 border-b border-slate-100"
+          className="scroll-mt-24 font-heading font-black text-2xl sm:text-3xl text-slate-900 mt-12 mb-5 pb-3 border-b border-slate-100 flex items-center justify-between group"
         >
-          {formatInlineMarkdown(line.slice(3))}
+          <span>{formatInlineMarkdown(headingText)}</span>
+          <a
+            href={`#${headingId}`}
+            className="text-slate-300 hover:text-afi-red opacity-0 group-hover:opacity-100 transition-opacity text-base font-normal ml-3"
+            aria-label={`Lien vers ${headingText}`}
+          >
+            #
+          </a>
         </h2>
       );
       i++;
