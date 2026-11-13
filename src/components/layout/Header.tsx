@@ -132,6 +132,7 @@ export function Header() {
       href: "/executive-education",
     },
     { label: "Recherche", href: "/recherche" },
+    { label: "Mobilité", href: "/mobilite" },
     {
       label: "Nos campus",
       children: [
@@ -211,6 +212,16 @@ export function Header() {
                 <Mail className="w-3 h-3 text-slate-300 group-hover:scale-110 transition-transform" />
                 <span className="text-slate-200">afi@afi-ue.sn</span>
               </a>
+
+              <span className="text-white/20">|</span>
+
+              {/* Bouton Contact simple sans ombrage ni contour avec fond rouge */}
+              <Link
+                href="/contact"
+                className="inline-flex items-center px-3 py-1 rounded-full bg-afi-red hover:bg-red-700 text-white transition-colors text-[10px] font-bold tracking-wider uppercase border-0 shadow-none"
+              >
+                <span>Contact</span>
+              </Link>
 
               <span className="text-white/20">|</span>
 

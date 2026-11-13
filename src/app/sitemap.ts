@@ -22,6 +22,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/universite/vision-et-valeurs",
     "/universite/accreditations",
     "/universite/campus",
+    "/recherche",
+    "/mobilite",
     "/actualites",
     "/contact",
     "/candidater",
