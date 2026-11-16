@@ -448,47 +448,6 @@ export function MobiliteView() {
         supportLinkText="Contactez notre pôle Relations Internationales"
         supportLinkHref="/contact?motif=mobilite"
       />
-
-      {/* =========================================================================
-          8. CONTACT DU PÔLE MOBILITÉ (BANDEAU ACTION)
-          ========================================================================= */}
-      <section className="bg-gradient-to-r from-afi-navy to-slate-950 text-white py-14 sm:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="space-y-2 max-w-2xl text-center md:text-left">
-            <span className="text-xs font-bold uppercase tracking-widest text-afi-red">
-              Bureau des Relations Internationales &amp; Mobilité
-            </span>
-            <h3 className="font-heading font-black text-2xl sm:text-3xl text-white tracking-tight">
-              Un Projet de Mobilité ? Échangeons Ensemble
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Nos conseillers sont à votre écoute pour vous orienter sur les démarches, les bourses, le logement et les universités partenaires.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-4 shrink-0">
-            <a
-              href="mailto:afi@afi-ue.sn"
-              className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-afi-red hover:bg-red-700 text-white text-xs font-bold tracking-wider transition-all shadow-md group"
-            >
-              <span>afi@afi-ue.sn</span>
-              <span className="w-8 h-8 rounded-full bg-white text-afi-red flex items-center justify-center shrink-0">
-                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </span>
-            </a>
-
-            <a
-              href="tel:+221338247110"
-              className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-white hover:bg-slate-50 text-slate-900 text-xs font-bold tracking-wider transition-all shadow-md font-mono group"
-            >
-              <span>+221 33 824 71 10</span>
-              <span className="w-8 h-8 rounded-full bg-[#191D38] group-hover:bg-afi-red text-white flex items-center justify-center shrink-0 transition-colors">
-                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </span>
-            </a>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
