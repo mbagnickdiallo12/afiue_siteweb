@@ -106,15 +106,15 @@ export default function TextRevealFaqs({
   badge = "Questions Fréquentes",
   title = "Tout Ce Que Vous Devez Savoir sur la Mobilité",
   description = "Retrouvez les réponses claires sur les semestres d'échanges, les bourses, les équivalences de crédits LMD et l'accueil international.",
-  supportText = "Vous avez une question particulière sur votre projet d'études ?",
-  supportLinkText = "Contactez le pôle Mobilité",
-  supportLinkHref = "/contact?motif=mobilite",
+  supportText,
+  supportLinkText,
+  supportLinkHref,
 }: TextRevealFaqsProps) {
   return (
     <section className="py-16 md:py-24 bg-white border-y border-slate-200/80">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 md:grid-cols-5 md:gap-14 items-start">
-          {/* Colonne gauche (2 colonnes) : Titre & Contact */}
+          {/* Colonne gauche (2 colonnes) : Titre & Badge */}
           <div className="md:col-span-2 space-y-4">
             {badge && (
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-afi-red text-white text-[11px] font-bold uppercase tracking-wider shadow-xs">
@@ -129,28 +129,30 @@ export default function TextRevealFaqs({
               {description}
             </p>
 
-            <div className="pt-2 hidden md:block border-t border-slate-100">
-              <p className="text-xs text-slate-500">
-                {supportText}{" "}
-                <Link
-                  href={supportLinkHref}
-                  className="text-afi-red font-bold hover:underline inline-flex items-center gap-1 mt-1 transition-colors"
-                >
-                  <span>{supportLinkText}</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </p>
-            </div>
+            {supportText && supportLinkText && supportLinkHref && (
+              <div className="pt-2 hidden md:block border-t border-slate-100">
+                <p className="text-xs text-slate-500">
+                  {supportText}{" "}
+                  <Link
+                    href={supportLinkHref}
+                    className="text-afi-red font-bold hover:underline inline-flex items-center gap-1 mt-1 transition-colors"
+                  >
+                    <span>{supportLinkText}</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </p>
+              </div>
+            )}
           </div>
 
-          {/* Colonne droite (3 colonnes) : Accordéon avec effet BlurredStagger */}
-          <div className="md:col-span-3 bg-white rounded-2xl border border-slate-200/80 p-4 sm:p-6 shadow-xs">
-            <Accordion type="single" collapsible defaultValue="faq-1" className="w-full divide-y divide-slate-100">
+          {/* Colonne droite (3 colonnes) : Accordéon épuré sans contour extérieur */}
+          <div className="md:col-span-3">
+            <Accordion type="single" collapsible defaultValue="faq-1" className="w-full">
               {items.map((item) => (
                 <AccordionItem
                   key={item.id}
                   value={item.id}
-                  className="border-b border-slate-100 last:border-b-0 py-1"
+                  className="border-b border-slate-200 last:border-b-0 py-1"
                 >
                   <AccordionTrigger className="cursor-pointer text-left text-xs sm:text-sm font-bold text-slate-900 hover:text-afi-red hover:no-underline transition-colors py-4 group">
                     <span className="pr-4 leading-snug group-hover:text-afi-red transition-colors">
@@ -165,19 +167,21 @@ export default function TextRevealFaqs({
             </Accordion>
           </div>
 
-          {/* Lien support sur mobile */}
-          <div className="md:hidden pt-2 border-t border-slate-100">
-            <p className="text-xs text-slate-500">
-              {supportText}{" "}
-              <Link
-                href={supportLinkHref}
-                className="text-afi-red font-bold hover:underline inline-flex items-center gap-1 mt-1 transition-colors"
-              >
-                <span>{supportLinkText}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </p>
-          </div>
+          {/* Lien support sur mobile uniquement si fourni */}
+          {supportText && supportLinkText && supportLinkHref && (
+            <div className="md:hidden pt-2 border-t border-slate-100">
+              <p className="text-xs text-slate-500">
+                {supportText}{" "}
+                <Link
+                  href={supportLinkHref}
+                  className="text-afi-red font-bold hover:underline inline-flex items-center gap-1 mt-1 transition-colors"
+                >
+                  <span>{supportLinkText}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </section>

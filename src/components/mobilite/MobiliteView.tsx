@@ -423,9 +423,6 @@ export function MobiliteView() {
         badge="Questions Fréquentes"
         title="Tout Ce Que Vous Devez Savoir sur la Mobilité"
         description="Retrouvez toutes les réponses essentielles sur les échanges universitaires, l'accueil des étudiants étrangers, la reconnaissance des crédits ECTS et les stages internationaux."
-        supportText="Vous avez une question particulière sur votre projet d'études ?"
-        supportLinkText="Contactez notre pôle Relations Internationales"
-        supportLinkHref="/contact?motif=mobilite"
       />
     </div>
   );
