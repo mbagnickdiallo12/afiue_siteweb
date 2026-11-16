@@ -389,25 +389,33 @@ export function readCmsStore(): CmsStoreData {
             return {
               ...seed,
               ...stored,
-              mention: stored.mention ?? seed.mention,
-              specialty: stored.specialty ?? seed.specialty,
-              domaine: stored.domaine ?? seed.domaine,
-              grade: stored.grade ?? seed.grade,
-              duration_label: stored.duration_label ?? seed.duration_label,
+              mention: seed.mention ?? stored.mention,
+              specialty: seed.specialty ?? stored.specialty,
+              domaine: seed.domaine ?? stored.domaine,
+              grade: seed.grade ?? stored.grade,
+              duration_label: seed.duration_label ?? stored.duration_label,
+              description: seed.description ?? stored.description,
+              objectives: seed.objectives ?? stored.objectives,
+              curriculum: seed.curriculum ?? stored.curriculum,
               program_blocks:
-                stored.program_blocks && stored.program_blocks.length > 0
-                  ? stored.program_blocks
-                  : seed.program_blocks,
+                seed.program_blocks && seed.program_blocks.length > 0
+                  ? seed.program_blocks
+                  : stored.program_blocks,
+              career_opportunities:
+                seed.career_opportunities ?? stored.career_opportunities,
               career_opportunities_list:
-                stored.career_opportunities_list &&
-                stored.career_opportunities_list.length > 0
-                  ? stored.career_opportunities_list
-                  : seed.career_opportunities_list,
+                seed.career_opportunities_list &&
+                seed.career_opportunities_list.length > 0
+                  ? seed.career_opportunities_list
+                  : stored.career_opportunities_list,
+              admission_requirements:
+                seed.admission_requirements ?? stored.admission_requirements,
               admission_conditions_list:
-                stored.admission_conditions_list &&
-                stored.admission_conditions_list.length > 0
-                  ? stored.admission_conditions_list
-                  : seed.admission_conditions_list,
+                seed.admission_conditions_list &&
+                seed.admission_conditions_list.length > 0
+                  ? seed.admission_conditions_list
+                  : stored.admission_conditions_list,
+              brochure_url: seed.brochure_url ?? stored.brochure_url,
               tuition_summary: stored.tuition_summary ?? seed.tuition_summary,
               tuition_tiers:
                 stored.tuition_tiers && stored.tuition_tiers.length > 0

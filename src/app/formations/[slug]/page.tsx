@@ -58,7 +58,30 @@ const ACRONYMS = new Set([
   "BAF",
   "CCA",
   "ACG",
+  "AJF",
+  "BPI",
+  "FIMB",
+  "GELO",
+  "GFCE",
   "GRH",
+  "MRH",
+  "IF",
+  "IJF",
+  "LMP",
+  "MAI",
+  "SMI",
+  "MMC",
+  "MO2S",
+  "SCM",
+  "SRT",
+  "IA",
+  "BI",
+  "DEVWEB",
+  "LEAGE",
+  "MJF",
+  "GFAE",
+  "GL",
+  "GSE",
   "MCV",
   "CI",
   "TL",
@@ -214,11 +237,24 @@ export default async function FormationDetailPage({
 
           {/* Identité & Titre complet de la formation */}
           <div className="space-y-4">
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-center justify-between gap-3">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-white text-[11px] font-semibold uppercase tracking-wider border border-white/15">
                 {formation.grade || formation.level.toUpperCase()} •{" "}
                 {formation.duration_years === 3 ? "BAC+3" : "BAC+5"}
               </span>
+
+              {formation.brochure_url && (
+                <a
+                  href={formation.brochure_url}
+                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md text-white text-xs font-semibold border border-white/20 transition-all"
+                >
+                  <Download className="w-3.5 h-3.5 shrink-0" />
+                  <span>Télécharger la fiche (PDF)</span>
+                </a>
+              )}
             </div>
 
             <h1 className="font-sans font-bold text-2xl sm:text-3xl md:text-4xl lg:text-[40px] text-white tracking-tight leading-tight sm:leading-snug text-balance">
@@ -324,9 +360,9 @@ export default async function FormationDetailPage({
                 <h2 className="font-sans font-bold text-2xl sm:text-3xl text-[#0B0F19] tracking-tight">
                   Objectifs & Vision Pédagogique
                 </h2>
-                <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                <div className="text-slate-600 text-sm sm:text-base leading-relaxed whitespace-pre-line">
                   {formation.description}
-                </p>
+                </div>
               </div>
 
               {/* Débouchés Professionnels en Bento Cards */}

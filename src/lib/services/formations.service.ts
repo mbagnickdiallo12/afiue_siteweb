@@ -116,16 +116,44 @@ export async function getFormations(
     }
 
     const { data, error } = await query;
+    const storeFormations = readCmsStore().formations;
     if (error || !data || data.length === 0) {
-      return filterMockFormations(readCmsStore().formations, filters);
+      return filterMockFormations(storeFormations, filters);
     }
 
-    // If database still has partial seed (<30 formations), use complete dynamic catalogue
-    if (!filters && data.length < 30) {
-      return filterMockFormations(readCmsStore().formations, filters);
+    // If database has partial seed (<35 formations), use complete dynamic catalogue
+    const fullStoreFiltered = filterMockFormations(storeFormations, filters);
+    if (data.length < fullStoreFiltered.length) {
+      return fullStoreFiltered;
     }
 
-    return data as Formation[];
+    return (data as Formation[]).map((dbItem) => {
+      const storeMatch = storeFormations.find(
+        (sf) => sf.slug === dbItem.slug || sf.id === dbItem.id
+      );
+      if (!storeMatch) return dbItem;
+      return {
+        ...storeMatch,
+        ...dbItem,
+        mention: storeMatch.mention || dbItem.mention,
+        description: storeMatch.description || dbItem.description,
+        program_blocks:
+          storeMatch.program_blocks && storeMatch.program_blocks.length > 0
+            ? storeMatch.program_blocks
+            : dbItem.program_blocks,
+        career_opportunities_list:
+          storeMatch.career_opportunities_list &&
+          storeMatch.career_opportunities_list.length > 0
+            ? storeMatch.career_opportunities_list
+            : dbItem.career_opportunities_list,
+        admission_conditions_list:
+          storeMatch.admission_conditions_list &&
+          storeMatch.admission_conditions_list.length > 0
+            ? storeMatch.admission_conditions_list
+            : dbItem.admission_conditions_list,
+        brochure_url: storeMatch.brochure_url || dbItem.brochure_url,
+      };
+    });
   } catch {
     return filterMockFormations(MOCK_FORMATIONS, filters);
   }
