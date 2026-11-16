@@ -126,6 +126,12 @@ export function Header({ settings }: { settings?: SiteSettings }) {
           badge: "600h",
         },
         {
+          label: "Mobilité Internationale",
+          href: "/mobilite",
+          desc: "Échanges étudiants, doubles diplômes & 26+ nationalités",
+          badge: "Monde",
+        },
+        {
           label: "Tous les Domaines Scientifiques",
           href: "/domaines",
           desc: "Gestion, Technologies, Juridique, Communication",

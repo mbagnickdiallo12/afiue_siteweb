@@ -12,6 +12,7 @@ import {
   BookOpen,
   Briefcase,
   Calendar,
+  Globe2,
 } from "lucide-react";
 
 interface ProgrammesMegaMenuProps {
@@ -201,6 +202,12 @@ export function ProgrammesMegaMenu({ onClose }: ProgrammesMegaMenuProps) {
       href: "/presup",
       icon: Languages,
     },
+    {
+      title: "Mobilité Internationale",
+      href: "/mobilite",
+      icon: Globe2,
+      isBusinessGrey: true,
+    },
   ];
 
   return (
@@ -301,14 +308,19 @@ export function ProgrammesMegaMenu({ onClose }: ProgrammesMegaMenuProps) {
               </h3>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {otherModalities.map((item) => {
                 const IconComponent = item.icon;
+                const isBusinessGrey = item.isBusinessGrey;
                 return (
                   <Link
                     key={item.title}
                     href={item.href}
-                    className="flex items-center justify-between gap-4 px-5 py-3.5 sm:py-4 min-h-[54px] rounded-2xl bg-[#191D38] hover:bg-[#222A5C] text-white border border-[#222A5C] hover:border-afi-red/50 shadow-sm hover:shadow-md transition-all text-xs sm:text-[13px] font-semibold group"
+                    className={`flex items-center justify-between gap-3.5 px-4.5 py-3 min-h-[48px] rounded-2xl text-white border shadow-sm hover:shadow-md transition-all text-xs sm:text-[13px] font-semibold group ${
+                      isBusinessGrey
+                        ? "bg-slate-700 hover:bg-slate-800 border-slate-600 hover:border-afi-red/50 shadow-slate-900/10"
+                        : "bg-[#191D38] hover:bg-[#222A5C] border-[#222A5C] hover:border-afi-red/50"
+                    }`}
                   >
                     <div className="flex items-center gap-3.5 min-w-0">
                       <IconComponent className="w-5 h-5 text-afi-red shrink-0 group-hover:scale-110 transition-transform" />
