@@ -4,6 +4,7 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
+  ArrowUpRight,
   BookOpen,
   Search,
   X,
@@ -451,11 +452,12 @@ export function FocusFilieres({
           {/* Right: Discovery Button */}
           <Link
             href="/formations"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 shadow-sm transition-all hover:scale-105"
+            className="inline-flex items-center justify-between gap-3.5 pl-5 pr-1.5 py-1.5 rounded-full bg-[#191D38] hover:bg-afi-red text-xs sm:text-sm font-semibold text-white shadow-sm transition-all hover:scale-[1.02] group"
           >
-            <BookOpen className="w-4 h-4 text-afi-red" />
             <span>Explorer toutes les formations</span>
-            <ArrowRight className="w-4 h-4" />
+            <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-[#191D38] group-hover:text-afi-red flex items-center justify-center shrink-0 transition-colors">
+              <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </span>
           </Link>
         </div>
       </div>

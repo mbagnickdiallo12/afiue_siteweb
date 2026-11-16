@@ -8,6 +8,7 @@ import {
   ChevronLeft,
   ChevronRight,
   ArrowRight,
+  ArrowUpRight,
   Clock,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
@@ -339,10 +340,12 @@ export function EventLateralPopup({ config }: EventLateralPopupProps) {
                 <Link
                   href={currentSlide.cta_url || "/candidater"}
                   onClick={() => setIsOpen(false)}
-                  className="w-full py-2.5 sm:py-3 px-4 sm:px-5 rounded-lg bg-afi-red hover:bg-red-700 text-white text-xs sm:text-sm font-bold tracking-wide transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-1.5 sm:gap-2 group cursor-pointer active:scale-98"
+                  className="w-full pl-5 pr-1.5 py-1.5 rounded-full bg-afi-red hover:bg-[#191D38] text-white text-xs sm:text-sm font-bold tracking-wide transition-all shadow-md hover:shadow-lg flex items-center justify-between gap-2 group cursor-pointer active:scale-98"
                 >
-                  <span>{currentSlide.cta_text}</span>
-                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
+                  <span className="truncate">{currentSlide.cta_text}</span>
+                  <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-afi-red group-hover:text-[#191D38] flex items-center justify-center shrink-0 transition-colors">
+                    <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </span>
                 </Link>
               )}
             </div>

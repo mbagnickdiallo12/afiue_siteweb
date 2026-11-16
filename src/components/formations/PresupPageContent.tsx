@@ -8,6 +8,7 @@ import {
   Check,
   Download,
   ArrowRight,
+  ArrowUpRight,
   Award,
   Clock,
   Calendar,
@@ -88,10 +89,12 @@ export function PresupPageContent() {
           <div className="pt-4 flex flex-wrap items-center justify-center gap-3.5">
             <Link
               href="/candidater?formation=presup"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#C8232C] hover:bg-[#a61b23] text-white text-xs sm:text-sm font-semibold shadow-lg transition-all"
+              className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-[#C8232C] hover:bg-[#a61b23] text-white text-xs sm:text-sm font-semibold shadow-lg transition-all group"
             >
               <span>Candidater au programme PRESUP</span>
-              <ArrowRight className="w-4 h-4" />
+              <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-[#C8232C] flex items-center justify-center shrink-0">
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
             </Link>
 
             <a
@@ -99,10 +102,12 @@ export function PresupPageContent() {
               download
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs sm:text-sm font-medium border border-white/15 backdrop-blur-md transition-all"
+              className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-white hover:bg-slate-50 text-slate-900 text-xs sm:text-sm font-semibold shadow-md transition-all group"
             >
-              <Download className="w-4 h-4" />
               <span>Télécharger dossier candidature</span>
+              <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#191D38] group-hover:bg-[#C8232C] text-white flex items-center justify-center shrink-0 transition-colors">
+                <Download className="w-4 h-4" />
+              </span>
             </a>
           </div>
         </div>
@@ -320,18 +325,22 @@ export function PresupPageContent() {
                   download
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 text-[#C8232C] border border-slate-200 shadow-sm text-xs sm:text-sm font-bold transition-all"
+                  className="inline-flex items-center justify-between gap-3.5 pl-5 pr-1.5 py-1.5 rounded-full bg-white hover:bg-slate-50 text-[#0B0F19] border border-slate-200 shadow-sm text-xs sm:text-sm font-bold transition-all group"
                 >
-                  <Download className="w-4 h-4" />
                   <span>Télécharger dossier candidature</span>
+                  <span className="w-8 h-8 rounded-full bg-[#C8232C] text-white flex items-center justify-center shrink-0">
+                    <Download className="w-4 h-4" />
+                  </span>
                 </a>
 
                 <Link
                   href="/candidater?formation=presup"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#0B0F19] hover:bg-slate-800 text-white text-xs sm:text-sm font-semibold transition-all"
+                  className="inline-flex items-center justify-between gap-3.5 pl-5 pr-1.5 py-1.5 rounded-full bg-[#0B0F19] hover:bg-[#C8232C] text-white text-xs sm:text-sm font-semibold transition-all group"
                 >
                   <span>Postuler en ligne</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <span className="w-8 h-8 rounded-full bg-white text-[#0B0F19] group-hover:text-[#C8232C] flex items-center justify-center shrink-0 transition-colors">
+                    <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </span>
                 </Link>
               </div>
             </div>

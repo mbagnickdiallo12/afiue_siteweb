@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { FadeIn, ScaleIn } from "@/components/ui/motion";
 
 export function HomeCtaBanner() {
@@ -31,18 +31,22 @@ export function HomeCtaBanner() {
               <FadeIn delay={0.15} className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 w-full sm:w-auto">
                 <Link
                   href="/candidater"
-                  className="w-full sm:w-auto group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-afi-red hover:bg-afi-red-800 text-white font-bold text-sm shadow-xl shadow-afi-red/30 transition-all hover:scale-105 active:scale-95 cursor-pointer"
+                  className="w-full sm:w-auto group inline-flex items-center justify-between gap-4 pl-6 pr-1.5 py-1.5 rounded-full bg-afi-red hover:bg-red-700 text-white font-bold text-xs sm:text-sm shadow-xl shadow-afi-red/30 transition-all hover:scale-[1.02] active:scale-95 cursor-pointer"
                 >
                   <span>Déposer ma candidature</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <span className="w-9 h-9 rounded-full bg-white text-afi-red flex items-center justify-center shrink-0">
+                    <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </span>
                 </Link>
 
                 <Link
                   href="/contact"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/15 text-white font-semibold text-sm backdrop-blur-sm transition-all"
+                  className="w-full sm:w-auto group inline-flex items-center justify-between gap-4 pl-6 pr-1.5 py-1.5 rounded-full bg-white hover:bg-slate-50 text-slate-900 font-semibold text-xs sm:text-sm shadow-lg transition-all hover:scale-[1.02] active:scale-95"
                 >
-                  <Phone className="w-4 h-4 text-slate-300" />
                   <span>Parler à un conseiller</span>
+                  <span className="w-9 h-9 rounded-full bg-[#191D38] group-hover:bg-afi-red text-white flex items-center justify-center shrink-0 transition-colors">
+                    <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </span>
                 </Link>
               </FadeIn>
             </div>

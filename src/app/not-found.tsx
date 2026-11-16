@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GraduationCap, Home } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 
 export default function NotFound() {
@@ -26,18 +26,22 @@ export default function NotFound() {
         <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
           <Link
             href="/"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-afi-navy text-white text-xs font-bold hover:bg-afi-navy-800 transition-colors"
+            className="w-full sm:w-auto inline-flex items-center justify-between gap-3.5 pl-5 pr-1.5 py-1.5 rounded-full bg-afi-navy hover:bg-slate-900 text-white text-xs font-bold transition-all group"
           >
-            <Home className="w-4 h-4" />
             <span>Page d&apos;accueil</span>
+            <span className="w-8 h-8 rounded-full bg-white text-afi-navy flex items-center justify-center shrink-0">
+              <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </span>
           </Link>
 
           <Link
             href="/formations"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-afi-red text-white text-xs font-bold hover:bg-afi-red-800 transition-colors shadow-sm"
+            className="w-full sm:w-auto inline-flex items-center justify-between gap-3.5 pl-5 pr-1.5 py-1.5 rounded-full bg-afi-red hover:bg-red-700 text-white text-xs font-bold transition-all shadow-sm group"
           >
-            <GraduationCap className="w-4 h-4" />
             <span>Catalogue des formations</span>
+            <span className="w-8 h-8 rounded-full bg-white text-afi-red flex items-center justify-center shrink-0">
+              <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </span>
           </Link>
         </div>
       </div>

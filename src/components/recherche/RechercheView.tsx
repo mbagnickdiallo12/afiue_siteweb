@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
+  ArrowUpRight,
   ChevronRight,
   BookOpen,
   Layers,
@@ -267,16 +268,21 @@ export function RechercheView() {
               <div className="flex flex-wrap items-center gap-4 pt-2">
                 <Link
                   href="/candidater"
-                  className="px-7 py-3.5 rounded-full bg-afi-red hover:bg-red-700 text-white text-xs sm:text-sm font-bold tracking-wide transition-all shadow-lg shadow-afi-red/25 active:scale-95 inline-flex items-center gap-2"
+                  className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-afi-red hover:bg-red-700 text-white text-xs sm:text-sm font-bold tracking-wide transition-all shadow-lg shadow-afi-red/25 active:scale-95 group"
                 >
                   <span>Rejoignez-nous</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-afi-red flex items-center justify-center shrink-0">
+                    <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </span>
                 </Link>
                 <a
                   href="#axes-recherche"
-                  className="px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs sm:text-sm font-semibold tracking-wide border border-white/15 transition-all"
+                  className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-white hover:bg-slate-50 text-slate-900 text-xs sm:text-sm font-semibold tracking-wide shadow-md transition-all group"
                 >
-                  Explorer les axes de recherche
+                  <span>Explorer les axes de recherche</span>
+                  <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#191D38] group-hover:bg-afi-red text-white flex items-center justify-center shrink-0 transition-colors">
+                    <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </span>
                 </a>
               </div>
 

@@ -11,6 +11,7 @@ import {
   CheckCircle2,
   AlertCircle,
   ArrowRight,
+  ArrowUpRight,
   ArrowLeft,
   Download,
   Printer,
@@ -1807,19 +1808,23 @@ export function CandidatureMultiStepForm({ formations, initialFormationSlug }: P
             <button
               type="button"
               onClick={handleNext}
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-slate-900 hover:bg-black text-white text-xs font-bold tracking-wide transition-all shadow-sm hover:shadow active:scale-98 cursor-pointer w-full sm:w-auto sm:ml-auto"
+              className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-[#191D38] hover:bg-afi-red text-white text-xs sm:text-sm font-bold tracking-wide transition-all shadow-sm hover:shadow active:scale-98 cursor-pointer w-full sm:w-auto sm:ml-auto group"
             >
               <span>Continuer</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-[#191D38] group-hover:text-afi-red flex items-center justify-center shrink-0 transition-colors">
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
             </button>
           ) : (
             <button
               type="submit"
               disabled={isPending}
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-afi-red hover:bg-red-700 disabled:opacity-60 text-white text-xs sm:text-sm font-bold tracking-wide transition-all shadow-md shadow-afi-red/20 active:scale-98 cursor-pointer w-full sm:w-auto sm:ml-auto"
+              className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-afi-red hover:bg-[#191D38] disabled:opacity-60 text-white text-xs sm:text-sm font-bold tracking-wide transition-all shadow-md shadow-afi-red/20 active:scale-98 cursor-pointer w-full sm:w-auto sm:ml-auto group"
             >
-              <ShieldCheck className="w-4 h-4" />
               <span>{isPending ? "Validation du dossier..." : "Valider & Déposer ma Candidature"}</span>
+              <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-afi-red group-hover:text-[#191D38] flex items-center justify-center shrink-0 transition-colors">
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
             </button>
           )}
         </div>

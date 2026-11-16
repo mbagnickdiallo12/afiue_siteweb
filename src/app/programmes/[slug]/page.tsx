@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import {
   ArrowRight,
+  ArrowUpRight,
   ChevronRight,
   Clock,
   Wallet,
@@ -535,25 +536,28 @@ export default async function ProgrammeModalityPage({
               ))}
             </ul>
 
-            <div className="pt-4 flex flex-col sm:flex-row items-center gap-3">
+            <div className="pt-4 flex flex-col sm:flex-row items-center gap-3.5">
               <a
                 href={data.brochureUrl}
                 download
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-3 sm:py-3.5 rounded-full bg-white hover:bg-slate-50 text-[#C8232C] border border-slate-200 text-xs sm:text-sm font-bold shadow-xs transition-all text-center"
+                className="w-full sm:w-auto inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-white hover:bg-slate-50 text-[#0B0F19] border border-slate-200 text-xs sm:text-sm font-bold shadow-xs transition-all group"
               >
-                <Download className="w-4 h-4 shrink-0" />
                 <span>Télécharger la fiche tarifaire 2026-2027 (PDF)</span>
+                <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#191D38] group-hover:bg-[#C8232C] text-white flex items-center justify-center shrink-0 transition-colors">
+                  <Download className="w-4 h-4" />
+                </span>
               </a>
 
               <Link
                 href="/admissions"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-3 sm:py-3.5 rounded-full bg-[#C8232C] hover:bg-[#a61b23] text-white text-xs sm:text-sm font-bold shadow-xs transition-all text-center"
+                className="w-full sm:w-auto inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-[#C8232C] hover:bg-[#191D38] text-white text-xs sm:text-sm font-bold shadow-xs transition-all group"
               >
-                <GraduationCap className="w-4 h-4 shrink-0" />
                 <span>Démarrer la demande de candidature</span>
-                <ArrowRight className="w-4 h-4 shrink-0" />
+                <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-[#C8232C] group-hover:text-[#191D38] flex items-center justify-center shrink-0 transition-colors">
+                  <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </span>
               </Link>
             </div>
           </div>

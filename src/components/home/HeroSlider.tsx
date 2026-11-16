@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import { HomepageSlide } from "@/types/database";
 import { DotPattern } from "@/components/ui/dot-pattern";
 import { cn } from "@/lib/utils";
@@ -144,21 +144,26 @@ export function HeroSlider({ slides }: HeroSliderProps) {
 
                 {/* Mobile-Adapted Action Buttons (Full-width stacked on mobile, row on tablet/desktop) */}
                 {slide.cta_primary_text && slide.cta_primary_url && (
-                  <div className="pt-2 sm:pt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5 sm:gap-4 w-full sm:w-auto max-w-xs sm:max-w-none mx-auto animate-in fade-in slide-in-from-bottom-5 duration-700">
+                  <div className="pt-2 sm:pt-4 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto max-w-xs sm:max-w-none mx-auto animate-in fade-in slide-in-from-bottom-5 duration-700">
                     <Link
                       href={slide.cta_primary_url}
-                      className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-white text-afi-red hover:bg-slate-100 active:bg-slate-200 font-bold text-xs sm:text-sm uppercase tracking-wider shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all text-center"
+                      className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-white hover:bg-slate-50 text-slate-900 font-bold text-xs sm:text-sm shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-95 transition-all group"
                     >
                       <span>{slide.cta_primary_text}</span>
-                      <ArrowRight className="w-4 h-4 text-afi-red shrink-0" />
+                      <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-afi-red group-hover:bg-[#191D38] text-white flex items-center justify-center shrink-0 transition-colors duration-300">
+                        <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </span>
                     </Link>
 
                     {slide.cta_secondary_text && slide.cta_secondary_url && (
                       <Link
                         href={slide.cta_secondary_url}
-                        className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3.5 rounded-full bg-white/15 hover:bg-white/25 active:bg-white/30 text-white font-semibold text-xs sm:text-sm backdrop-blur-md border border-white/25 transition-all text-center"
+                        className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-afi-red hover:bg-red-700 text-white font-semibold text-xs sm:text-sm shadow-lg hover:scale-[1.02] active:scale-95 transition-all group"
                       >
                         <span>{slide.cta_secondary_text}</span>
+                        <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-afi-red flex items-center justify-center shrink-0">
+                          <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        </span>
                       </Link>
                     )}
                   </div>

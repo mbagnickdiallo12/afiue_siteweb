@@ -14,6 +14,7 @@ import {
   Cpu,
   CheckCircle2,
   ArrowRight,
+  ArrowUpRight,
   ChevronRight,
   Users,
   Building2,
@@ -226,16 +227,21 @@ export function ExecutiveEducationView({ formations: _formations }: ExecutiveEdu
           <div className="flex flex-wrap items-center gap-4 pt-2">
             <Link
               href="/candidater"
-              className="px-7 py-3.5 rounded-full bg-afi-red hover:bg-red-700 text-white text-xs sm:text-sm font-bold tracking-wide transition-all shadow-lg active:scale-95 flex items-center gap-2"
+              className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-afi-red hover:bg-red-700 text-white text-xs sm:text-sm font-bold tracking-wide transition-all shadow-lg active:scale-95 group"
             >
               <span>Candidater en session continue</span>
-              <ArrowRight className="w-4 h-4" />
+              <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-afi-red flex items-center justify-center shrink-0">
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
             </Link>
             <Link
               href="/contact?motif=executive-education"
-              className="px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold tracking-wide border border-white/15 transition-all"
+              className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-white hover:bg-slate-50 text-slate-900 text-xs sm:text-sm font-semibold tracking-wide shadow-md transition-all group"
             >
-              Demander un devis entreprise
+              <span>Demander un devis entreprise</span>
+              <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#191D38] group-hover:bg-afi-red text-white flex items-center justify-center shrink-0 transition-colors">
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
             </Link>
           </div>
 
@@ -486,17 +492,21 @@ export function ExecutiveEducationView({ formations: _formations }: ExecutiveEdu
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
             <Link
               href="/candidater"
-              className="px-8 py-3.5 rounded-full bg-afi-red hover:bg-red-700 text-white text-xs font-bold tracking-wide transition-all shadow-md active:scale-95 flex items-center gap-2"
+              className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-afi-red hover:bg-red-700 text-white text-xs sm:text-sm font-bold tracking-wide transition-all shadow-md active:scale-95 group"
             >
-              <FileCheck2 className="w-4 h-4" />
               <span>Déposer sa candidature</span>
+              <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-afi-red flex items-center justify-center shrink-0">
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
             </Link>
             <Link
               href="/contact?motif=executive-education"
-              className="px-8 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-semibold tracking-wide border border-white/15 transition-all flex items-center gap-2"
+              className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-white hover:bg-slate-50 text-slate-900 text-xs sm:text-sm font-semibold tracking-wide shadow-md transition-all group"
             >
-              <Users className="w-4 h-4" />
               <span>Demander un devis entreprise</span>
+              <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#191D38] group-hover:bg-afi-red text-white flex items-center justify-center shrink-0 transition-colors">
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
             </Link>
           </div>
         </div>

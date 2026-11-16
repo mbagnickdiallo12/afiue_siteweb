@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ChevronDown, ArrowRight, Clock, Info } from "lucide-react";
+import { ChevronDown, ArrowRight, ArrowUpRight, Clock, Info } from "lucide-react";
 import { Formation } from "@/types/database";
 
 interface FormationPricingGridProps {
@@ -435,10 +435,12 @@ export function FormationPricingGrid({ formation }: FormationPricingGridProps) {
 
                       <Link
                         href={`/candidater/${formation.slug}?mode=${plan.id}`}
-                        className="w-full sm:w-auto px-7 py-2.5 rounded-full text-xs font-bold transition-all text-center flex items-center justify-center gap-2 active:scale-95 bg-[#0B0F19] hover:bg-[#C8232C] text-white shadow-xs hover:shadow-md cursor-pointer whitespace-nowrap"
+                        className="w-full sm:w-auto pl-5 pr-1.5 py-1.5 rounded-full text-xs font-bold transition-all flex items-center justify-between gap-3 active:scale-95 bg-[#0B0F19] hover:bg-[#C8232C] text-white shadow-xs hover:shadow-md cursor-pointer whitespace-nowrap group"
                       >
                         <span>Candidater</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
+                        <span className="w-7 h-7 rounded-full bg-white text-[#0B0F19] group-hover:text-[#C8232C] flex items-center justify-center shrink-0 transition-colors">
+                          <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        </span>
                       </Link>
                     </div>
                   </div>

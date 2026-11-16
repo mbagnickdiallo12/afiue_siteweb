@@ -10,6 +10,7 @@ import {
   Building2,
   CheckCircle2,
   ArrowRight,
+  ArrowUpRight,
   ChevronRight,
   ShieldCheck,
   FileText,
@@ -198,18 +199,22 @@ export function MobiliteView() {
           <div className="flex flex-wrap items-center gap-4 pt-2">
             <Link
               href="/candidater"
-              className="px-6 sm:px-8 py-3.5 rounded-full bg-afi-red hover:bg-red-700 text-white text-xs sm:text-sm font-bold tracking-wide uppercase transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-98 inline-flex items-center gap-2 group"
+              className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-afi-red hover:bg-red-700 text-white text-xs sm:text-sm font-bold tracking-wide transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-98 group"
             >
               <span>Candidater à AFI-L&apos;UE</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-afi-red flex items-center justify-center shrink-0">
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
             </Link>
 
             <Link
               href="/contact"
-              className="px-6 sm:px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-bold tracking-wide uppercase transition-all border border-white/20 backdrop-blur-md inline-flex items-center gap-2"
+              className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-white hover:bg-slate-50 text-slate-900 text-xs sm:text-sm font-bold tracking-wide transition-all shadow-md hover:scale-[1.02] group"
             >
-              <Mail className="w-4 h-4 text-slate-300" />
               <span>Contacter le pôle mobilité</span>
+              <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#191D38] group-hover:bg-afi-red text-white flex items-center justify-center shrink-0 transition-colors">
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
             </Link>
           </div>
         </div>
@@ -502,18 +507,22 @@ export function MobiliteView() {
           <div className="flex flex-wrap items-center justify-center gap-4 shrink-0">
             <a
               href="mailto:afi@afi-ue.sn"
-              className="px-6 py-3.5 rounded-full bg-afi-red hover:bg-red-700 text-white text-xs font-bold tracking-wider uppercase transition-all shadow-md inline-flex items-center gap-2"
+              className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-afi-red hover:bg-red-700 text-white text-xs font-bold tracking-wider transition-all shadow-md group"
             >
-              <Mail className="w-4 h-4" />
               <span>afi@afi-ue.sn</span>
+              <span className="w-8 h-8 rounded-full bg-white text-afi-red flex items-center justify-center shrink-0">
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
             </a>
 
             <a
               href="tel:+221338247110"
-              className="px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-bold tracking-wider uppercase transition-all border border-white/15 inline-flex items-center gap-2 font-mono"
+              className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-white hover:bg-slate-50 text-slate-900 text-xs font-bold tracking-wider transition-all shadow-md font-mono group"
             >
-              <Phone className="w-4 h-4" />
               <span>+221 33 824 71 10</span>
+              <span className="w-8 h-8 rounded-full bg-[#191D38] group-hover:bg-afi-red text-white flex items-center justify-center shrink-0 transition-colors">
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
             </a>
           </div>
         </div>

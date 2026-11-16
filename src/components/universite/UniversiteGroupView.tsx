@@ -13,6 +13,7 @@ import {
   Play,
   X,
   ArrowRight,
+  ArrowUpRight,
   ChevronRight,
 } from "lucide-react";
 import { DotPattern } from "@/components/ui/dot-pattern";
@@ -566,10 +567,12 @@ export function UniversiteGroupView() {
             <div className="pt-2">
               <Link
                 href="/contact?motif=fondation-afi"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900 hover:bg-afi-red text-white text-xs font-bold transition-all"
+                className="inline-flex items-center justify-between gap-3.5 pl-5 pr-1.5 py-1.5 rounded-full bg-[#191D38] hover:bg-afi-red text-white text-xs sm:text-sm font-bold transition-all group"
               >
                 <span>Les actions de la Fondation AFI</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <span className="w-8 h-8 rounded-full bg-white text-[#191D38] group-hover:text-afi-red flex items-center justify-center shrink-0 transition-colors">
+                  <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </span>
               </Link>
             </div>
           </div>

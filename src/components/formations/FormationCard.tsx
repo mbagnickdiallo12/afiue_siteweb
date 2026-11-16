@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, BookOpen } from "lucide-react";
+import { ArrowUpRight, BookOpen } from "lucide-react";
 import { Formation } from "@/types/database";
 import { motion } from "motion/react";
 import { EASINGS } from "@/components/ui/motion";
@@ -85,21 +85,24 @@ export function FormationCard({ formation }: FormationCardProps) {
         </div>
       </div>
 
-      {/* Actions (Candidater à gauche avec flèche, bouton rouge Détail du cursus à droite) */}
+      {/* Actions (Candidater à gauche avec flèche, bouton pill Détail du cursus avec cercle ↗ à droite) */}
       <div className="pt-3.5 px-1 border-t border-slate-100 flex items-center justify-between gap-3 mt-auto shrink-0">
         <Link
           href={`/candidater/${formation.slug}`}
-          className="text-xs font-semibold text-slate-600 hover:text-afi-red inline-flex items-center gap-1.5 transition-colors group/link"
+          className="text-xs font-semibold text-slate-600 hover:text-afi-red inline-flex items-center gap-1 transition-colors group/link"
         >
           <span>Candidater</span>
-          <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform" />
+          <ArrowUpRight className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
         </Link>
 
         <Link
           href={`/formations/${formation.slug}`}
-          className="px-6 sm:px-7 py-2.5 rounded-full bg-afi-red hover:bg-red-700 text-white text-xs font-bold tracking-wide transition-all shadow-xs hover:shadow-md hover:scale-[1.02] active:scale-95 text-center min-w-[130px]"
+          className="inline-flex items-center justify-between gap-2.5 pl-4 pr-1.5 py-1.5 rounded-full bg-afi-red hover:bg-[#191D38] text-white text-xs font-bold tracking-wide transition-all shadow-xs hover:shadow-md hover:scale-[1.02] active:scale-95 group/btn"
         >
-          Détail du cursus
+          <span>Détail du cursus</span>
+          <span className="w-7 h-7 rounded-full bg-white text-afi-red group-hover/btn:text-[#191D38] flex items-center justify-center shrink-0 transition-colors">
+            <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+          </span>
         </Link>
       </div>
     </motion.div>

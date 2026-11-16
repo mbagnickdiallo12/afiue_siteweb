@@ -3,6 +3,7 @@ import Link from "next/link";
 import {
   GraduationCap,
   FileCheck,
+  ArrowUpRight,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -53,10 +54,12 @@ export default function AdmissionsPage() {
             <div className="pt-2">
               <Link
                 href="/candidater"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-afi-red hover:bg-afi-red-800 text-white text-xs sm:text-sm font-bold shadow-md transition-colors"
+                className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-afi-red hover:bg-red-700 text-white text-xs sm:text-sm font-bold shadow-md transition-all group"
               >
-                <GraduationCap className="w-4 h-4" />
                 <span>Déposer sa candidature en ligne</span>
+                <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-afi-red flex items-center justify-center shrink-0">
+                  <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </span>
               </Link>
             </div>
           </div>

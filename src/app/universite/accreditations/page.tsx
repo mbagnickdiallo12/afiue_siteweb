@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { ShieldCheck, Award, ArrowRight } from "lucide-react";
+import { ShieldCheck, Award, ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Accréditations & Reconnaissances | CAMES & ANAQ-Sup | AFI-L'UE",
@@ -91,10 +91,12 @@ export default function AccreditationsPage() {
           <div className="pt-2">
             <Link
               href="/formations"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-afi-red hover:bg-afi-red-800 text-white text-xs font-bold transition-colors"
+              className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-afi-red hover:bg-[#191D38] text-white text-xs sm:text-sm font-bold transition-all group"
             >
               <span>Consulter les formations accréditées</span>
-              <ArrowRight className="w-4 h-4" />
+              <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-afi-red group-hover:text-[#191D38] flex items-center justify-center shrink-0 transition-colors">
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
             </Link>
           </div>
         </div>

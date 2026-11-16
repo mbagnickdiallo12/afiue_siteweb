@@ -8,6 +8,7 @@ import {
   ChevronRight,
   ArrowLeft,
   ArrowRight,
+  ArrowUpRight,
   Tag,
   ShieldCheck,
   Building2,
@@ -392,23 +393,27 @@ export default async function ArticleDetailPage({
                   </div>
                 </div>
 
-                <div className="pt-3 space-y-2">
+                <div className="pt-3 space-y-2.5">
                   <Link
                     href="/candidater"
-                    className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-afi-red text-white text-xs font-bold hover:bg-afi-red-800 transition-colors shadow-md"
+                    className="w-full flex items-center justify-between gap-2 pl-5 pr-1.5 py-1.5 rounded-full bg-afi-red text-white text-xs font-bold hover:bg-red-700 transition-all shadow-md group"
                   >
-                    <GraduationCap className="w-4 h-4" />
                     <span>Déposer ma candidature</span>
+                    <span className="w-8 h-8 rounded-full bg-white text-afi-red flex items-center justify-center shrink-0">
+                      <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </span>
                   </Link>
 
                   <a
                     href="https://wa.me/221778247110"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-slate-800 text-slate-200 hover:text-white hover:bg-slate-700 text-xs font-bold transition-colors"
+                    className="w-full flex items-center justify-between gap-2 pl-5 pr-1.5 py-1.5 rounded-full bg-white text-slate-900 hover:bg-slate-50 text-xs font-bold transition-all shadow-sm group"
                   >
-                    <PhoneCall className="w-3.5 h-3.5 text-emerald-400" />
                     <span>Conseiller Admissions (WhatsApp)</span>
+                    <span className="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0">
+                      <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </span>
                   </a>
                 </div>
               </div>

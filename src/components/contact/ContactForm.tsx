@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { Send, CheckCircle2, AlertCircle, Loader2, ArrowUpRight } from "lucide-react";
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -186,17 +186,19 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full sm:w-auto px-7 py-3 rounded-xl bg-afi-red hover:bg-red-700 disabled:opacity-50 text-white text-xs sm:text-sm font-bold shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+          className="w-full sm:w-auto pl-6 pr-1.5 py-1.5 rounded-full bg-afi-red hover:bg-[#191D38] disabled:opacity-50 text-white text-xs sm:text-sm font-bold shadow-md transition-all inline-flex items-center justify-between gap-3.5 cursor-pointer active:scale-98 group"
         >
           {loading ? (
             <>
-              <Loader2 className="w-4 h-4 animate-spin" />
-              <span>Envoi...</span>
+              <Loader2 className="w-4 h-4 animate-spin ml-2" />
+              <span className="pr-4">Envoi...</span>
             </>
           ) : (
             <>
-              <Send className="w-4 h-4" />
               <span>Envoyer le message</span>
+              <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-afi-red group-hover:text-[#191D38] flex items-center justify-center shrink-0 transition-colors">
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
             </>
           )}
         </button>

@@ -13,6 +13,7 @@ import {
   GraduationCap,
   Sparkles,
   ArrowRight,
+  ArrowUpRight,
   Search,
   BookOpen,
   Building2,
@@ -185,17 +186,21 @@ export function CoursDuWeekendView({ formations }: CoursDuWeekendViewProps) {
           <div className="flex flex-wrap items-center gap-4 pt-2">
             <Link
               href="/candidater"
-              className="px-7 py-3.5 rounded-full bg-afi-red hover:bg-red-700 text-white text-xs sm:text-sm font-bold tracking-wide transition-all shadow-lg active:scale-95 flex items-center gap-2"
+              className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-afi-red hover:bg-red-700 text-white text-xs sm:text-sm font-bold tracking-wide transition-all shadow-lg active:scale-95 group"
             >
               <span>Candidater en ligne</span>
-              <ArrowRight className="w-4 h-4" />
+              <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-afi-red flex items-center justify-center shrink-0">
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
             </Link>
             <a
               href="#formations"
-              className="px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold tracking-wide border border-white/15 transition-all flex items-center gap-2"
+              className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-white hover:bg-slate-50 text-slate-900 text-xs sm:text-sm font-semibold tracking-wide shadow-md transition-all group"
             >
               <span>Voir les formations disponibles</span>
-              <ChevronRight className="w-4 h-4" />
+              <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#191D38] group-hover:bg-afi-red text-white flex items-center justify-center shrink-0 transition-colors">
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
             </a>
           </div>
 
@@ -763,18 +768,22 @@ export function CoursDuWeekendView({ formations }: CoursDuWeekendViewProps) {
           <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/candidater"
-              className="px-8 py-4 rounded-full bg-afi-red hover:bg-afi-red-700 text-white font-bold text-sm shadow-lg hover:shadow-xl transition-all active:scale-95 inline-flex items-center gap-2"
+              className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-afi-red hover:bg-red-700 text-white font-bold text-xs sm:text-sm shadow-lg hover:shadow-xl transition-all active:scale-95 group"
             >
               <span>Déposer ma candidature</span>
-              <ArrowRight className="w-4 h-4" />
+              <span className="w-9 h-9 rounded-full bg-white text-afi-red flex items-center justify-center shrink-0">
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
             </Link>
 
             <Link
               href="/contact"
-              className="px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-sm border border-white/25 transition-all inline-flex items-center gap-2"
+              className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-white hover:bg-slate-50 text-slate-900 font-semibold text-xs sm:text-sm shadow-md transition-all group"
             >
-              <PhoneCall className="w-4 h-4" />
               <span>Contacter un conseiller (+221 33 824 71 10)</span>
+              <span className="w-9 h-9 rounded-full bg-[#191D38] group-hover:bg-afi-red text-white flex items-center justify-center shrink-0 transition-colors">
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
             </Link>
           </div>
         </div>
