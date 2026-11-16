@@ -326,7 +326,7 @@ export function SophieChatWidget() {
               type="button"
               onClick={() => setOpen(true)}
               aria-label="Discuter avec Sophie AI"
-              className="group relative flex items-center gap-3 rounded-full bg-gradient-to-r from-[#0d1527] via-[#141f38] to-[#0d1527] py-2 pl-2.5 pr-5 shadow-[0_14px_35px_-6px_rgba(11,17,32,0.7)] border border-white/15 ring-1 ring-white/10 transition-all duration-300 hover:scale-[1.03] hover:border-sky-400/50 hover:shadow-[0_16px_40px_-6px_rgba(93,158,255,0.4)] active:scale-[0.98] cursor-pointer overflow-hidden"
+              className="group relative flex items-center gap-3 rounded-full bg-gradient-to-r from-[#0d1527] via-[#141f38] to-[#0d1527] py-2 pl-2.5 pr-5 shadow-none border border-white/15 ring-1 ring-white/10 transition-all duration-300 hover:scale-[1.03] hover:border-sky-400/50 hover:shadow-none active:scale-[0.98] cursor-pointer overflow-hidden"
             >
               <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
               <SophieAvatar3D size={42} isSpeaking={speaking} isThinking={loading} />
