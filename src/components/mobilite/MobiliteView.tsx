@@ -18,10 +18,10 @@ import TextRevealFaqs from "@/components/ui/text-reveal-faqs";
 
 export function MobiliteView() {
   const stats = [
-    { value: "26+", label: "Nationalités", detail: "Étudiants sur nos campus" },
-    { value: "16+", label: "Partenaires", detail: "Universités & réseaux mondiaux" },
-    { value: "100%", label: "Conformité LMD", detail: "Crédits ECTS & CAMES" },
-    { value: "30+", label: "Ans d'expérience", detail: "Excellence depuis 1993" },
+    { value: "26+", label: "Nationalités représentées" },
+    { value: "16+", label: "Partenaires internationaux" },
+    { value: "100%", label: "Conformité LMD & CAMES" },
+    { value: "30+", label: "Ans d'ouverture panafricaine" },
   ];
 
   const mobilityPillars = [
@@ -199,13 +199,8 @@ export function MobiliteView() {
               <div className="font-heading font-black text-2xl sm:text-4xl text-afi-navy tracking-tight">
                 {s.value}
               </div>
-              <div className="mt-1">
-                <div className="text-xs sm:text-sm font-bold text-slate-900 leading-snug">
-                  {s.label}
-                </div>
-                <div className="text-[11px] text-slate-500 mt-0.5 leading-snug">
-                  {s.detail}
-                </div>
+              <div className="text-xs sm:text-sm font-bold text-slate-900 mt-2 leading-snug">
+                {s.label}
               </div>
             </div>
           ))}
