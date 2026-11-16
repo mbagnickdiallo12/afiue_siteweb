@@ -7,7 +7,6 @@ import {
   GraduationCap,
   Award,
   Users2,
-  Building2,
   CheckCircle2,
   ArrowRight,
   ArrowUpRight,
@@ -366,15 +365,12 @@ export function MobiliteView() {
           {internationalPartners.map((part, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xs space-y-2 hover:border-slate-300 transition-colors"
+              className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xs space-y-1.5 hover:border-slate-300 transition-colors"
             >
-              <div className="flex items-center gap-2">
-                <Building2 className="w-4 h-4 text-afi-navy" strokeWidth={1.75} />
-                <h4 className="font-heading font-bold text-sm text-slate-900">
-                  {part.name}
-                </h4>
-              </div>
-              <p className="text-[11px] text-slate-500 leading-snug">
+              <h4 className="font-heading font-bold text-sm text-slate-900">
+                {part.name}
+              </h4>
+              <p className="text-[11px] text-slate-500 leading-relaxed">
                 {part.desc}
               </p>
             </div>
