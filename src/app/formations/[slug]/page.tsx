@@ -75,6 +75,8 @@ const ACRONYMS = new Set([
   "SCM",
   "SRT",
   "IA",
+  "IABD",
+  "STEG",
   "BI",
   "DEVWEB",
   "LEAGE",
@@ -244,16 +246,34 @@ export default async function FormationDetailPage({
               </span>
 
               {formation.brochure_url && (
-                <a
-                  href={formation.brochure_url}
-                  download
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md text-white text-xs font-semibold border border-white/20 transition-all"
-                >
-                  <Download className="w-3.5 h-3.5 shrink-0" />
-                  <span>Télécharger la fiche (PDF)</span>
-                </a>
+                <div className="flex flex-wrap items-center gap-2">
+                  <a
+                    href={formation.brochure_url}
+                    download
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md text-white text-xs font-semibold border border-white/20 transition-all"
+                  >
+                    <Download className="w-3.5 h-3.5 shrink-0" />
+                    <span>
+                      {formation.slug === "licence-management-juridique-et-fiscal"
+                        ? "Télécharger la fiche Multi (PDF)"
+                        : "Télécharger la fiche (PDF)"}
+                    </span>
+                  </a>
+                  {formation.slug === "licence-management-juridique-et-fiscal" && (
+                    <a
+                      href="/brochures/licence-management-juridique-et-fiscal-leader.pdf"
+                      download
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md text-white text-xs font-semibold border border-white/20 transition-all"
+                    >
+                      <Download className="w-3.5 h-3.5 shrink-0" />
+                      <span>Télécharger la fiche Leader (PDF)</span>
+                    </a>
+                  )}
+                </div>
               )}
             </div>
 
