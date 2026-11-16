@@ -61,21 +61,23 @@ export function KeyNumbersDark() {
             return (
               <StaggerItem
                 key={stat.label}
-                className={`flex flex-col items-center text-center px-2 sm:px-8 lg:px-6 xl:px-10 py-1 sm:py-4 group ${
+                className={`flex flex-col items-center text-center px-2 sm:px-4 lg:px-3 xl:px-6 py-1 sm:py-4 group ${
                   isLast ? "col-span-2 sm:col-span-1 lg:col-span-1 max-w-[260px] sm:max-w-none mx-auto" : ""
                 } ${!isLast ? "lg:border-r border-dashed border-white/20" : ""}`}
               >
                 {/* Typographic Number with breathing room & live count-up */}
-                <div className="font-heading font-light sm:font-normal text-4xl xs:text-5xl sm:text-6xl lg:text-5xl xl:text-6xl tracking-tight text-white leading-none group-hover:text-slate-300 transition-colors duration-300">
-                  {stat.formatK ? (
-                    <span>
-                      <AnimatedCounter value={15} />K
-                    </span>
-                  ) : (
-                    <AnimatedCounter value={stat.numericValue} />
-                  )}
+                <div className="inline-flex items-baseline justify-center whitespace-nowrap font-heading font-light sm:font-normal text-4xl xs:text-5xl sm:text-6xl lg:text-5xl xl:text-6xl tracking-tight text-white leading-none group-hover:text-slate-300 transition-colors duration-300">
+                  <span className="whitespace-nowrap">
+                    {stat.formatK ? (
+                      <span>
+                        <AnimatedCounter value={15} />K
+                      </span>
+                    ) : (
+                      <AnimatedCounter value={stat.numericValue} />
+                    )}
+                  </span>
                   {stat.symbol && (
-                    <span className="text-afi-red font-bold text-xl sm:text-3xl -top-2.5 sm:-top-4 relative ml-0.5 sm:ml-1 inline-block">
+                    <span className="text-afi-red font-bold text-xl sm:text-3xl -top-2.5 sm:-top-4 relative ml-0.5 sm:ml-1 inline-block select-none shrink-0">
                       {stat.symbol}
                     </span>
                   )}
