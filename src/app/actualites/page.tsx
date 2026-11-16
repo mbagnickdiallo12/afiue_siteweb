@@ -26,7 +26,7 @@ export default async function ActualitesPage({ searchParams }: ActualitesPagePro
   ]);
 
   return (
-    <div className="bg-slate-50 min-h-screen py-14">
+    <div className="bg-slate-50 min-h-screen pt-32 sm:pt-40 pb-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         {/* Header */}
         <FadeIn>

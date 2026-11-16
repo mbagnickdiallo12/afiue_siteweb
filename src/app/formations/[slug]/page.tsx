@@ -197,7 +197,7 @@ export default async function FormationDetailPage({
          ===================================================================== */}
       <section
         className={cn(
-          "relative overflow-hidden text-white pt-10 pb-16 sm:pt-12 sm:pb-20",
+          "relative overflow-hidden text-white pt-32 pb-16 sm:pt-40 sm:pb-20",
           isLicence
             ? "bg-gradient-to-br from-[#0B0F19] via-[#13182E] to-[#232B52]"
             : "bg-gradient-to-br from-[#4A0B0E] via-[#8F161D] to-[#C8232C]",

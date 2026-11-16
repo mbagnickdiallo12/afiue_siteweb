@@ -401,7 +401,7 @@ export default async function ProgrammeModalityPage({
       </div>
 
       {/* 2. Hero Minimaliste */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#0B0F19] via-[#121A38] to-[#1B2754] text-white py-16 sm:py-24">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#0B0F19] via-[#121A38] to-[#1B2754] text-white pt-32 sm:pt-40 pb-16 sm:pb-24">
         <DotPattern
           cx={1}
           cy={1}

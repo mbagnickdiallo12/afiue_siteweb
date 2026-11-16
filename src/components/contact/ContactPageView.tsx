@@ -60,7 +60,7 @@ export function ContactPageView({ settings }: { settings?: SiteSettings }) {
       {/* =========================================================================
           1. HERO PLEINE LARGEUR — ÉPURÉ & MINIMALISTE (Style Apple / Google)
           ========================================================================= */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#0B0F19] via-[#121A38] to-[#1B2754] text-white py-14 sm:py-18 border-b border-slate-800/80">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#0B0F19] via-[#121A38] to-[#1B2754] text-white pt-32 sm:pt-40 pb-14 sm:pb-18 border-b border-slate-800/80">
         <div className="absolute inset-0 pattern-grid-dots opacity-20 pointer-events-none" />
         <div className="absolute -top-24 right-1/4 w-[500px] h-[500px] rounded-full bg-afi-red/15 blur-3xl pointer-events-none" />
 
@@ -89,7 +89,7 @@ export function ContactPageView({ settings }: { settings?: SiteSettings }) {
           ========================================================================= */}
       <div className="py-10 sm:py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-          
+
           {/* =========================================================================
               2. CANAUX RAPIDES (4 Cartes Minimalistes)
               ========================================================================= */}
@@ -333,22 +333,20 @@ export function ContactPageView({ settings }: { settings?: SiteSettings }) {
                 <button
                   type="button"
                   onClick={() => setActiveCampusTab("dakar")}
-                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                    activeCampusTab === "dakar"
-                      ? "bg-slate-900 text-white shadow-xs"
-                      : "text-slate-600 hover:text-slate-900"
-                  }`}
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${activeCampusTab === "dakar"
+                    ? "bg-slate-900 text-white shadow-xs"
+                    : "text-slate-600 hover:text-slate-900"
+                    }`}
                 >
                   Dakar (Zone B)
                 </button>
                 <button
                   type="button"
                   onClick={() => setActiveCampusTab("thies")}
-                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                    activeCampusTab === "thies"
-                      ? "bg-slate-900 text-white shadow-xs"
-                      : "text-slate-600 hover:text-slate-900"
-                  }`}
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${activeCampusTab === "thies"
+                    ? "bg-slate-900 text-white shadow-xs"
+                    : "text-slate-600 hover:text-slate-900"
+                    }`}
                 >
                   Thiès
                 </button>
@@ -428,9 +426,8 @@ export function ContactPageView({ settings }: { settings?: SiteSettings }) {
                         {faq.question}
                       </span>
                       <ChevronDown
-                        className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200 ${
-                          isOpen ? "rotate-180 text-slate-900" : ""
-                        }`}
+                        className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180 text-slate-900" : ""
+                          }`}
                       />
                     </button>
 

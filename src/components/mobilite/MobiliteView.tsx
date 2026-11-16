@@ -156,7 +156,7 @@ export function MobiliteView() {
       {/* =========================================================================
           1. HERO PRESTIGE (Brand Dark Gradient, Editorial & Modern)
           ========================================================================= */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#0B0F19] via-[#121A38] to-[#1B2754] text-white py-16 sm:py-24">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#0B0F19] via-[#121A38] to-[#1B2754] text-white pt-32 sm:pt-40 pb-16 sm:pb-24">
         {/* Subtle Ambient Navy Blue Glow */}
         <div className="absolute -top-24 right-1/4 w-[600px] h-[600px] rounded-full bg-[#1E2E6B]/20 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -left-12 w-[500px] h-[500px] rounded-full bg-afi-red/15 blur-3xl pointer-events-none" />

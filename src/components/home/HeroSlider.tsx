@@ -73,7 +73,7 @@ export function HeroSlider({ slides }: HeroSliderProps) {
 
   return (
     <section
-      className="relative w-full overflow-hidden bg-afi-navy-950 text-white min-h-[520px] sm:min-h-[580px] lg:min-h-[660px] flex items-center justify-center select-none"
+      className="relative w-full overflow-hidden bg-afi-navy-950 text-white min-h-[580px] sm:min-h-[640px] lg:min-h-[720px] flex items-center justify-center select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -120,7 +120,7 @@ export function HeroSlider({ slides }: HeroSliderProps) {
             />
 
             {/* Centralized Clean & Minimal Content */}
-            <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col items-center justify-center text-center pt-20 pb-20 sm:py-28 lg:py-32">
+            <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col items-center justify-center text-center pt-28 pb-16 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28">
               <div className="space-y-3.5 sm:space-y-5 max-w-3xl w-full">
                 {/* Minimalist Top Tag */}
                 {slide.badge && (

@@ -37,7 +37,7 @@ export default function AdmissionsPage() {
   ];
 
   return (
-    <div className="bg-slate-50 min-h-screen py-14">
+    <div className="bg-slate-50 min-h-screen pt-32 sm:pt-40 pb-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Header */}
         <div className="bg-afi-navy text-white rounded-3xl p-8 sm:p-12 relative overflow-hidden shadow-xl">

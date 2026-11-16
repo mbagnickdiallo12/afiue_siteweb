@@ -48,7 +48,7 @@ export default async function DomainDetailPage({
   return (
     <div className="bg-slate-50 min-h-screen pb-20">
       {/* Breadcrumb */}
-      <div className="bg-white border-b border-slate-200 py-3.5">
+      <div className="bg-white border-b border-slate-200 pt-28 sm:pt-32 pb-3.5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex items-center gap-2 text-xs text-slate-500">
             <Link href="/" className="hover:text-afi-red transition-colors">

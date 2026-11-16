@@ -36,7 +36,7 @@ export default async function FormationsPage({
           1. HERO SECTION — Minimaliste, centré et épuré (Style Apple / Google)
              avec TopologyField 3D aux couleurs bleu marine AFI-L'UE
          ===================================================================== */}
-      <section className="relative overflow-hidden bg-[#070A12] text-white py-24 sm:py-32">
+      <section className="relative overflow-hidden bg-[#070A12] text-white pt-36 sm:pt-44 pb-20 sm:pb-28">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <TopologyField className="w-full h-full pointer-events-none" />
         </div>

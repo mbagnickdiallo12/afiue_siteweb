@@ -60,7 +60,7 @@ export default async function AfiDakarPage() {
       {/* =========================================================================
           1. HERO — CAMPUS AFI DAKAR (Brand Blue Gradient & Dot Pattern)
           ========================================================================= */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#0B0F19] via-[#121A38] to-[#1B2754] text-white py-16 sm:py-20">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#0B0F19] via-[#121A38] to-[#1B2754] text-white pt-32 sm:pt-40 pb-16 sm:pb-20">
         {/* Subtle Ambient Navy Blue Glow */}
         <div className="absolute -top-24 right-1/4 w-[600px] h-[600px] rounded-full bg-[#1E2E6B]/20 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -left-12 w-[500px] h-[500px] rounded-full bg-[#182559]/20 blur-3xl pointer-events-none" />

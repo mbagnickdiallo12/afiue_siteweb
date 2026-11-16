@@ -20,7 +20,7 @@ export default async function DomainesPage() {
   return (
     <div className="bg-[#F8FAFC] min-h-screen">
       {/* Hero minimaliste style Apple / Google avec TopologyField */}
-      <section className="relative overflow-hidden bg-[#070A12] text-white py-24 sm:py-28">
+      <section className="relative overflow-hidden bg-[#070A12] text-white pt-36 sm:pt-44 pb-20 sm:pb-24">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <TopologyField className="w-full h-full pointer-events-none" />
         </div>

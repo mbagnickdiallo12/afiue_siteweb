@@ -106,7 +106,7 @@ export default function AfiThiesPage() {
       {/* =========================================================================
           1. HERO — AFI-THIÈS (Brand Blue Gradient & Dot Pattern)
           ========================================================================= */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#0B0F19] via-[#121A38] to-[#1B2754] text-white py-16 sm:py-20">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#0B0F19] via-[#121A38] to-[#1B2754] text-white pt-32 sm:pt-40 pb-16 sm:pb-20">
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           <Image
             src="/images/campus/afi-thies-hero.jpg"

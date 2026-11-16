@@ -76,7 +76,7 @@ export default function AfiTechDakarPage() {
         <WaveMesh
           colors={["transparent", "#c9d6ea", "#E2231A"]}
           crests={true}
-          className="relative w-full py-20 sm:py-24"
+          className="relative w-full pt-32 sm:pt-40 pb-20 sm:pb-24"
           style={{
             background:
               "radial-gradient(120% 60% at 50% 30%, rgba(201, 214, 234, 0.08), transparent 60%), linear-gradient(135deg, #0B0F19 0%, #121A38 50%, #1B2754 100%)",

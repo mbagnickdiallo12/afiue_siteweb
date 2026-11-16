@@ -184,16 +184,18 @@ export function Header({ settings }: { settings?: SiteSettings }) {
   return (
     <>
       <header
-        className={`sticky top-0 z-40 w-full transition-all duration-300 ${
-          scrolled
-            ? "bg-transparent"
-            : "bg-transparent"
-        }`}
+        className="fixed top-0 left-0 right-0 z-40 w-full transition-all duration-300 pointer-events-none"
       >
         {/* =========================================================
             1. ULTRA-SLEEK INSTITUTIONAL STATUS BAR (Apple 2026 Style)
             ========================================================= */}
-        <div className="bg-[#0B0F19] text-slate-300 text-[11px] font-medium tracking-wide py-1.5 px-4 border-b border-white/[0.06] hidden md:block select-none">
+        <div
+          className={`transition-all duration-300 pointer-events-auto hidden md:block select-none ${
+            scrolled
+              ? "max-h-0 opacity-0 overflow-hidden py-0 border-transparent"
+              : "bg-[#0B0F19]/80 backdrop-blur-md text-slate-300 text-[11px] font-medium tracking-wide py-1.5 px-4 border-b border-white/[0.08] max-h-10 opacity-100"
+          }`}
+        >
           <div className="max-w-7xl mx-auto flex justify-end items-center">
             {/* Right: Direct Contact & Admin Access */}
             <div className="flex items-center gap-5">
@@ -244,16 +246,16 @@ export function Header({ settings }: { settings?: SiteSettings }) {
             2. MAIN FUTURISTIC PILL NAVIGATION BAR (Style OPTIMO avec charte AFI-L'UE)
             ========================================================= */}
         <div
-          className={`w-full transition-all duration-300 ${
-            scrolled ? "py-2 px-2 sm:px-4 lg:px-6" : "py-2.5 px-2 sm:px-4 lg:px-6 bg-white/60 backdrop-blur-md"
+          className={`w-full transition-all duration-300 pointer-events-none ${
+            scrolled ? "py-2 px-2 sm:px-4 lg:px-6" : "py-2.5 sm:py-3 px-2 sm:px-4 lg:px-6 bg-transparent"
           }`}
         >
           <div
-            className={`max-w-[1420px] mx-auto rounded-full bg-white px-4 sm:px-6 lg:px-7 border transition-all duration-300 ${
+            className={`max-w-[1420px] mx-auto rounded-full bg-white px-4 sm:px-6 lg:px-7 border transition-all duration-300 pointer-events-auto ${
               scrolled
-                ? "border-slate-200/90 shadow-[0_8px_30px_rgb(15,23,42,0.08)]"
-                : "border-slate-200/70 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.05)]"
-            }`}
+                ? "border-slate-200/90 shadow-[0_8px_30px_rgb(15,23,42,0.12)]"
+                : "border-slate-200/70 shadow-[0_8px_32px_rgba(0,0,0,0.14)]"
+              }`}
           >
             <div className="flex items-center justify-between h-[62px] sm:h-[66px] gap-4">
               {/* Brand Logo */}
@@ -271,11 +273,10 @@ export function Header({ settings }: { settings?: SiteSettings }) {
                     : item.children?.some((sub) => pathname.startsWith(sub.href)) ?? false;
 
                   if (item.children) {
-                    const triggerClasses = `inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs xl:text-[13.5px] font-medium tracking-tight whitespace-nowrap transition-all duration-200 cursor-pointer focus:outline-none ${
-                      isActive
+                    const triggerClasses = `inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs xl:text-[13.5px] font-medium tracking-tight whitespace-nowrap transition-all duration-200 cursor-pointer focus:outline-none ${isActive
                         ? "text-afi-red font-semibold"
                         : "text-slate-800 hover:text-afi-red"
-                    }`;
+                      }`;
 
                     const isProgrammes = item.label === "Programmes";
 
@@ -337,11 +338,10 @@ export function Header({ settings }: { settings?: SiteSettings }) {
                     <Link
                       key={item.href || item.label}
                       href={item.href || "#"}
-                      className={`inline-flex items-center px-3 py-1.5 rounded-full text-xs xl:text-[13.5px] font-medium tracking-tight whitespace-nowrap flex-shrink-0 transition-all duration-200 ${
-                        isActive
+                      className={`inline-flex items-center px-3 py-1.5 rounded-full text-xs xl:text-[13.5px] font-medium tracking-tight whitespace-nowrap flex-shrink-0 transition-all duration-200 ${isActive
                           ? "text-afi-red font-semibold"
                           : "text-slate-800 hover:text-afi-red"
-                      }`}
+                        }`}
                     >
                       <span className="whitespace-nowrap">{item.label}</span>
                     </Link>
@@ -393,7 +393,7 @@ export function Header({ settings }: { settings?: SiteSettings }) {
             3. MOBILE SLIDE-DOWN DRAWER (Glassmorphic & Scroll-locked)
             ========================================================= */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-slate-100 bg-white/98 backdrop-blur-2xl px-4 pt-3 pb-8 space-y-4 shadow-2xl animate-in slide-in-from-top duration-200 max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain touch-pan-y relative z-50">
+          <div className="lg:hidden border-t border-slate-100 bg-white/98 backdrop-blur-2xl px-4 pt-3 pb-8 space-y-4 shadow-2xl animate-in slide-in-from-top duration-200 max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain touch-pan-y relative z-50 pointer-events-auto">
             {/* Quick Search Bar */}
             <button
               onClick={() => {
@@ -523,7 +523,7 @@ export function Header({ settings }: { settings?: SiteSettings }) {
       {/* Mobile Backdrop for Navigation Drawer */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-slate-950/50 backdrop-blur-xs lg:hidden overscroll-none"
+          className="fixed inset-0 z-40 bg-slate-950/50 backdrop-blur-xs lg:hidden overscroll-none pointer-events-auto"
           onClick={() => setMobileMenuOpen(false)}
           onTouchMove={(e) => e.preventDefault()}
           aria-hidden="true"

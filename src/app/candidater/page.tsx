@@ -20,7 +20,7 @@ export default async function CandidaterPage() {
       {/* =========================================================================
           HERO HEADER — Dégradé Bleu AFI & Dot Pattern
           ========================================================================= */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#0B0F19] via-[#121A38] to-[#1B2754] text-white pt-14 pb-28 sm:pt-16 sm:pb-32">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#0B0F19] via-[#121A38] to-[#1B2754] text-white pt-32 pb-28 sm:pt-40 sm:pb-32">
         {/* Subtle Ambient Navy Blue Glow */}
         <div className="absolute -top-24 right-1/4 w-[600px] h-[600px] rounded-full bg-[#1E2E6B]/25 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -left-12 w-[500px] h-[500px] rounded-full bg-[#182559]/20 blur-3xl pointer-events-none" />
