@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { DotPattern } from "@/components/ui/dot-pattern";
 import { FadeIn, StaggerContainer, StaggerItem, HoverLift } from "@/components/ui/motion";
+import TextRevealFaqs from "@/components/ui/text-reveal-faqs";
 
 export function MobiliteView() {
   const stats = [
@@ -129,25 +130,6 @@ export function MobiliteView() {
       step: "04",
       title: "Préparation au départ & accompagnement",
       desc: "Assistance démarches consulaires, préparation logistique et suivi continu assuré par le Bureau des Relations Internationales.",
-    },
-  ];
-
-  const faqs = [
-    {
-      q: "À quel moment de mon cursus puis-je postuler pour une mobilité internationale ?",
-      a: "La mobilité étudiante est généralement ouverte à partir de la 2ème année de Licence (L2) et en Master. Les étudiants en Licence 1 peuvent néanmoins intégrer directement le parcours International Leader dès leur inscription.",
-    },
-    {
-      q: "Mes cours suivis à l'étranger sont-ils validés dans mon diplôme AFI-L'UE ?",
-      a: "Absolument. Conformément au système LMD et au contrat pédagogique signé avant votre départ, chaque crédit ECTS ou équivalent validé dans l'université partenaire est reconnu de plein droit pour l'obtention de votre diplôme à AFI-L'UE.",
-    },
-    {
-      q: "Je suis un étudiant étranger, comment intégrer AFI-L'UE à Dakar ou Thiès ?",
-      a: "Vous pouvez candidater 100% en ligne sur notre plateforme. Dès votre pré-inscription validée, notre Bureau International vous délivre une attestation de pré-inscription pour vos formalités consulaires et vous guide jusqu'à votre arrivée.",
-    },
-    {
-      q: "Quelles sont les opportunités de stages à l'international ?",
-      a: "Grâce à notre service carrières et aux conventions signées avec des multinationales partenaires opérant dans toute la sous-région et en Europe, nous accompagnons nos étudiants dans la recherche de stages de fin d'études à l'étranger.",
     },
   ];
 
@@ -457,35 +439,16 @@ export function MobiliteView() {
       </section>
 
       {/* =========================================================================
-          7. FOIRE AUX QUESTIONS (FAQ MOBILITÉ)
+          7. FOIRE AUX QUESTIONS (FAQ MOBILITÉ - Style Ruixen TextReveal)
           ========================================================================= */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 space-y-10">
-        <div className="text-center space-y-3">
-          <span className="text-xs font-bold uppercase tracking-widest text-afi-red">
-            Questions Fréquentes
-          </span>
-          <h2 className="font-heading font-black text-2xl sm:text-3xl md:text-4xl text-slate-900 tracking-tight">
-            Tout Ce Que Vous Devez Savoir sur la Mobilité
-          </h2>
-        </div>
-
-        <div className="space-y-4">
-          {faqs.map((f, idx) => (
-            <div
-              key={idx}
-              className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs space-y-2"
-            >
-              <h4 className="font-heading font-bold text-sm sm:text-base text-slate-900 flex items-start gap-2.5">
-                <HelpCircle className="w-5 h-5 text-afi-red shrink-0 mt-0.5" />
-                <span>{f.q}</span>
-              </h4>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed pl-7">
-                {f.a}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <TextRevealFaqs
+        badge="Questions Fréquentes"
+        title="Tout Ce Que Vous Devez Savoir sur la Mobilité"
+        description="Retrouvez toutes les réponses essentielles sur les échanges universitaires, l'accueil des étudiants étrangers, la reconnaissance des crédits ECTS et les stages internationaux."
+        supportText="Vous avez une question particulière sur votre projet d'études ?"
+        supportLinkText="Contactez notre pôle Relations Internationales"
+        supportLinkHref="/contact?motif=mobilite"
+      />
 
       {/* =========================================================================
           8. CONTACT DU PÔLE MOBILITÉ (BANDEAU ACTION)
