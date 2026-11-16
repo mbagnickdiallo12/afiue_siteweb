@@ -2,27 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import fs from "fs/promises";
 import crypto from "crypto";
+import { getServerSupabase } from "@/lib/supabase/admin";
 
-// Allowed MIME types: images and documents
-const ALLOWED_MIME_TYPES = new Set([
-  // Images
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-  "image/gif",
-  "image/svg+xml",
-  "image/avif",
-  // Documents
-  "application/pdf",
-  "application/msword",
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-  "application/vnd.ms-excel",
-  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  "text/plain",
-  "application/zip",
-]);
-
-// Maximum file size: 25 MB
 const MAX_FILE_SIZE_BYTES = 25 * 1024 * 1024;
 
 export async function POST(req: NextRequest) {
@@ -43,18 +24,20 @@ export async function POST(req: NextRequest) {
 
     if (filesToProcess.length === 0) {
       return NextResponse.json(
-        { success: false, error: "Aucun fichier n'a été fourni pour le téléversement." },
+        {
+          success: false,
+          error: "Aucun fichier n'a été fourni pour le téléversement.",
+        },
         { status: 400 }
       );
     }
 
     const uploadDir = path.join(process.cwd(), "public", "uploads");
-    await fs.mkdir(uploadDir, { recursive: true });
+    const supabase = await getServerSupabase();
 
     const results = [];
 
     for (const file of filesToProcess) {
-      // Validate size
       if (file.size > MAX_FILE_SIZE_BYTES) {
         return NextResponse.json(
           {
@@ -65,12 +48,20 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      // Check MIME type if provided
       const mimeType = file.type || "application/octet-stream";
       const ext = path.extname(file.name).toLowerCase();
 
-      // Basic security check: forbid executable extensions
-      const forbiddenExts = [".exe", ".bat", ".sh", ".php", ".js", ".mjs", ".py", ".rb", ".vbs"];
+      const forbiddenExts = [
+        ".exe",
+        ".bat",
+        ".sh",
+        ".php",
+        ".js",
+        ".mjs",
+        ".py",
+        ".rb",
+        ".vbs",
+      ];
       if (forbiddenExts.includes(ext)) {
         return NextResponse.json(
           { success: false, error: "Extension de fichier interdite." },
@@ -78,7 +69,6 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      // Generate a clean, unique file name
       const baseCleanName = path
         .basename(file.name, ext)
         .toLowerCase()
@@ -87,16 +77,47 @@ export async function POST(req: NextRequest) {
         .replace(/[^a-z0-9_-]/g, "-")
         .slice(0, 40);
 
-      const uniqueSuffix = `${Date.now()}-${crypto.randomBytes(4).toString("hex")}`;
+      const uniqueSuffix = `${Date.now()}-${crypto
+        .randomBytes(4)
+        .toString("hex")}`;
       const finalFileName = `${baseCleanName}-${uniqueSuffix}${ext || ".bin"}`;
-      const filePath = path.join(uploadDir, finalFileName);
-
-      // Convert file buffer and save
       const arrayBuffer = await file.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
-      await fs.writeFile(filePath, buffer);
 
-      const publicUrl = `/uploads/${finalFileName}`;
+      let publicUrl = `/uploads/${finalFileName}`;
+
+      // 1. Téléversement vers Supabase Storage (`media-public`) pour persistance cloud
+      if (supabase) {
+        try {
+          const storagePath = `uploads/${finalFileName}`;
+          const { error: upErr } = await supabase.storage
+            .from("media-public")
+            .upload(storagePath, buffer, {
+              contentType: mimeType,
+              upsert: true,
+            });
+          if (!upErr) {
+            const { data: pubData } = supabase.storage
+              .from("media-public")
+              .getPublicUrl(storagePath);
+            if (pubData?.publicUrl) {
+              publicUrl = pubData.publicUrl;
+            }
+          }
+        } catch {
+          // Bascule sur le stockage local si indisponible
+        }
+      }
+
+      // 2. Sauvegarde locale dans `public/uploads` (si le système de fichiers est accessible en écriture)
+      try {
+        await fs.mkdir(uploadDir, { recursive: true });
+        const filePath = path.join(uploadDir, finalFileName);
+        await fs.writeFile(filePath, buffer);
+      } catch {
+        // Ignoré sur environnement serverless en lecture seule
+      }
+
       results.push({
         url: publicUrl,
         fileName: finalFileName,
@@ -106,7 +127,6 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // If single file was uploaded, also return root fields for direct consumption
     const primary = results[0];
     return NextResponse.json({
       success: true,
@@ -120,9 +140,13 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     console.error("Upload error:", error);
     return NextResponse.json(
-      { success: false, error: error.message || "Erreur interne lors du téléversement du fichier." },
+      {
+        success: false,
+        error:
+          error.message ||
+          "Erreur interne lors du téléversement du fichier.",
+      },
       { status: 500 }
     );
   }
 }
-

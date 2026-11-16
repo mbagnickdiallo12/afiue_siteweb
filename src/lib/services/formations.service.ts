@@ -9,8 +9,22 @@ import {
   PROGRAMME_HIERARCHY,
   ALL_DOMAINS,
 } from "@/lib/data/programme-hierarchy";
-import { createClient } from "@/lib/supabase/server";
-import { readCmsStore, writeCmsStore } from "./cms-store";
+import {
+  ensureUuid,
+  getServerSupabase,
+  getSiteSettingJson,
+  setSiteSettingJson,
+} from "@/lib/supabase/admin";
+import {
+  readCmsStore,
+  writeCmsStore,
+  DomainConfig,
+  GradeConfig,
+  PricingGridConfig,
+  DEFAULT_DOMAINS_CONFIG,
+  DEFAULT_GRADES_CONFIG,
+  DEFAULT_PRICING_GRIDS_CONFIG,
+} from "./cms-store";
 
 export interface FormationsFilterOptions {
   domain?: string;
@@ -21,18 +35,181 @@ export interface FormationsFilterOptions {
   featuredOnly?: boolean;
 }
 
+export type FormationExtendedMeta = Pick<
+  Formation,
+  | "specialty"
+  | "duration_label"
+  | "program_blocks"
+  | "career_opportunities_list"
+  | "admission_conditions_list"
+  | "tuition_summary"
+  | "tuition_tiers"
+  | "extra_fees"
+  | "international_leader"
+  | "accreditations"
+>;
+
+export const FORMATIONS_EXTENDED_KEY = "formations_extended_map";
+export const ACADEMIC_CONFIG_KEY = "academic_config";
+
+export interface AcademicConfigPayload {
+  domains: DomainConfig[];
+  grades: GradeConfig[];
+  pricingGrids: PricingGridConfig[];
+}
+
+function mergeFormationRecord(
+  dbItem: Partial<Formation> & { slug: string; id: string },
+  storeMatch?: Formation,
+  extMeta?: Partial<FormationExtendedMeta>
+): Formation {
+  const base = storeMatch || ({} as Formation);
+  return {
+    ...base,
+    ...dbItem,
+    id: dbItem.id || base.id,
+    title: dbItem.title || base.title,
+    slug: dbItem.slug || base.slug,
+    level: (dbItem.level || base.level || "licence") as DegreeLevel,
+    domain_id: dbItem.domain_id ?? base.domain_id ?? null,
+    domain: dbItem.domain || base.domain || null,
+    department_id: dbItem.department_id ?? base.department_id ?? null,
+    department: dbItem.department || base.department || null,
+    mention: dbItem.mention ?? base.mention ?? null,
+    specialty: extMeta?.specialty ?? base.specialty ?? null,
+    domaine: dbItem.domaine ?? base.domaine ?? dbItem.domain?.name ?? null,
+    grade: dbItem.grade ?? base.grade ?? null,
+    duration_years: dbItem.duration_years ?? base.duration_years ?? 3,
+    duration_label: extMeta?.duration_label ?? base.duration_label ?? null,
+    credits_ects: dbItem.credits_ects ?? base.credits_ects ?? 180,
+    short_description: dbItem.short_description ?? base.short_description ?? null,
+    description: dbItem.description ?? base.description ?? null,
+    objectives: dbItem.objectives ?? base.objectives ?? null,
+    curriculum: dbItem.curriculum ?? base.curriculum ?? null,
+    program_blocks:
+      extMeta?.program_blocks && extMeta.program_blocks.length > 0
+        ? extMeta.program_blocks
+        : base.program_blocks || [],
+    career_opportunities:
+      dbItem.career_opportunities ?? base.career_opportunities ?? null,
+    career_opportunities_list:
+      extMeta?.career_opportunities_list &&
+      extMeta.career_opportunities_list.length > 0
+        ? extMeta.career_opportunities_list
+        : base.career_opportunities_list || [],
+    admission_requirements:
+      dbItem.admission_requirements ?? base.admission_requirements ?? null,
+    admission_conditions_list:
+      extMeta?.admission_conditions_list &&
+      extMeta.admission_conditions_list.length > 0
+        ? extMeta.admission_conditions_list
+        : base.admission_conditions_list || [],
+    tuition_fees_local:
+      dbItem.tuition_fees_local !== undefined && dbItem.tuition_fees_local !== null
+        ? Number(dbItem.tuition_fees_local)
+        : base.tuition_fees_local ?? null,
+    tuition_fees_international:
+      dbItem.tuition_fees_international !== undefined &&
+      dbItem.tuition_fees_international !== null
+        ? Number(dbItem.tuition_fees_international)
+        : base.tuition_fees_international ?? null,
+    tuition_summary: extMeta?.tuition_summary ?? base.tuition_summary ?? null,
+    tuition_tiers:
+      extMeta?.tuition_tiers && extMeta.tuition_tiers.length > 0
+        ? extMeta.tuition_tiers
+        : base.tuition_tiers || [],
+    extra_fees:
+      extMeta?.extra_fees && extMeta.extra_fees.length > 0
+        ? extMeta.extra_fees
+        : base.extra_fees || [],
+    study_modes:
+      dbItem.study_modes && dbItem.study_modes.length > 0
+        ? dbItem.study_modes
+        : base.study_modes || ["initiale", "cours_du_soir", "weekend"],
+    brochure_url: dbItem.brochure_url ?? base.brochure_url ?? null,
+    international_leader:
+      extMeta?.international_leader !== undefined
+        ? extMeta.international_leader
+        : base.international_leader ?? null,
+    accreditations:
+      extMeta?.accreditations && extMeta.accreditations.length > 0
+        ? extMeta.accreditations
+        : base.accreditations || [],
+    is_featured: dbItem.is_featured ?? base.is_featured ?? false,
+    is_active: dbItem.is_active ?? base.is_active ?? true,
+    order_index: dbItem.order_index ?? base.order_index ?? 0,
+    meta_title: dbItem.meta_title ?? base.meta_title ?? null,
+    meta_description: dbItem.meta_description ?? base.meta_description ?? null,
+    legacy_wp_id: dbItem.legacy_wp_id ?? base.legacy_wp_id ?? null,
+    legacy_wp_url: dbItem.legacy_wp_url ?? base.legacy_wp_url ?? null,
+    created_at: dbItem.created_at || base.created_at || new Date().toISOString(),
+    updated_at: dbItem.updated_at || base.updated_at || new Date().toISOString(),
+  };
+}
+
+async function fetchAllFormationsFromDb(includeInactive = false): Promise<Formation[]> {
+  const storeFormations = readCmsStore().formations;
+  try {
+    const supabase = await getServerSupabase();
+    if (!supabase) {
+      return includeInactive
+        ? storeFormations
+        : storeFormations.filter((f) => f.is_active !== false);
+    }
+
+    let query = supabase
+      .from("formations")
+      .select(
+        `
+        *,
+        domain:domains(*),
+        department:departments(*)
+      `
+      )
+      .order("order_index", { ascending: true });
+
+    if (!includeInactive) {
+      query = query.eq("is_active", true);
+    }
+
+    const [{ data, error }, extendedMap] = await Promise.all([
+      query,
+      getSiteSettingJson<Record<string, Partial<FormationExtendedMeta>>>(
+        FORMATIONS_EXTENDED_KEY,
+        {}
+      ),
+    ]);
+
+    if (error || !data || data.length === 0) {
+      return includeInactive
+        ? storeFormations
+        : storeFormations.filter((f) => f.is_active !== false);
+    }
+
+    return (data as Formation[]).map((dbItem) => {
+      const storeMatch = storeFormations.find(
+        (sf) => sf.slug === dbItem.slug || sf.id === dbItem.id
+      );
+      const extMeta = extendedMap[dbItem.slug] || extendedMap[dbItem.id];
+      return mergeFormationRecord(dbItem, storeMatch, extMeta);
+    });
+  } catch {
+    return includeInactive
+      ? storeFormations
+      : storeFormations.filter((f) => f.is_active !== false);
+  }
+}
+
 /**
  * Retourne l'arborescence complète dynamique :
  * Programme AFI-L'UE -> Domaines -> Mentions (Licences / Masters) -> Formations
  */
 export async function getProgrammeHierarchy(): Promise<DomainHierarchy[]> {
   try {
-    const storeFormations = readCmsStore().formations.filter(
-      (f) => f.is_active !== false
-    );
-    if (storeFormations.length > 0) {
+    const activeFormations = await fetchAllFormationsFromDb(false);
+    if (activeFormations.length > 0) {
       return ALL_DOMAINS.map((domain) => {
-        const domainFormations = storeFormations
+        const domainFormations = activeFormations
           .filter(
             (f) =>
               f.domain_id === domain.id ||
@@ -78,82 +255,8 @@ export async function getFormations(
   filters?: FormationsFilterOptions
 ): Promise<Formation[]> {
   try {
-    const supabase = await createClient();
-    if (!supabase) {
-      return filterMockFormations(readCmsStore().formations, filters);
-    }
-
-    let query = supabase
-      .from("formations")
-      .select(
-        `
-        *,
-        domain:domains(*),
-        department:departments(*)
-      `
-      )
-      .eq("is_active", true)
-      .order("order_index", { ascending: true });
-
-    if (filters?.domain) {
-      const { data: domainData } = await supabase
-        .from("domains")
-        .select("id")
-        .or(`slug.eq.${filters.domain},code.eq.${filters.domain}`)
-        .maybeSingle();
-
-      if (domainData?.id) {
-        query = query.eq("domain_id", domainData.id);
-      }
-    }
-
-    if (filters?.level) {
-      query = query.eq("level", filters.level as DegreeLevel);
-    }
-
-    if (filters?.featuredOnly) {
-      query = query.eq("is_featured", true);
-    }
-
-    const { data, error } = await query;
-    const storeFormations = readCmsStore().formations;
-    if (error || !data || data.length === 0) {
-      return filterMockFormations(storeFormations, filters);
-    }
-
-    // If database has partial seed (<35 formations), use complete dynamic catalogue
-    const fullStoreFiltered = filterMockFormations(storeFormations, filters);
-    if (data.length < fullStoreFiltered.length) {
-      return fullStoreFiltered;
-    }
-
-    return (data as Formation[]).map((dbItem) => {
-      const storeMatch = storeFormations.find(
-        (sf) => sf.slug === dbItem.slug || sf.id === dbItem.id
-      );
-      if (!storeMatch) return dbItem;
-      return {
-        ...storeMatch,
-        ...dbItem,
-        mention: storeMatch.mention || dbItem.mention,
-        description: storeMatch.description || dbItem.description,
-        program_blocks:
-          storeMatch.program_blocks && storeMatch.program_blocks.length > 0
-            ? storeMatch.program_blocks
-            : dbItem.program_blocks,
-        career_opportunities_list:
-          storeMatch.career_opportunities_list &&
-          storeMatch.career_opportunities_list.length > 0
-            ? storeMatch.career_opportunities_list
-            : dbItem.career_opportunities_list,
-        admission_conditions_list:
-          storeMatch.admission_conditions_list &&
-          storeMatch.admission_conditions_list.length > 0
-            ? storeMatch.admission_conditions_list
-            : dbItem.admission_conditions_list,
-        brochure_url: storeMatch.brochure_url || dbItem.brochure_url,
-      };
-    });
+    const allActive = await fetchAllFormationsFromDb(false);
+    return filterMockFormations(allActive, filters);
   } catch {
     return filterMockFormations(MOCK_FORMATIONS, filters);
   }
@@ -167,11 +270,9 @@ export async function getFormationBySlug(
   slug: string
 ): Promise<Formation | null> {
   try {
-    const storeFormations = readCmsStore().formations;
-    const fromStore = storeFormations.find((f) => f.slug === slug);
-    if (fromStore) {
-      return fromStore;
-    }
+    const all = await fetchAllFormationsFromDb(true);
+    const found = all.find((f) => f.slug === slug || f.id === slug);
+    if (found) return found;
 
     const fallback = MOCK_FORMATIONS.find((f) => f.slug === slug);
     return fallback || null;
@@ -199,8 +300,73 @@ export function getStaticDomains(): Domain[] {
 }
 
 export async function getAllFormationsAdmin(): Promise<Formation[]> {
+  const all = await fetchAllFormationsFromDb(true);
+  return all.sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
+}
+
+export async function getAcademicConfigAdmin(): Promise<AcademicConfigPayload> {
   const store = readCmsStore();
-  return store.formations.sort((a, b) => a.order_index - b.order_index);
+  const fallback: AcademicConfigPayload = {
+    domains: store.domains_config || DEFAULT_DOMAINS_CONFIG,
+    grades: store.grades_config || DEFAULT_GRADES_CONFIG,
+    pricingGrids: store.pricing_grids_config || DEFAULT_PRICING_GRIDS_CONFIG,
+  };
+  return await getSiteSettingJson<AcademicConfigPayload>(
+    ACADEMIC_CONFIG_KEY,
+    fallback
+  );
+}
+
+export async function updateAcademicConfigAdmin(
+  patch: Partial<AcademicConfigPayload>
+): Promise<AcademicConfigPayload> {
+  const current = await getAcademicConfigAdmin();
+  const updated: AcademicConfigPayload = {
+    domains: patch.domains || current.domains,
+    grades: patch.grades || current.grades,
+    pricingGrids: patch.pricingGrids || current.pricingGrids,
+  };
+
+  const store = readCmsStore();
+  store.domains_config = updated.domains;
+  store.grades_config = updated.grades;
+  store.pricing_grids_config = updated.pricingGrids;
+  writeCmsStore(store);
+
+  await setSiteSettingJson(
+    ACADEMIC_CONFIG_KEY,
+    updated,
+    "Configuration académique (domaines, grades et grilles tarifaires)"
+  );
+
+  // Also sync domains to public.domains table in Supabase
+  if (patch.domains && patch.domains.length > 0) {
+    try {
+      const supabase = await getServerSupabase();
+      if (supabase) {
+        for (const d of patch.domains) {
+          await supabase.from("domains").upsert(
+            {
+              id: ensureUuid(d.id),
+              code: d.code,
+              name: d.name,
+              slug: d.slug,
+              short_description: d.short_description,
+              icon: d.icon || "BookOpen",
+              order_index: d.order_index,
+              is_active: d.is_active,
+              updated_at: new Date().toISOString(),
+            },
+            { onConflict: "id" }
+          );
+        }
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  return updated;
 }
 
 export async function saveFormation(
@@ -210,7 +376,7 @@ export async function saveFormation(
   const existingIndex = store.formations.findIndex(
     (f) =>
       (formation.id && f.id === formation.id) ||
-      (!formation.id && formation.slug && f.slug === formation.slug)
+      (formation.slug && f.slug === formation.slug)
   );
 
   const matchedDomain =
@@ -228,6 +394,7 @@ export async function saveFormation(
     updated = {
       ...store.formations[existingIndex],
       ...formation,
+      id: ensureUuid(formation.id || store.formations[existingIndex].id),
       domain_id: formation.domain_id || matchedDomain.id,
       domain: matchedDomain,
       domaine: formation.domaine || matchedDomain.name,
@@ -249,7 +416,7 @@ export async function saveFormation(
     const isMaster = formation.level === "master";
 
     updated = {
-      id: formation.id || `form-${Date.now()}`,
+      id: ensureUuid(formation.id),
       department_id: formation.department_id || null,
       domain_id: formation.domain_id || matchedDomain.id,
       domain: matchedDomain,
@@ -317,15 +484,121 @@ export async function saveFormation(
     store.formations.unshift(updated);
   }
 
+  // Synchronisation Supabase (table relationnelle `formations` + métadonnées étendues `site_settings`)
+  try {
+    const supabase = await getServerSupabase();
+    if (supabase) {
+      // Vérifie si un enregistrement existe déjà avec ce slug pour préserver les clés étrangères
+      const { data: existingRow } = await supabase
+        .from("formations")
+        .select("id")
+        .eq("slug", updated.slug)
+        .maybeSingle();
+
+      if (existingRow?.id) {
+        updated.id = existingRow.id;
+      }
+
+      const dbPayload = {
+        id: updated.id,
+        department_id: updated.department_id,
+        domain_id: updated.domain_id,
+        title: updated.title,
+        slug: updated.slug,
+        level: updated.level,
+        mention: updated.mention,
+        domaine: updated.domaine,
+        grade: updated.grade,
+        duration_years: updated.duration_years,
+        credits_ects: updated.credits_ects,
+        short_description: updated.short_description,
+        description: updated.description,
+        objectives: updated.objectives,
+        curriculum: updated.curriculum,
+        career_opportunities: updated.career_opportunities,
+        admission_requirements: updated.admission_requirements,
+        tuition_fees_local: updated.tuition_fees_local,
+        tuition_fees_international: updated.tuition_fees_international,
+        study_modes: updated.study_modes,
+        brochure_url: updated.brochure_url,
+        is_featured: updated.is_featured,
+        is_active: updated.is_active,
+        order_index: updated.order_index,
+        meta_title: updated.meta_title,
+        meta_description: updated.meta_description,
+        updated_at: updated.updated_at,
+      };
+
+      await supabase.from("formations").upsert(dbPayload, { onConflict: "id" });
+
+      const extendedMap = await getSiteSettingJson<
+        Record<string, Partial<FormationExtendedMeta>>
+      >(FORMATIONS_EXTENDED_KEY, {});
+
+      extendedMap[updated.slug] = {
+        specialty: updated.specialty,
+        duration_label: updated.duration_label,
+        program_blocks: updated.program_blocks,
+        career_opportunities_list: updated.career_opportunities_list,
+        admission_conditions_list: updated.admission_conditions_list,
+        tuition_summary: updated.tuition_summary,
+        tuition_tiers: updated.tuition_tiers,
+        extra_fees: updated.extra_fees,
+        international_leader: updated.international_leader,
+        accreditations: updated.accreditations,
+      };
+
+      await setSiteSettingJson(
+        FORMATIONS_EXTENDED_KEY,
+        extendedMap,
+        "Métadonnées académiques étendues des formations (UE, listes débouchés/admissions, grilles)"
+      );
+    }
+  } catch (err) {
+    console.warn("Supabase formation sync warning:", err);
+  }
+
   writeCmsStore(store);
   return updated;
 }
 
 export async function deleteFormation(id: string): Promise<boolean> {
   const store = readCmsStore();
+  const target = store.formations.find((f) => f.id === id || f.slug === id);
   const initialLen = store.formations.length;
-  store.formations = store.formations.filter((f) => f.id !== id && f.slug !== id);
-  if (store.formations.length !== initialLen) {
+  store.formations = store.formations.filter(
+    (f) => f.id !== id && f.slug !== id
+  );
+
+  let dbDeleted = false;
+  try {
+    const supabase = await getServerSupabase();
+    if (supabase) {
+      await supabase
+        .from("formation_accreditations")
+        .delete()
+        .eq("formation_id", target?.id || id);
+      const { error } = await supabase
+        .from("formations")
+        .delete()
+        .or(`id.eq.${target?.id || id},slug.eq.${target?.slug || id}`);
+      if (!error) dbDeleted = true;
+
+      if (target?.slug) {
+        const extendedMap = await getSiteSettingJson<
+          Record<string, Partial<FormationExtendedMeta>>
+        >(FORMATIONS_EXTENDED_KEY, {});
+        if (extendedMap[target.slug]) {
+          delete extendedMap[target.slug];
+          await setSiteSettingJson(FORMATIONS_EXTENDED_KEY, extendedMap);
+        }
+      }
+    }
+  } catch {
+    // ignore
+  }
+
+  if (store.formations.length !== initialLen || dbDeleted) {
     writeCmsStore(store);
     return true;
   }

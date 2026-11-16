@@ -1,22 +1,17 @@
 import { Domain, Department, DomainHierarchy } from "@/types/database";
 import { MOCK_DOMAINS, MOCK_DEPARTMENTS } from "@/lib/data/mock-data";
-import { PROGRAMME_HIERARCHY } from "@/lib/data/programme-hierarchy";
-import { createClient } from "@/lib/supabase/server";
+import { getServerSupabase } from "@/lib/supabase/admin";
+import { getDomainHierarchyBySlug as getDynamicDomainHierarchyBySlug } from "./formations.service";
 
 export async function getDomainHierarchyBySlug(
   slug: string
 ): Promise<DomainHierarchy | null> {
-  return (
-    PROGRAMME_HIERARCHY.find(
-      (d) =>
-        d.slug === slug || d.code.toLowerCase() === slug.toLowerCase()
-    ) || null
-  );
+  return getDynamicDomainHierarchyBySlug(slug);
 }
 
 export async function getDomains(): Promise<Domain[]> {
   try {
-    const supabase = await createClient();
+    const supabase = await getServerSupabase();
     if (!supabase) {
       return MOCK_DOMAINS;
     }
@@ -39,7 +34,7 @@ export async function getDomains(): Promise<Domain[]> {
 
 export async function getDomainBySlug(slug: string): Promise<Domain | null> {
   try {
-    const supabase = await createClient();
+    const supabase = await getServerSupabase();
     if (!supabase) {
       return MOCK_DOMAINS.find((d) => d.slug === slug) || null;
     }
@@ -62,7 +57,7 @@ export async function getDomainBySlug(slug: string): Promise<Domain | null> {
 
 export async function getDepartments(): Promise<Department[]> {
   try {
-    const supabase = await createClient();
+    const supabase = await getServerSupabase();
     if (!supabase) {
       return MOCK_DEPARTMENTS;
     }

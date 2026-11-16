@@ -1,16 +1,16 @@
 import { NextResponse } from "next/server";
-import { readCmsStore, writeCmsStore } from "@/lib/services/cms-store";
+import { revalidatePath } from "next/cache";
+import {
+  getAcademicConfigAdmin,
+  updateAcademicConfigAdmin,
+} from "@/lib/services/formations.service";
 
 export async function GET() {
   try {
-    const store = readCmsStore();
+    const config = await getAcademicConfigAdmin();
     return NextResponse.json({
       success: true,
-      data: {
-        domains: store.domains_config || [],
-        grades: store.grades_config || [],
-        pricingGrids: store.pricing_grids_config || [],
-      },
+      data: config,
     });
   } catch (error) {
     return NextResponse.json(
@@ -23,27 +23,17 @@ export async function GET() {
 export async function PUT(req: Request) {
   try {
     const body = await req.json();
-    const store = readCmsStore();
+    const updated = await updateAcademicConfigAdmin({
+      domains: body.domains,
+      grades: body.grades,
+      pricingGrids: body.pricingGrids,
+    });
 
-    if (body.domains) {
-      store.domains_config = body.domains;
-    }
-    if (body.grades) {
-      store.grades_config = body.grades;
-    }
-    if (body.pricingGrids) {
-      store.pricing_grids_config = body.pricingGrids;
-    }
-
-    writeCmsStore(store);
+    revalidatePath("/", "layout");
 
     return NextResponse.json({
       success: true,
-      data: {
-        domains: store.domains_config,
-        grades: store.grades_config,
-        pricingGrids: store.pricing_grids_config,
-      },
+      data: updated,
     });
   } catch (error) {
     return NextResponse.json(
@@ -52,4 +42,3 @@ export async function PUT(req: Request) {
     );
   }
 }
-

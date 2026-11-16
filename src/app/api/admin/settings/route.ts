@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getSiteSettings, updateSiteSettings } from "@/lib/services/settings.service";
 
 export async function GET() {
@@ -17,6 +18,7 @@ export async function PUT(request: Request) {
   try {
     const body = await request.json();
     const updated = await updateSiteSettings(body);
+    revalidatePath("/", "layout");
     return NextResponse.json({ success: true, data: updated, message: "Paramètres enregistrés avec succès" });
   } catch (error: any) {
     return NextResponse.json(

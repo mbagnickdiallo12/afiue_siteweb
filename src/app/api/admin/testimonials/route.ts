@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getAllTestimonialsAdmin, saveTestimonial } from "@/lib/services/testimonials.service";
 
 export async function GET() {
@@ -20,6 +21,7 @@ export async function POST(req: Request) {
       );
     }
     const saved = await saveTestimonial(body);
+    revalidatePath("/", "layout");
     return NextResponse.json({ success: true, data: saved }, { status: 201 });
   } catch (error) {
     return NextResponse.json({ success: false, error: (error as Error).message }, { status: 500 });

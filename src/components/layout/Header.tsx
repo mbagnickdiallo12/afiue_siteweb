@@ -17,6 +17,7 @@ import {
 import { Logo } from "@/components/ui/Logo";
 import { SearchModal } from "@/components/search/SearchModal";
 import { ProgrammesMegaMenu } from "@/components/layout/ProgrammesMegaMenu";
+import { SiteSettings } from "@/types/database";
 
 interface SubItem {
   label: string;
@@ -32,7 +33,10 @@ interface NavItem {
   children?: SubItem[];
 }
 
-export function Header() {
+export function Header({ settings }: { settings?: SiteSettings }) {
+  const phoneMain = settings?.phone_main || "+221 33 824 71 10";
+  const phoneMobile = settings?.phone_mobile || "+221 77 508 87 28";
+  const mainEmail = settings?.main_email || "afi@afi-ue.sn";
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -193,23 +197,23 @@ export function Header() {
             {/* Right: Direct Contact & Admin Access */}
             <div className="flex items-center gap-5">
               <a
-                href="tel:+221338247110"
+                href={`tel:${phoneMain.replace(/\s+/g, "")}`}
                 className="inline-flex items-center gap-1.5 text-slate-300 hover:text-white transition-colors group"
                 title="Téléphone officiel standard"
               >
                 <Phone className="w-3 h-3 text-slate-300 group-hover:scale-110 transition-transform" />
-                <span className="font-mono text-slate-200">+221 33 824 71 10</span>
+                <span className="font-mono text-slate-200">{phoneMain}</span>
               </a>
 
               <span className="text-white/20">|</span>
 
               <a
-                href="mailto:afi@afi-ue.sn"
+                href={`mailto:${mainEmail}`}
                 className="inline-flex items-center gap-1.5 text-slate-300 hover:text-white transition-colors group"
                 title="Email officiel"
               >
                 <Mail className="w-3 h-3 text-slate-300 group-hover:scale-110 transition-transform" />
-                <span className="text-slate-200">afi@afi-ue.sn</span>
+                <span className="text-slate-200">{mainEmail}</span>
               </a>
 
               <span className="text-white/20">|</span>
@@ -469,26 +473,26 @@ export function Header() {
             <div className="pt-4 border-t border-slate-100 flex flex-col gap-2 text-xs text-slate-600 px-2">
               <div className="flex items-center justify-between">
                 <a
-                  href="tel:+221338247110"
+                  href={`tel:${phoneMain.replace(/\s+/g, "")}`}
                   className="flex items-center gap-1.5 hover:text-afi-red transition-colors"
                 >
                   <Phone className="w-3.5 h-3.5 text-slate-400" />
-                  <span>+221 33 824 71 10</span>
+                  <span>{phoneMain}</span>
                 </a>
                 <a
-                  href="tel:+221775088728"
+                  href={`tel:${phoneMobile.replace(/\s+/g, "")}`}
                   className="flex items-center gap-1.5 hover:text-afi-red transition-colors font-mono"
                 >
-                  <span>+221 77 508 87 28</span>
+                  <span>{phoneMobile}</span>
                 </a>
               </div>
               <div className="flex items-center justify-between gap-2 pt-1">
                 <a
-                  href="mailto:afi@afi-ue.sn"
+                  href={`mailto:${mainEmail}`}
                   className="flex items-center gap-1.5 hover:text-afi-red transition-colors"
                 >
                   <Mail className="w-3.5 h-3.5 text-slate-400" />
-                  <span>afi@afi-ue.sn</span>
+                  <span>{mainEmail}</span>
                 </a>
                 <Link
                   href="/contact"

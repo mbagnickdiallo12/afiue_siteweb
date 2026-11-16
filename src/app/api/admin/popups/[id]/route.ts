@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import {
   updateEventPopupSlide,
   deleteEventPopupSlide,
@@ -22,6 +23,7 @@ export async function PUT(
       );
     }
 
+    revalidatePath("/", "layout");
     return NextResponse.json({ slide: updated });
   } catch (error) {
     console.error("API PUT /api/admin/popups/[id] error:", error);
@@ -46,6 +48,7 @@ export async function DELETE(
       );
     }
 
+    revalidatePath("/", "layout");
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("API DELETE /api/admin/popups/[id] error:", error);

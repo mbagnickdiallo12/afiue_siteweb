@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/licence-genie-logiciel-gelo",
-        destination: "/formations/licence-genie-logiciel-gelo",
+        destination: "/formations/licence-genie-logiciel",
         permanent: true,
       },
       {

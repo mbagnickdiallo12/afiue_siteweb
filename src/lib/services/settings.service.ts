@@ -1,53 +1,42 @@
 import { SiteSettings } from "@/types/database";
 import { readCmsStore, writeCmsStore } from "./cms-store";
-import { createClient } from "@/lib/supabase/server";
+import {
+  getSiteSettingJson,
+  setSiteSettingJson,
+} from "@/lib/supabase/admin";
+
+const CONTACT_INFO_KEY = "contact_info";
 
 export async function getSiteSettings(): Promise<SiteSettings> {
-  try {
-    const supabase = await createClient();
-    if (supabase) {
-      const { data, error } = await supabase
-        .from("site_settings")
-        .select("value")
-        .eq("key", "contact_info")
-        .maybeSingle();
-
-      if (!error && data && data.value) {
-        return {
-          ...readCmsStore().settings,
-          ...(data.value as Partial<SiteSettings>),
-        };
-      }
-    }
-  } catch {
-    // fallback
-  }
-
   const store = readCmsStore();
-  return store.settings;
+  const dbValue = await getSiteSettingJson<Partial<SiteSettings>>(
+    CONTACT_INFO_KEY,
+    store.settings
+  );
+  return {
+    ...store.settings,
+    ...dbValue,
+  };
 }
 
-export async function updateSiteSettings(patch: Partial<SiteSettings>): Promise<SiteSettings> {
-  const store = readCmsStore();
+export async function updateSiteSettings(
+  patch: Partial<SiteSettings>
+): Promise<SiteSettings> {
+  const current = await getSiteSettings();
   const updated: SiteSettings = {
-    ...store.settings,
+    ...current,
     ...patch,
   };
+
+  const store = readCmsStore();
   store.settings = updated;
   writeCmsStore(store);
 
-  try {
-    const supabase = await createClient();
-    if (supabase) {
-      await supabase.from("site_settings").upsert({
-        key: "contact_info",
-        value: updated,
-        updated_at: new Date().toISOString(),
-      });
-    }
-  } catch {
-    // silently continue
-  }
+  await setSiteSettingJson(
+    CONTACT_INFO_KEY,
+    updated,
+    "Coordonnées officielles, réseaux sociaux et paramètres généraux du site AFI-L'UE"
+  );
 
   return updated;
 }

@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import { SiteLayoutWrapper } from "@/components/layout/SiteLayoutWrapper";
+import { getSiteSettings } from "@/lib/services/settings.service";
 
 // Viewport mobile : désactivation du zoom intempestif au focus d'un champ et garantie de largeur fixe
 export const viewport: Viewport = {
@@ -62,11 +63,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const settings = await getSiteSettings();
+
   return (
     <html
       lang="fr"
@@ -77,7 +80,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className="min-h-screen flex flex-col bg-white text-slate-800 antialiased font-body selection:bg-afi-red selection:text-white overflow-x-hidden w-full max-w-full relative"
       >
-        <SiteLayoutWrapper>{children}</SiteLayoutWrapper>
+        <SiteLayoutWrapper settings={settings}>{children}</SiteLayoutWrapper>
       </body>
     </html>
   );

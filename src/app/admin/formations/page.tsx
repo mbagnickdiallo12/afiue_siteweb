@@ -1,23 +1,28 @@
-import { getAllFormationsAdmin } from "@/lib/services/formations.service";
-import { readCmsStore } from "@/lib/services/cms-store";
+import {
+  getAllFormationsAdmin,
+  getAcademicConfigAdmin,
+} from "@/lib/services/formations.service";
 import { FormationsAdminManager } from "@/components/admin/FormationsAdminManager";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
-  title: "Gestion des Formations & Paramètres Académiques | Administration AFI-L'UE",
+  title:
+    "Gestion des Formations & Paramètres Académiques | Administration AFI-L'UE",
 };
 
 export default async function AdminFormationsPage() {
-  const [formations, store] = await Promise.all([
+  const [formations, academicConfig] = await Promise.all([
     getAllFormationsAdmin(),
-    Promise.resolve(readCmsStore()),
+    getAcademicConfigAdmin(),
   ]);
 
   return (
     <FormationsAdminManager
       initialFormations={formations}
-      initialDomains={store.domains_config || []}
-      initialGrades={store.grades_config || []}
-      initialPricingGrids={store.pricing_grids_config || []}
+      initialDomains={academicConfig.domains}
+      initialGrades={academicConfig.grades}
+      initialPricingGrids={academicConfig.pricingGrids}
     />
   );
 }

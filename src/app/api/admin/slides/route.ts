@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getAllSlidesAdmin, saveSlide } from "@/lib/services/slides.service";
 
 export async function GET() {
@@ -23,6 +24,7 @@ export async function POST(request: Request) {
       );
     }
     const saved = await saveSlide(body);
+    revalidatePath("/", "layout");
     return NextResponse.json({ success: true, data: saved });
   } catch (error: any) {
     return NextResponse.json(

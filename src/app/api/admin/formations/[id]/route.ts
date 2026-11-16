@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { saveFormation, deleteFormation, getAllFormationsAdmin } from "@/lib/services/formations.service";
 
 export async function GET(
@@ -26,6 +27,7 @@ export async function PUT(
     const { id } = await params;
     const body = await req.json();
     const updated = await saveFormation({ ...body, id });
+    revalidatePath("/", "layout");
     return NextResponse.json({ success: true, data: updated });
   } catch (error) {
     return NextResponse.json({ success: false, error: (error as Error).message }, { status: 500 });
@@ -42,6 +44,7 @@ export async function DELETE(
     if (!deleted) {
       return NextResponse.json({ success: false, error: "Formation non trouvée ou déjà supprimée" }, { status: 404 });
     }
+    revalidatePath("/", "layout");
     return NextResponse.json({ success: true, message: "Formation supprimée avec succès" });
   } catch (error) {
     return NextResponse.json({ success: false, error: (error as Error).message }, { status: 500 });

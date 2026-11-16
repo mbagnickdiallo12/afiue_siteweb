@@ -3,8 +3,16 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
+import { SiteSettings } from "@/types/database";
 
-export function Footer() {
+export function Footer({ settings }: { settings?: SiteSettings }) {
+  const phoneMain = settings?.phone_main || "+221 33 824 71 10";
+  const phoneMobile = settings?.phone_mobile || "+221 77 508 87 28";
+  const mainEmail = settings?.main_email || "afi@afi-ue.sn";
+  const fbUrl = settings?.socials?.facebook || "https://facebook.com/afildakar";
+  const liUrl = settings?.socials?.linkedin || "https://linkedin.com/school/afi-l-ue";
+  const igUrl = settings?.socials?.instagram || "https://instagram.com/afi_ue_dakar";
+  const twUrl = settings?.socials?.twitter || "https://twitter.com/afi_ue";
   return (
     <footer className="bg-[#0A0D18] text-slate-400 border-t border-white/[0.08] mt-auto select-none">
       {/* Main Footer Container */}
@@ -26,16 +34,16 @@ export function Footer() {
               <div className="text-xs text-slate-400 space-y-1.5">
                 <p>Dakar (Zone B Rue G) · Thiès (Caritas)</p>
                 <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                  <a href="tel:+221338247110" className="hover:text-white transition-colors">
-                    +221 33 824 71 10
+                  <a href={`tel:${phoneMain.replace(/\s+/g, "")}`} className="hover:text-white transition-colors">
+                    {phoneMain}
                   </a>
                   {" · "}
-                  <a href="tel:+221775088728" className="hover:text-white transition-colors">
-                    +221 77 508 87 28
+                  <a href={`tel:${phoneMobile.replace(/\s+/g, "")}`} className="hover:text-white transition-colors">
+                    {phoneMobile}
                   </a>
                   {" · "}
-                  <a href="mailto:afi@afi-ue.sn" className="hover:text-white transition-colors">
-                    afi@afi-ue.sn
+                  <a href={`mailto:${mainEmail}`} className="hover:text-white transition-colors">
+                    {mainEmail}
                   </a>
                 </p>
               </div>
@@ -43,7 +51,7 @@ export function Footer() {
               {/* Social Channels - Subtle minimalist ghost pills */}
               <div className="flex items-center gap-2 pt-2">
                 <a
-                  href="https://facebook.com/afildakar"
+                  href={fbUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-8 h-8 rounded-lg bg-white/[0.03] border border-white/[0.06] flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/[0.08] hover:border-white/20 transition-all"
@@ -54,7 +62,7 @@ export function Footer() {
                   </svg>
                 </a>
                 <a
-                  href="https://linkedin.com/school/afi-l-ue"
+                  href={liUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-8 h-8 rounded-lg bg-white/[0.03] border border-white/[0.06] flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/[0.08] hover:border-white/20 transition-all"
@@ -65,7 +73,7 @@ export function Footer() {
                   </svg>
                 </a>
                 <a
-                  href="https://instagram.com/afi_ue_dakar"
+                  href={igUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-8 h-8 rounded-lg bg-white/[0.03] border border-white/[0.06] flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/[0.08] hover:border-white/20 transition-all"
@@ -76,7 +84,7 @@ export function Footer() {
                   </svg>
                 </a>
                 <a
-                  href="https://twitter.com/afi_ue"
+                  href={twUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-8 h-8 rounded-lg bg-white/[0.03] border border-white/[0.06] flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/[0.08] hover:border-white/20 transition-all"

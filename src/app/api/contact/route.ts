@@ -1,13 +1,15 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { createClient } from "@/lib/supabase/server";
+import { getServerSupabase } from "@/lib/supabase/admin";
 
 const ContactSchema = z.object({
   full_name: z.string().min(2, "Le nom doit comporter au moins 2 caractères"),
   email: z.string().email("Adresse email invalide"),
   phone: z.string().optional(),
   subject: z.string().min(3, "Veuillez renseigner un objet"),
-  message: z.string().min(10, "Votre message doit comporter au moins 10 caractères"),
+  message: z
+    .string()
+    .min(10, "Votre message doit comporter au moins 10 caractères"),
 });
 
 export async function POST(request: Request) {
@@ -23,7 +25,7 @@ export async function POST(request: Request) {
     }
 
     try {
-      const supabase = await createClient();
+      const supabase = await getServerSupabase();
       if (supabase) {
         await supabase.from("contact_inquiries").insert({
           full_name: validated.data.full_name,
@@ -34,7 +36,7 @@ export async function POST(request: Request) {
         });
       }
     } catch {
-      // In development or if offline, proceed smoothly
+      // En cas d'indisponibilité réseau, poursuit sans erreur bloquante
     }
 
     return NextResponse.json({

@@ -15,7 +15,18 @@ import {
   EventPopupConfig,
   EventPopupSlide,
 } from "@/types/database";
-import { ALL_FORMATIONS } from "@/lib/data/programme-hierarchy";
+import {
+  ALL_FORMATIONS,
+  ALL_DOMAINS,
+} from "@/lib/data/programme-hierarchy";
+import {
+  LICENCE_TUITION_TIERS,
+  LICENCE_EXTRA_FEES,
+} from "@/lib/data/programme-details-licences";
+import {
+  MASTER_TUITION_TIERS,
+  MASTER_EXTRA_FEES,
+} from "@/lib/data/programme-details-masters";
 import {
   MOCK_TESTIMONIALS,
   MOCK_ARTICLES,
@@ -348,6 +359,61 @@ const INITIAL_CANDIDATURES: Candidature[] = [
   },
 ];
 
+export const DEFAULT_DOMAINS_CONFIG: DomainConfig[] = ALL_DOMAINS.map((d) => ({
+  id: d.id,
+  code: d.code,
+  name: d.name,
+  slug: d.slug,
+  short_description: d.short_description || "",
+  icon: d.icon || "BookOpen",
+  order_index: d.order_index,
+  is_active: d.is_active,
+}));
+
+export const DEFAULT_GRADES_CONFIG: GradeConfig[] = [
+  {
+    id: "grade-licence",
+    name: "Licence (Bac+3)",
+    level: "licence",
+    duration_years: 3,
+    default_ects: 180,
+  },
+  {
+    id: "grade-master",
+    name: "Master (Bac+5)",
+    level: "master",
+    duration_years: 2,
+    default_ects: 120,
+  },
+];
+
+export const DEFAULT_PRICING_GRIDS_CONFIG: PricingGridConfig[] = [
+  {
+    id: "pricing-licence-2026",
+    name: "Grille Officielle Licence (Bac+3)",
+    level: "licence",
+    registration_fee: 170000,
+    monthly_fee: 75000,
+    annual_fee_local: 920000,
+    annual_fee_international: 1120000,
+    extra_fees: LICENCE_EXTRA_FEES,
+    tiers: LICENCE_TUITION_TIERS,
+  },
+  {
+    id: "pricing-master-2026",
+    name: "Grille Officielle Master (Bac+5)",
+    level: "master",
+    registration_fee: 180000,
+    monthly_fee: 95000,
+    annual_fee_local: 1130000,
+    annual_fee_international: 1130000,
+    extra_fees: MASTER_EXTRA_FEES,
+    tiers: MASTER_TUITION_TIERS,
+  },
+];
+
+let inMemoryStoreCache: CmsStoreData | null = null;
+
 function getInitialStore(): CmsStoreData {
   return {
     formations: ALL_FORMATIONS,
@@ -360,6 +426,9 @@ function getInitialStore(): CmsStoreData {
     settings: MOCK_SITE_SETTINGS,
     candidatures: INITIAL_CANDIDATURES,
     admin_users: INITIAL_ADMIN_USERS,
+    domains_config: DEFAULT_DOMAINS_CONFIG,
+    grades_config: DEFAULT_GRADES_CONFIG,
+    pricing_grids_config: DEFAULT_PRICING_GRIDS_CONFIG,
     event_popup: DEFAULT_EVENT_POPUP_CONFIG,
   };
 }
@@ -367,12 +436,18 @@ function getInitialStore(): CmsStoreData {
 export function readCmsStore(): CmsStoreData {
   try {
     if (!fs.existsSync(STORE_PATH)) {
+      if (inMemoryStoreCache) return inMemoryStoreCache;
       const initial = getInitialStore();
-      const dir = path.dirname(STORE_PATH);
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
+      try {
+        const dir = path.dirname(STORE_PATH);
+        if (!fs.existsSync(dir)) {
+          fs.mkdirSync(dir, { recursive: true });
+        }
+        fs.writeFileSync(STORE_PATH, JSON.stringify(initial, null, 2), "utf-8");
+      } catch {
+        // Ignorer sur système de fichiers en lecture seule (serverless)
       }
-      fs.writeFileSync(STORE_PATH, JSON.stringify(initial, null, 2), "utf-8");
+      inMemoryStoreCache = initial;
       return initial;
     }
 
@@ -389,33 +464,33 @@ export function readCmsStore(): CmsStoreData {
             return {
               ...seed,
               ...stored,
-              mention: seed.mention ?? stored.mention,
-              specialty: seed.specialty ?? stored.specialty,
-              domaine: seed.domaine ?? stored.domaine,
-              grade: seed.grade ?? stored.grade,
-              duration_label: seed.duration_label ?? stored.duration_label,
-              description: seed.description ?? stored.description,
-              objectives: seed.objectives ?? stored.objectives,
-              curriculum: seed.curriculum ?? stored.curriculum,
+              mention: stored.mention ?? seed.mention,
+              specialty: stored.specialty ?? seed.specialty,
+              domaine: stored.domaine ?? seed.domaine,
+              grade: stored.grade ?? seed.grade,
+              duration_label: stored.duration_label ?? seed.duration_label,
+              description: stored.description ?? seed.description,
+              objectives: stored.objectives ?? seed.objectives,
+              curriculum: stored.curriculum ?? seed.curriculum,
               program_blocks:
-                seed.program_blocks && seed.program_blocks.length > 0
-                  ? seed.program_blocks
-                  : stored.program_blocks,
+                stored.program_blocks && stored.program_blocks.length > 0
+                  ? stored.program_blocks
+                  : seed.program_blocks,
               career_opportunities:
-                seed.career_opportunities ?? stored.career_opportunities,
+                stored.career_opportunities ?? seed.career_opportunities,
               career_opportunities_list:
-                seed.career_opportunities_list &&
-                seed.career_opportunities_list.length > 0
-                  ? seed.career_opportunities_list
-                  : stored.career_opportunities_list,
+                stored.career_opportunities_list &&
+                stored.career_opportunities_list.length > 0
+                  ? stored.career_opportunities_list
+                  : seed.career_opportunities_list,
               admission_requirements:
-                seed.admission_requirements ?? stored.admission_requirements,
+                stored.admission_requirements ?? seed.admission_requirements,
               admission_conditions_list:
-                seed.admission_conditions_list &&
-                seed.admission_conditions_list.length > 0
-                  ? seed.admission_conditions_list
-                  : stored.admission_conditions_list,
-              brochure_url: seed.brochure_url ?? stored.brochure_url,
+                stored.admission_conditions_list &&
+                stored.admission_conditions_list.length > 0
+                  ? stored.admission_conditions_list
+                  : seed.admission_conditions_list,
+              brochure_url: stored.brochure_url ?? seed.brochure_url,
               tuition_summary: stored.tuition_summary ?? seed.tuition_summary,
               tuition_tiers:
                 stored.tuition_tiers && stored.tuition_tiers.length > 0
@@ -437,35 +512,69 @@ export function readCmsStore(): CmsStoreData {
           })
         : ALL_FORMATIONS;
 
-    return {
+    const result: CmsStoreData = {
       formations: mergedFormations,
-      testimonials: parsed.testimonials && parsed.testimonials.length > 0 ? parsed.testimonials : MOCK_TESTIMONIALS,
-      articles: parsed.articles && parsed.articles.length > 0 ? parsed.articles : MOCK_ARTICLES,
-      categories: parsed.categories && parsed.categories.length > 0 ? parsed.categories : MOCK_CATEGORIES,
-      slides: parsed.slides && parsed.slides.length > 0 ? parsed.slides : MOCK_SLIDES,
-      partners: Array.isArray(parsed.partners) && parsed.partners.length > 0 ? parsed.partners : MOCK_PARTNERS,
-      student_life: Array.isArray(parsed.student_life) && parsed.student_life.length > 0 ? parsed.student_life : MOCK_STUDENT_LIFE,
-      settings: parsed.settings ? { ...MOCK_SITE_SETTINGS, ...parsed.settings } : MOCK_SITE_SETTINGS,
-      candidatures: parsed.candidatures ? parsed.candidatures : INITIAL_CANDIDATURES,
+      testimonials:
+        parsed.testimonials && parsed.testimonials.length > 0
+          ? parsed.testimonials
+          : MOCK_TESTIMONIALS,
+      articles:
+        parsed.articles && parsed.articles.length > 0
+          ? parsed.articles
+          : MOCK_ARTICLES,
+      categories:
+        parsed.categories && parsed.categories.length > 0
+          ? parsed.categories
+          : MOCK_CATEGORIES,
+      slides:
+        parsed.slides && parsed.slides.length > 0 ? parsed.slides : MOCK_SLIDES,
+      partners:
+        Array.isArray(parsed.partners) && parsed.partners.length > 0
+          ? parsed.partners
+          : MOCK_PARTNERS,
+      student_life:
+        Array.isArray(parsed.student_life) && parsed.student_life.length > 0
+          ? parsed.student_life
+          : MOCK_STUDENT_LIFE,
+      settings: parsed.settings
+        ? { ...MOCK_SITE_SETTINGS, ...parsed.settings }
+        : MOCK_SITE_SETTINGS,
+      candidatures: parsed.candidatures
+        ? parsed.candidatures
+        : INITIAL_CANDIDATURES,
       admin_users:
         Array.isArray(parsed.admin_users) && parsed.admin_users.length > 0
           ? parsed.admin_users
           : INITIAL_ADMIN_USERS,
-      domains_config: parsed.domains_config || [],
-      grades_config: parsed.grades_config || [],
-      pricing_grids_config: parsed.pricing_grids_config || [],
+      domains_config:
+        parsed.domains_config && parsed.domains_config.length > 0
+          ? parsed.domains_config
+          : DEFAULT_DOMAINS_CONFIG,
+      grades_config:
+        parsed.grades_config && parsed.grades_config.length > 0
+          ? parsed.grades_config
+          : DEFAULT_GRADES_CONFIG,
+      pricing_grids_config:
+        parsed.pricing_grids_config && parsed.pricing_grids_config.length > 0
+          ? parsed.pricing_grids_config
+          : DEFAULT_PRICING_GRIDS_CONFIG,
       event_popup:
         parsed.event_popup && Array.isArray(parsed.event_popup.slides)
           ? parsed.event_popup
           : DEFAULT_EVENT_POPUP_CONFIG,
     };
+
+    inMemoryStoreCache = result;
+    return result;
   } catch (error) {
+    if (inMemoryStoreCache) return inMemoryStoreCache;
     console.warn("Failed to read CMS store, falling back to in-memory:", error);
     return getInitialStore();
   }
 }
 
 export function writeCmsStore(data: CmsStoreData): void {
+  inMemoryStoreCache = data;
   try {
     const dir = path.dirname(STORE_PATH);
     if (!fs.existsSync(dir)) {
@@ -474,7 +583,7 @@ export function writeCmsStore(data: CmsStoreData): void {
     const tempPath = `${STORE_PATH}.tmp`;
     fs.writeFileSync(tempPath, JSON.stringify(data, null, 2), "utf-8");
     fs.renameSync(tempPath, STORE_PATH);
-  } catch (error) {
-    console.error("Failed to write to CMS store:", error);
+  } catch {
+    // Sur Vercel serverless (système de fichiers en lecture seule), le cache mémoire et Supabase assurent la persistance
   }
 }

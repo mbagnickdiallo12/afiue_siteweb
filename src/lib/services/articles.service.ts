@@ -1,6 +1,6 @@
 import { Article, ArticleCategory } from "@/types/database";
 import { MOCK_CATEGORIES } from "@/lib/data/mock-data";
-import { createClient } from "@/lib/supabase/server";
+import { ensureUuid, getServerSupabase } from "@/lib/supabase/admin";
 import { readCmsStore, writeCmsStore } from "./cms-store";
 
 export interface ArticlesFilterOptions {
@@ -14,7 +14,7 @@ export async function getArticles(
   options?: ArticlesFilterOptions
 ): Promise<Article[]> {
   try {
-    const supabase = await createClient();
+    const supabase = await getServerSupabase();
     if (supabase) {
       let query = supabase
         .from("articles")
@@ -34,13 +34,13 @@ export async function getArticles(
         }
       }
 
-      if (options?.limit) {
-        query = query.limit(options.limit);
-      }
-
       const { data, error } = await query;
       if (!error && data && data.length > 0) {
-        return data as Article[];
+        return filterArticlesList(data as Article[], {
+          tag: options?.tag,
+          search: options?.search,
+          limit: options?.limit,
+        });
       }
     }
   } catch {
@@ -54,7 +54,7 @@ export async function getArticles(
 
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
   try {
-    const supabase = await createClient();
+    const supabase = await getServerSupabase();
     if (supabase) {
       const { data, error } = await supabase
         .from("articles")
@@ -73,8 +73,12 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
   const store = readCmsStore();
   const found = store.articles.find((a) => a.slug === slug);
   if (found) {
-    const cats = store.categories && store.categories.length > 0 ? store.categories : MOCK_CATEGORIES;
-    const cat = cats.find((c) => c.id === found.category_id) || found.category || null;
+    const cats =
+      store.categories && store.categories.length > 0
+        ? store.categories
+        : MOCK_CATEGORIES;
+    const cat =
+      cats.find((c) => c.id === found.category_id) || found.category || null;
     return { ...found, category: cat };
   }
   return null;
@@ -82,7 +86,7 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
 
 export async function getAllArticlesAdmin(): Promise<Article[]> {
   try {
-    const supabase = await createClient();
+    const supabase = await getServerSupabase();
     if (supabase) {
       const { data, error } = await supabase
         .from("articles")
@@ -98,20 +102,24 @@ export async function getAllArticlesAdmin(): Promise<Article[]> {
   }
 
   const store = readCmsStore();
-  const cats = store.categories && store.categories.length > 0 ? store.categories : MOCK_CATEGORIES;
+  const cats =
+    store.categories && store.categories.length > 0
+      ? store.categories
+      : MOCK_CATEGORIES;
   return store.articles
     .map((a) => {
       const cat = cats.find((c) => c.id === a.category_id) || a.category || null;
       return { ...a, category: cat };
     })
     .sort(
-      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      (a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     );
 }
 
 export async function getCategories(): Promise<ArticleCategory[]> {
   try {
-    const supabase = await createClient();
+    const supabase = await getServerSupabase();
     if (supabase) {
       const { data, error } = await supabase
         .from("article_categories")
@@ -127,14 +135,19 @@ export async function getCategories(): Promise<ArticleCategory[]> {
   }
 
   const store = readCmsStore();
-  const cats = store.categories && store.categories.length > 0 ? store.categories : MOCK_CATEGORIES;
+  const cats =
+    store.categories && store.categories.length > 0
+      ? store.categories
+      : MOCK_CATEGORIES;
   return [...cats].sort((a, b) => a.order_index - b.order_index);
 }
 
-export async function incrementArticleViewCount(slug: string): Promise<number | null> {
+export async function incrementArticleViewCount(
+  slug: string
+): Promise<number | null> {
   let updatedCount: number | null = null;
   try {
-    const supabase = await createClient();
+    const supabase = await getServerSupabase();
     if (supabase) {
       const { data } = await supabase
         .from("articles")
@@ -155,7 +168,6 @@ export async function incrementArticleViewCount(slug: string): Promise<number | 
     // ignore
   }
 
-  // Also mirror in local CMS store
   try {
     const store = readCmsStore();
     const article = store.articles.find((a) => a.slug === slug);
@@ -177,16 +189,25 @@ export async function getAllCategoriesAdmin(): Promise<ArticleCategory[]> {
   return getCategories();
 }
 
-export async function saveCategory(category: Partial<ArticleCategory> & { id?: string }): Promise<ArticleCategory> {
+export async function saveCategory(
+  category: Partial<ArticleCategory> & { id?: string }
+): Promise<ArticleCategory> {
   const store = readCmsStore();
-  const cats = store.categories && store.categories.length > 0 ? [...store.categories] : [...MOCK_CATEGORIES];
-  const existingIdx = cats.findIndex((c) => c.id === category.id);
+  const cats =
+    store.categories && store.categories.length > 0
+      ? [...store.categories]
+      : [...MOCK_CATEGORIES];
+  const targetId = category.id ? ensureUuid(category.id) : undefined;
+  const existingIdx = cats.findIndex(
+    (c) => c.id === category.id || (targetId && ensureUuid(c.id) === targetId)
+  );
 
   let updated: ArticleCategory;
   if (existingIdx >= 0) {
     updated = {
       ...cats[existingIdx],
       ...category,
+      id: ensureUuid(cats[existingIdx].id),
       name: category.name || cats[existingIdx].name,
       slug:
         category.slug ||
@@ -211,14 +232,32 @@ export async function saveCategory(category: Partial<ArticleCategory> & { id?: s
       `categorie-${Date.now()}`;
 
     updated = {
-      id: category.id || `cat-${Date.now()}`,
+      id: ensureUuid(category.id),
       name: category.name || "Nouvelle Catégorie",
       slug,
       description: category.description || null,
-      order_index: category.order_index ?? (cats.length + 1),
+      order_index: category.order_index ?? cats.length + 1,
       created_at: new Date().toISOString(),
     };
     cats.push(updated);
+  }
+
+  try {
+    const supabase = await getServerSupabase();
+    if (supabase) {
+      await supabase.from("article_categories").upsert(
+        {
+          id: updated.id,
+          name: updated.name,
+          slug: updated.slug,
+          description: updated.description,
+          order_index: updated.order_index,
+        },
+        { onConflict: "id" }
+      );
+    }
+  } catch (err) {
+    console.warn("Supabase category sync warning:", err);
   }
 
   store.categories = cats;
@@ -228,9 +267,30 @@ export async function saveCategory(category: Partial<ArticleCategory> & { id?: s
 
 export async function deleteCategory(id: string): Promise<boolean> {
   const store = readCmsStore();
-  const cats = store.categories && store.categories.length > 0 ? [...store.categories] : [...MOCK_CATEGORIES];
-  const filtered = cats.filter((c) => c.id !== id);
-  if (filtered.length !== cats.length) {
+  const cats =
+    store.categories && store.categories.length > 0
+      ? [...store.categories]
+      : [...MOCK_CATEGORIES];
+  const targetUuid = ensureUuid(id);
+  const filtered = cats.filter(
+    (c) => c.id !== id && ensureUuid(c.id) !== targetUuid
+  );
+
+  let dbDeleted = false;
+  try {
+    const supabase = await getServerSupabase();
+    if (supabase) {
+      const { error } = await supabase
+        .from("article_categories")
+        .delete()
+        .eq("id", targetUuid);
+      if (!error) dbDeleted = true;
+    }
+  } catch {
+    // ignore
+  }
+
+  if (filtered.length !== cats.length || dbDeleted) {
     store.categories = filtered;
     writeCmsStore(store);
     return true;
@@ -238,39 +298,66 @@ export async function deleteCategory(id: string): Promise<boolean> {
   return false;
 }
 
-export async function saveArticle(article: Partial<Article> & { id?: string }): Promise<Article> {
+export async function saveArticle(
+  article: Partial<Article> & { id?: string }
+): Promise<Article> {
   const store = readCmsStore();
-  const availableCats = store.categories && store.categories.length > 0 ? store.categories : MOCK_CATEGORIES;
+  const availableCats = await getCategories();
   const linkedCategory =
-    availableCats.find((c) => c.id === article.category_id) ||
+    availableCats.find(
+      (c) =>
+        c.id === article.category_id ||
+        (article.category_id && ensureUuid(c.id) === ensureUuid(article.category_id))
+    ) ||
     article.category ||
     availableCats[0] ||
     null;
 
-  const existingIndex = store.articles.findIndex((a) => a.id === article.id);
+  const targetId = article.id ? ensureUuid(article.id) : undefined;
+  const existingIndex = store.articles.findIndex(
+    (a) =>
+      a.id === article.id ||
+      (targetId && ensureUuid(a.id) === targetId) ||
+      (article.slug && a.slug === article.slug)
+  );
 
   let updated: Article;
   if (existingIndex >= 0) {
     updated = {
       ...store.articles[existingIndex],
       ...article,
+      id: ensureUuid(store.articles[existingIndex].id),
       title: article.title || store.articles[existingIndex].title,
       slug: article.slug || store.articles[existingIndex].slug,
-      category_id: article.category_id || store.articles[existingIndex].category_id || linkedCategory?.id || null,
+      category_id: linkedCategory?.id
+        ? ensureUuid(linkedCategory.id)
+        : article.category_id
+        ? ensureUuid(article.category_id)
+        : null,
       category: linkedCategory,
       updated_at: new Date().toISOString(),
     };
     store.articles[existingIndex] = updated;
   } else {
     updated = {
-      id: article.id || `art-${Date.now()}`,
-      category_id: article.category_id || linkedCategory?.id || null,
+      id: ensureUuid(article.id),
+      category_id: linkedCategory?.id ? ensureUuid(linkedCategory.id) : null,
       author_id: null,
       title: article.title || "Nouvel Article",
-      slug: article.slug || `article-${Date.now()}`,
+      slug:
+        article.slug ||
+        (article.title
+          ? article.title
+              .toLowerCase()
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "")
+              .replace(/[^a-z0-9]+/g, "-")
+              .replace(/^-+|-+$/g, "")
+          : `article-${Date.now()}`),
       excerpt: article.excerpt || null,
       content: article.content || "",
-      cover_image_url: article.cover_image_url || "/images/news/admission-2026.jpg",
+      cover_image_url:
+        article.cover_image_url || "/images/news/admission-2026.jpg",
       tags: article.tags || ["Actualité"],
       status: article.status || "published",
       is_pinned: article.is_pinned ?? false,
@@ -287,14 +374,13 @@ export async function saveArticle(article: Partial<Article> & { id?: string }): 
     store.articles.unshift(updated);
   }
 
-  // Sync to Supabase if available
   try {
-    const supabase = await createClient();
+    const supabase = await getServerSupabase();
     if (supabase) {
       const dbPayload = {
         id: updated.id,
         category_id: updated.category_id,
-        author_id: updated.author_id,
+        author_id: null,
         title: updated.title,
         slug: updated.slug,
         excerpt: updated.excerpt,
@@ -311,8 +397,8 @@ export async function saveArticle(article: Partial<Article> & { id?: string }): 
       };
       await supabase.from("articles").upsert(dbPayload, { onConflict: "id" });
     }
-  } catch {
-    // fallback to file
+  } catch (err) {
+    console.warn("Supabase article sync warning:", err);
   }
 
   writeCmsStore(store);
@@ -320,11 +406,16 @@ export async function saveArticle(article: Partial<Article> & { id?: string }): 
 }
 
 export async function deleteArticle(id: string): Promise<boolean> {
-  // Sync to Supabase if available
+  const targetUuid = ensureUuid(id);
+  let dbDeleted = false;
   try {
-    const supabase = await createClient();
+    const supabase = await getServerSupabase();
     if (supabase) {
-      await supabase.from("articles").delete().eq("id", id);
+      const { error } = await supabase
+        .from("articles")
+        .delete()
+        .eq("id", targetUuid);
+      if (!error) dbDeleted = true;
     }
   } catch {
     // ignore
@@ -332,8 +423,10 @@ export async function deleteArticle(id: string): Promise<boolean> {
 
   const store = readCmsStore();
   const initialLen = store.articles.length;
-  store.articles = store.articles.filter((a) => a.id !== id);
-  if (store.articles.length !== initialLen) {
+  store.articles = store.articles.filter(
+    (a) => a.id !== id && ensureUuid(a.id) !== targetUuid
+  );
+  if (store.articles.length !== initialLen || dbDeleted) {
     writeCmsStore(store);
     return true;
   }
@@ -353,15 +446,18 @@ function filterArticlesList(
   }
 
   if (options.tag) {
-    result = result.filter((a) => a.tags?.includes(options.tag!));
+    const tagLower = options.tag.toLowerCase();
+    result = result.filter((a) =>
+      a.tags.some((t) => t.toLowerCase() === tagLower)
+    );
   }
 
   if (options.search) {
-    const q = options.search.toLowerCase().trim();
+    const q = options.search.toLowerCase();
     result = result.filter(
       (a) =>
         a.title.toLowerCase().includes(q) ||
-        a.excerpt?.toLowerCase().includes(q) ||
+        (a.excerpt && a.excerpt.toLowerCase().includes(q)) ||
         a.content.toLowerCase().includes(q)
     );
   }

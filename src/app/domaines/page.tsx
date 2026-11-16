@@ -6,6 +6,8 @@ import { ProgrammePedagogyAndModalities } from "@/components/formations/Programm
 import TopologyField from "@/components/ui/topology-field";
 import { FadeIn, StaggerContainer, StaggerItem, HoverLift } from "@/components/ui/motion";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Domaines & Pôles d'Enseignement | AFI-L'UE",
   description:

@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { motion, AnimatePresence } from "motion/react";
+import { SiteSettings } from "@/types/database";
 
 interface FAQItem {
   question: string;
@@ -41,7 +42,12 @@ const FAQS: FAQItem[] = [
   },
 ];
 
-export function ContactPageView() {
+export function ContactPageView({ settings }: { settings?: SiteSettings }) {
+  const phoneMain = settings?.phone_main || "+221 33 824 71 10";
+  const phoneMobile = settings?.phone_mobile || "+221 77 508 87 28";
+  const whatsappNum = settings?.whatsapp || "+221 77 508 87 28";
+  const mainEmail = settings?.main_email || "afi@afi-ue.sn";
+  const dakarAddress = settings?.main_address || "Dakar, Zone B Rue G";
   const [activeCampusTab, setActiveCampusTab] = useState<"dakar" | "thies">("dakar");
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
@@ -100,11 +106,11 @@ export function ContactPageView() {
                 <p className="text-xs text-slate-500">Lun – Ven : 8h30 – 18h30</p>
               </div>
               <div className="pt-2 border-t border-slate-100 space-y-0.5">
-                <a href="tel:+221338247110" className="text-xs font-bold text-slate-900 hover:text-afi-red transition-colors block">
-                  +221 33 824 71 10
+                <a href={`tel:${phoneMain.replace(/\s+/g, "")}`} className="text-xs font-bold text-slate-900 hover:text-afi-red transition-colors block">
+                  {phoneMain}
                 </a>
-                <a href="tel:+221775088728" className="text-xs text-slate-600 hover:text-afi-red transition-colors block">
-                  +221 77 508 87 28
+                <a href={`tel:${phoneMobile.replace(/\s+/g, "")}`} className="text-xs text-slate-600 hover:text-afi-red transition-colors block">
+                  {phoneMobile}
                 </a>
               </div>
             </div>
@@ -122,12 +128,12 @@ export function ContactPageView() {
               </div>
               <div className="pt-2 border-t border-slate-100">
                 <a
-                  href="https://wa.me/221775088728"
+                  href={`https://wa.me/${whatsappNum.replace(/[^0-9]/g, "")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 hover:text-emerald-800 transition-colors"
                 >
-                  <span>+221 77 508 87 28</span>
+                  <span>{whatsappNum}</span>
                   <ArrowRight className="w-3 h-3" />
                 </a>
               </div>
@@ -146,10 +152,10 @@ export function ContactPageView() {
               </div>
               <div className="pt-2 border-t border-slate-100">
                 <a
-                  href="mailto:afi@afi-ue.sn"
+                  href={`mailto:${mainEmail}`}
                   className="text-xs font-bold text-slate-900 hover:text-afi-red transition-colors block truncate"
                 >
-                  afi@afi-ue.sn
+                  {mainEmail}
                 </a>
               </div>
             </div>
@@ -202,18 +208,18 @@ export function ContactPageView() {
                 <div className="space-y-2 text-xs text-slate-600">
                   <div className="flex items-center gap-2">
                     <MapPin className="w-3.5 h-3.5 text-afi-red shrink-0" />
-                    <span>Dakar, Zone B Rue G</span>
+                    <span>{dakarAddress}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Phone className="w-3.5 h-3.5 text-afi-red shrink-0" />
-                    <a href="tel:+221338247110" className="hover:text-afi-red transition-colors">
-                      +221 33 824 71 10
+                    <a href={`tel:${phoneMain.replace(/\s+/g, "")}`} className="hover:text-afi-red transition-colors">
+                      {phoneMain}
                     </a>
                   </div>
                   <div className="flex items-center gap-2">
                     <Mail className="w-3.5 h-3.5 text-afi-red shrink-0" />
-                    <a href="mailto:afi@afi-ue.sn" className="hover:text-afi-red transition-colors">
-                      afi@afi-ue.sn
+                    <a href={`mailto:${mainEmail}`} className="hover:text-afi-red transition-colors">
+                      {mainEmail}
                     </a>
                   </div>
                   <div className="flex items-center gap-2">

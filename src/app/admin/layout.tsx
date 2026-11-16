@@ -6,6 +6,8 @@ import {
 } from "@/lib/services/auth-token";
 import { getAdminUserById } from "@/lib/services/users.service";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Administration | AFI-L'Université de l'Entreprise",
 };

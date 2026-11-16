@@ -1,10 +1,28 @@
 import { EventPopupConfig, EventPopupSlide } from "@/types/database";
-import { readCmsStore, writeCmsStore, DEFAULT_EVENT_POPUP_CONFIG } from "./cms-store";
+import {
+  readCmsStore,
+  writeCmsStore,
+  DEFAULT_EVENT_POPUP_CONFIG,
+} from "./cms-store";
+import {
+  getSiteSettingJson,
+  setSiteSettingJson,
+} from "@/lib/supabase/admin";
+
+const EVENT_POPUP_KEY = "event_popup_config";
 
 export async function getEventPopupConfig(): Promise<EventPopupConfig> {
   try {
     const store = readCmsStore();
-    return store.event_popup || DEFAULT_EVENT_POPUP_CONFIG;
+    const fallback = store.event_popup || DEFAULT_EVENT_POPUP_CONFIG;
+    const dbConfig = await getSiteSettingJson<EventPopupConfig>(
+      EVENT_POPUP_KEY,
+      fallback
+    );
+    if (dbConfig && Array.isArray(dbConfig.slides)) {
+      return dbConfig;
+    }
+    return fallback;
   } catch (error) {
     console.warn("Failed to get event popup config, using default:", error);
     return DEFAULT_EVENT_POPUP_CONFIG;
@@ -15,7 +33,7 @@ export async function updateEventPopupConfig(
   newConfig: Partial<EventPopupConfig>
 ): Promise<EventPopupConfig> {
   const store = readCmsStore();
-  const current = store.event_popup || DEFAULT_EVENT_POPUP_CONFIG;
+  const current = await getEventPopupConfig();
 
   const updated: EventPopupConfig = {
     ...current,
@@ -25,6 +43,11 @@ export async function updateEventPopupConfig(
 
   store.event_popup = updated;
   writeCmsStore(store);
+  await setSiteSettingJson(
+    EVENT_POPUP_KEY,
+    updated,
+    "Configuration et affiches du popup événementiel"
+  );
   return updated;
 }
 
@@ -32,7 +55,7 @@ export async function addEventPopupSlide(
   slide: Omit<EventPopupSlide, "id">
 ): Promise<EventPopupSlide> {
   const store = readCmsStore();
-  const current = store.event_popup || DEFAULT_EVENT_POPUP_CONFIG;
+  const current = await getEventPopupConfig();
 
   const newSlide: EventPopupSlide = {
     ...slide,
@@ -41,13 +64,14 @@ export async function addEventPopupSlide(
     updated_at: new Date().toISOString(),
   };
 
-  const updatedSlides = [...current.slides, newSlide];
-  store.event_popup = {
+  const updated: EventPopupConfig = {
     ...current,
-    slides: updatedSlides,
+    slides: [...current.slides, newSlide],
   };
 
+  store.event_popup = updated;
   writeCmsStore(store);
+  await setSiteSettingJson(EVENT_POPUP_KEY, updated);
   return newSlide;
 }
 
@@ -56,7 +80,7 @@ export async function updateEventPopupSlide(
   slideData: Partial<EventPopupSlide>
 ): Promise<EventPopupSlide | null> {
   const store = readCmsStore();
-  const current = store.event_popup || DEFAULT_EVENT_POPUP_CONFIG;
+  const current = await getEventPopupConfig();
 
   const index = current.slides.findIndex((s) => s.id === id);
   if (index === -1) return null;
@@ -67,24 +91,36 @@ export async function updateEventPopupSlide(
     updated_at: new Date().toISOString(),
   };
 
-  current.slides[index] = updatedSlide;
-  store.event_popup = { ...current };
+  const nextSlides = [...current.slides];
+  nextSlides[index] = updatedSlide;
+
+  const updated: EventPopupConfig = {
+    ...current,
+    slides: nextSlides,
+  };
+
+  store.event_popup = updated;
   writeCmsStore(store);
+  await setSiteSettingJson(EVENT_POPUP_KEY, updated);
   return updatedSlide;
 }
 
 export async function deleteEventPopupSlide(id: string): Promise<boolean> {
   const store = readCmsStore();
-  const current = store.event_popup || DEFAULT_EVENT_POPUP_CONFIG;
+  const current = await getEventPopupConfig();
 
   const initialLen = current.slides.length;
-  current.slides = current.slides.filter((s) => s.id !== id);
+  const nextSlides = current.slides.filter((s) => s.id !== id);
 
-  if (current.slides.length !== initialLen) {
-    store.event_popup = { ...current };
+  if (nextSlides.length !== initialLen) {
+    const updated: EventPopupConfig = {
+      ...current,
+      slides: nextSlides,
+    };
+    store.event_popup = updated;
     writeCmsStore(store);
+    await setSiteSettingJson(EVENT_POPUP_KEY, updated);
     return true;
   }
   return false;
 }
-

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getAllArticlesAdmin, saveArticle } from "@/lib/services/articles.service";
 
 export async function GET() {
@@ -23,6 +24,7 @@ export async function POST(request: Request) {
       );
     }
     const saved = await saveArticle(body);
+    revalidatePath("/", "layout");
     return NextResponse.json({ success: true, data: saved });
   } catch (error: any) {
     return NextResponse.json(

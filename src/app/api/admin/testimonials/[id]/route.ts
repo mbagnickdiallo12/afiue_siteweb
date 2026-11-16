@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { saveTestimonial, deleteTestimonial } from "@/lib/services/testimonials.service";
 
 export async function PUT(
@@ -9,6 +10,7 @@ export async function PUT(
     const { id } = await params;
     const body = await req.json();
     const updated = await saveTestimonial({ ...body, id });
+    revalidatePath("/", "layout");
     return NextResponse.json({ success: true, data: updated });
   } catch (error) {
     return NextResponse.json({ success: false, error: (error as Error).message }, { status: 500 });
@@ -25,6 +27,7 @@ export async function DELETE(
     if (!deleted) {
       return NextResponse.json({ success: false, error: "Témoignage non trouvé" }, { status: 404 });
     }
+    revalidatePath("/", "layout");
     return NextResponse.json({ success: true, message: "Témoignage supprimé avec succès" });
   } catch (error) {
     return NextResponse.json({ success: false, error: (error as Error).message }, { status: 500 });

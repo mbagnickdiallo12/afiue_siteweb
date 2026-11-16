@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { saveCategory, deleteCategory } from "@/lib/services/articles.service";
 
 export async function PUT(
@@ -9,6 +10,7 @@ export async function PUT(
     const { id } = await params;
     const body = await request.json();
     const updated = await saveCategory({ ...body, id });
+    revalidatePath("/", "layout");
     return NextResponse.json({ success: true, data: updated });
   } catch (error: any) {
     return NextResponse.json(
@@ -31,6 +33,7 @@ export async function DELETE(
         { status: 404 }
       );
     }
+    revalidatePath("/", "layout");
     return NextResponse.json({
       success: true,
       message: "Catégorie supprimée avec succès",

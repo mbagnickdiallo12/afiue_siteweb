@@ -2,6 +2,10 @@ import fs from "fs";
 import path from "path";
 import crypto from "crypto";
 import { getFormations } from "@/lib/services/formations.service";
+import {
+  getSiteSettingJson,
+  setSiteSettingJson,
+} from "@/lib/supabase/admin";
 
 /* ============================================================================
    SOPHIE — Agent IA d'orientation AFI-L'UE
@@ -65,38 +69,79 @@ export const DEFAULT_SOPHIE_CONFIG: SophieConfig = {
    Persistance
    ---------------------------------------------------------------------------- */
 
+const SOPHIE_STORE_KEY = "sophie_store";
+let inMemorySophieStore: SophieStore | null = null;
+
 export function readSophieStore(): SophieStore {
+  if (inMemorySophieStore) return inMemorySophieStore;
   try {
     if (fs.existsSync(STORE_PATH)) {
       const parsed = JSON.parse(fs.readFileSync(STORE_PATH, "utf8"));
-      return {
+      inMemorySophieStore = {
         config: { ...DEFAULT_SOPHIE_CONFIG, ...(parsed.config || {}) },
         knowledge: Array.isArray(parsed.knowledge) ? parsed.knowledge : [],
       };
+      return inMemorySophieStore;
     }
   } catch (err) {
     console.error("Sophie store read error:", err);
   }
-  return { config: { ...DEFAULT_SOPHIE_CONFIG }, knowledge: [] };
+  inMemorySophieStore = {
+    config: { ...DEFAULT_SOPHIE_CONFIG },
+    knowledge: [],
+  };
+  return inMemorySophieStore;
+}
+
+export async function readSophieStoreAsync(): Promise<SophieStore> {
+  const fallback = readSophieStore();
+  const dbStore = await getSiteSettingJson<Partial<SophieStore>>(
+    SOPHIE_STORE_KEY,
+    fallback
+  );
+  const merged: SophieStore = {
+    config: { ...DEFAULT_SOPHIE_CONFIG, ...(dbStore?.config || fallback.config) },
+    knowledge: Array.isArray(dbStore?.knowledge)
+      ? dbStore.knowledge
+      : fallback.knowledge,
+  };
+  inMemorySophieStore = merged;
+  return merged;
 }
 
 export function writeSophieStore(store: SophieStore): void {
-  fs.mkdirSync(path.dirname(STORE_PATH), { recursive: true });
-  fs.writeFileSync(STORE_PATH, JSON.stringify(store, null, 2), "utf8");
+  inMemorySophieStore = store;
+  try {
+    fs.mkdirSync(path.dirname(STORE_PATH), { recursive: true });
+    fs.writeFileSync(STORE_PATH, JSON.stringify(store, null, 2), "utf8");
+  } catch {
+    // Sur Vercel serverless (lecture seule), le cache mémoire et Supabase assurent la persistance
+  }
 }
 
-export function updateSophieConfig(patch: Partial<SophieConfig>): SophieConfig {
-  const store = readSophieStore();
-  store.config = { ...store.config, ...patch };
+export async function writeSophieStoreAsync(store: SophieStore): Promise<void> {
   writeSophieStore(store);
+  await setSiteSettingJson(
+    SOPHIE_STORE_KEY,
+    store,
+    "Configuration et base de connaissances de l'Agent IA Sophie"
+  );
+}
+
+export async function updateSophieConfig(
+  patch: Partial<SophieConfig>
+): Promise<SophieConfig> {
+  const store = await readSophieStoreAsync();
+  store.config = { ...store.config, ...patch };
+  await writeSophieStoreAsync(store);
   return store.config;
 }
 
-export function addKnowledgeItem(
+export async function addKnowledgeItem(
   input: Pick<SophieKnowledgeItem, "title" | "category" | "content"> &
-    Partial<Pick<SophieKnowledgeItem, "source" | "file_name">>,
-): SophieKnowledgeItem {
-  const store = readSophieStore();
+    Partial<Pick<SophieKnowledgeItem, "source" | "file_name">>
+): Promise<SophieKnowledgeItem> {
+  const store = await readSophieStoreAsync();
   const now = new Date().toISOString();
   const item: SophieKnowledgeItem = {
     id: crypto.randomUUID(),
@@ -110,15 +155,15 @@ export function addKnowledgeItem(
     updated_at: now,
   };
   store.knowledge.unshift(item);
-  writeSophieStore(store);
+  await writeSophieStoreAsync(store);
   return item;
 }
 
-export function updateKnowledgeItem(
+export async function updateKnowledgeItem(
   id: string,
-  patch: Partial<Omit<SophieKnowledgeItem, "id" | "created_at">>,
-): SophieKnowledgeItem | null {
-  const store = readSophieStore();
+  patch: Partial<Omit<SophieKnowledgeItem, "id" | "created_at">>
+): Promise<SophieKnowledgeItem | null> {
+  const store = await readSophieStoreAsync();
   const idx = store.knowledge.findIndex((k) => k.id === id);
   if (idx === -1) return null;
   store.knowledge[idx] = {
@@ -126,16 +171,19 @@ export function updateKnowledgeItem(
     ...patch,
     updated_at: new Date().toISOString(),
   };
-  writeSophieStore(store);
+  await writeSophieStoreAsync(store);
   return store.knowledge[idx];
 }
 
-export function deleteKnowledgeItem(id: string): boolean {
-  const store = readSophieStore();
+export async function deleteKnowledgeItem(id: string): Promise<boolean> {
+  const store = await readSophieStoreAsync();
   const before = store.knowledge.length;
   store.knowledge = store.knowledge.filter((k) => k.id !== id);
-  writeSophieStore(store);
-  return store.knowledge.length < before;
+  if (store.knowledge.length < before) {
+    await writeSophieStoreAsync(store);
+    return true;
+  }
+  return false;
 }
 
 /* ----------------------------------------------------------------------------
@@ -294,9 +342,12 @@ function splitLong(c: Chunk): Chunk[] {
 }
 
 async function getAllChunks(): Promise<Chunk[]> {
-  const site = await buildSiteChunks();
-  const learned = readSophieStore()
-    .knowledge.filter((k) => k.is_active)
+  const [site, store] = await Promise.all([
+    buildSiteChunks(),
+    readSophieStoreAsync(),
+  ]);
+  const learned = store.knowledge
+    .filter((k) => k.is_active)
     .map((k) => ({ title: k.title, content: k.content }));
   return [...learned, ...site].flatMap(splitLong);
 }
@@ -518,7 +569,7 @@ function localAnswer(query: string, context: Chunk[]): string {
 export async function answerSophie(
   messages: SophieChatMessage[]
 ): Promise<{ reply: string; sources: string[] }> {
-  const store = readSophieStore();
+  const store = await readSophieStoreAsync();
   const lastUser = [...messages].reverse().find((m) => m.role === "user");
   if (!lastUser) return { reply: store.config.welcome_message, sources: [] };
 

@@ -1,21 +1,31 @@
 import { NextResponse } from "next/server";
-import { answerSophie, readSophieStore, type SophieChatMessage } from "@/lib/services/sophie.service";
+import {
+  answerSophie,
+  readSophieStoreAsync,
+  type SophieChatMessage,
+} from "@/lib/services/sophie.service";
 
 export const dynamic = "force-dynamic";
-export const maxDuration = 60; // Autorise jusqu'à 60s sur Vercel pour les réponses IA sans timeout
+export const maxDuration = 60;
 
 export async function GET() {
   return NextResponse.json({
     status: "ok",
     has_gemini_key: Boolean(process.env.GEMINI_API_KEY),
-    key_prefix: process.env.GEMINI_API_KEY ? process.env.GEMINI_API_KEY.slice(0, 7) + "..." : "none",
+    key_prefix: process.env.GEMINI_API_KEY
+      ? process.env.GEMINI_API_KEY.slice(0, 7) + "..."
+      : "none",
   });
 }
 
 export async function POST(request: Request) {
   try {
-    if (!readSophieStore().config.is_enabled) {
-      return NextResponse.json({ error: "Sophie est momentanément indisponible." }, { status: 503 });
+    const store = await readSophieStoreAsync();
+    if (!store.config.is_enabled) {
+      return NextResponse.json(
+        { error: "Sophie est momentanément indisponible." },
+        { status: 503 }
+      );
     }
 
     const body = await request.json().catch(() => ({}));
@@ -38,7 +48,10 @@ export async function POST(request: Request) {
               content: String(m.content || "").slice(0, 2000),
             }))
         : [];
-      messages = [...history, { role: "user" as const, content: body.message.trim() }];
+      messages = [
+        ...history,
+        { role: "user" as const, content: body.message.trim() },
+      ];
     }
 
     if (messages.length === 0) {
@@ -51,7 +64,7 @@ export async function POST(request: Request) {
     console.error("API POST /api/sophie/chat error:", error);
     return NextResponse.json(
       { error: "Sophie n'a pas pu répondre. Réessayez dans un instant." },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

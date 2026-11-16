@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import {
   getAllCategoriesAdmin,
   saveCategory,
@@ -26,6 +27,7 @@ export async function POST(request: Request) {
       );
     }
     const saved = await saveCategory(body);
+    revalidatePath("/", "layout");
     return NextResponse.json({ success: true, data: saved });
   } catch (error: any) {
     return NextResponse.json(

@@ -4,6 +4,8 @@ import { DotPattern } from "@/components/ui/dot-pattern";
 import { getFormations } from "@/lib/services/formations.service";
 import { CandidatureForm } from "@/components/candidature/CandidatureForm";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Candidature en Ligne | Admission AFI-L'UE 2026-2027",
   description:

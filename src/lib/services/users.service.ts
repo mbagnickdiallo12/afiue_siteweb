@@ -4,25 +4,60 @@ import {
   AdminRole,
   AdminModulePermission,
 } from "@/types/database";
-import { readCmsStore, writeCmsStore, INITIAL_ADMIN_USERS } from "./cms-store";
+import {
+  readCmsStore,
+  writeCmsStore,
+  INITIAL_ADMIN_USERS,
+} from "./cms-store";
 import { hashPassword, ROLE_DEFAULT_PERMISSIONS } from "./auth-token";
+import {
+  getSiteSettingJson,
+  setSiteSettingJson,
+} from "@/lib/supabase/admin";
+
+const ADMIN_USERS_KEY = "admin_users_store";
 
 function toSafeUser(user: AdminUser): SafeAdminUser {
   const { password_hash: _ignored, ...safe } = user;
   return safe;
 }
 
-export async function getAllAdminUsers(): Promise<SafeAdminUser[]> {
+async function loadUsersList(): Promise<AdminUser[]> {
   const store = readCmsStore();
-  const users = store.admin_users || INITIAL_ADMIN_USERS;
+  const fallback =
+    store.admin_users && store.admin_users.length > 0
+      ? store.admin_users
+      : INITIAL_ADMIN_USERS;
+  const dbUsers = await getSiteSettingJson<AdminUser[]>(
+    ADMIN_USERS_KEY,
+    fallback
+  );
+  if (Array.isArray(dbUsers) && dbUsers.length > 0) {
+    return dbUsers;
+  }
+  return fallback;
+}
+
+async function saveUsersList(users: AdminUser[]): Promise<void> {
+  const store = readCmsStore();
+  store.admin_users = users;
+  writeCmsStore(store);
+  await setSiteSettingJson(
+    ADMIN_USERS_KEY,
+    users,
+    "Comptes administrateurs et permissions du portail AFI-L'UE"
+  );
+}
+
+export async function getAllAdminUsers(): Promise<SafeAdminUser[]> {
+  const users = await loadUsersList();
   return users.map(toSafeUser);
 }
 
 export async function getAdminUserById(
   id: string
 ): Promise<SafeAdminUser | null> {
-  const store = readCmsStore();
-  const users = store.admin_users || INITIAL_ADMIN_USERS;
+  const users = await loadUsersList();
   const found = users.find((u) => u.id === id);
   return found ? toSafeUser(found) : null;
 }
@@ -42,8 +77,7 @@ export async function authenticateAdminUser(
     };
   }
 
-  const store = readCmsStore();
-  const users = store.admin_users || [...INITIAL_ADMIN_USERS];
+  const users = [...(await loadUsersList())];
   const userIndex = users.findIndex((u) => u.email.toLowerCase() === email);
 
   if (userIndex === -1) {
@@ -73,14 +107,12 @@ export async function authenticateAdminUser(
     };
   }
 
-  // Update last_login_at
   const nowIso = new Date().toISOString();
   users[userIndex] = {
     ...user,
     last_login_at: nowIso,
   };
-  store.admin_users = users;
-  writeCmsStore(store);
+  await saveUsersList(users);
 
   return {
     success: true,
@@ -132,8 +164,7 @@ export async function createAdminUser(
     };
   }
 
-  const store = readCmsStore();
-  const users = store.admin_users ? [...store.admin_users] : [...INITIAL_ADMIN_USERS];
+  const users = [...(await loadUsersList())];
 
   if (users.some((u) => u.email.toLowerCase() === email)) {
     return {
@@ -170,8 +201,7 @@ export async function createAdminUser(
   };
 
   users.unshift(newUser);
-  store.admin_users = users;
-  writeCmsStore(store);
+  await saveUsersList(users);
 
   return {
     success: true,
@@ -199,8 +229,7 @@ export async function updateAdminUser(
   | { success: true; user: SafeAdminUser }
   | { success: false; error: string }
 > {
-  const store = readCmsStore();
-  const users = store.admin_users ? [...store.admin_users] : [...INITIAL_ADMIN_USERS];
+  const users = [...(await loadUsersList())];
   const index = users.findIndex((u) => u.id === id);
 
   if (index === -1) {
@@ -212,7 +241,6 @@ export async function updateAdminUser(
 
   const current = users[index];
 
-  // Check email uniqueness if changed
   const nextEmail =
     input.email !== undefined ? input.email.trim().toLowerCase() : current.email;
   if (!nextEmail || !nextEmail.includes("@")) {
@@ -235,15 +263,14 @@ export async function updateAdminUser(
   const nextActive =
     input.is_active !== undefined ? Boolean(input.is_active) : current.is_active;
 
-  // Safeguard: cannot suspend own active session account
   if (actorUserId && actorUserId === id && !nextActive) {
     return {
       success: false,
-      error: "Vous ne pouvez pas suspendre votre propre compte en cours de session.",
+      error:
+        "Vous ne pouvez pas suspendre votre propre compte en cours de session.",
     };
   }
 
-  // Safeguard: ensure at least 1 active super_admin remains
   if (
     current.role === "super_admin" &&
     (nextRole !== "super_admin" || !nextActive)
@@ -309,8 +336,7 @@ export async function updateAdminUser(
   };
 
   users[index] = updated;
-  store.admin_users = users;
-  writeCmsStore(store);
+  await saveUsersList(users);
 
   return {
     success: true,
@@ -325,12 +351,12 @@ export async function deleteAdminUser(
   if (actorUserId && actorUserId === id) {
     return {
       success: false,
-      error: "Vous ne pouvez pas supprimer votre propre compte en cours de session.",
+      error:
+        "Vous ne pouvez pas supprimer votre propre compte en cours de session.",
     };
   }
 
-  const store = readCmsStore();
-  const users = store.admin_users ? [...store.admin_users] : [...INITIAL_ADMIN_USERS];
+  const users = [...(await loadUsersList())];
   const target = users.find((u) => u.id === id);
 
   if (!target) {
@@ -353,9 +379,8 @@ export async function deleteAdminUser(
     }
   }
 
-  store.admin_users = users.filter((u) => u.id !== id);
-  writeCmsStore(store);
+  const filtered = users.filter((u) => u.id !== id);
+  await saveUsersList(filtered);
 
   return { success: true };
 }
-

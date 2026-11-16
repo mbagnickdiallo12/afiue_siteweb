@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import {
   getEventPopupConfig,
   updateEventPopupConfig,
@@ -24,6 +25,7 @@ export async function PUT(request: Request) {
   try {
     const body = await request.json();
     const updated = await updateEventPopupConfig(body);
+    revalidatePath("/", "layout");
     return NextResponse.json({ config: updated });
   } catch (error) {
     console.error("API PUT /api/admin/popups error:", error);
@@ -58,6 +60,7 @@ export async function POST(request: Request) {
       is_active: body.is_active !== false,
     });
 
+    revalidatePath("/", "layout");
     return NextResponse.json({ slide: newSlide }, { status: 201 });
   } catch (error) {
     console.error("API POST /api/admin/popups error:", error);
