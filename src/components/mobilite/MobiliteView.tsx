@@ -13,68 +13,54 @@ import {
   ArrowUpRight,
   ChevronRight,
   ShieldCheck,
-  FileText,
-  Mail,
-  Phone,
-  Compass,
-  MapPin,
-  Sparkles,
-  HelpCircle,
 } from "lucide-react";
 import TopologyField from "@/components/ui/topology-field";
-import { FadeIn, StaggerContainer, StaggerItem, HoverLift } from "@/components/ui/motion";
 import TextRevealFaqs from "@/components/ui/text-reveal-faqs";
 
 export function MobiliteView() {
   const stats = [
-    { value: "26+", label: "Nationalités représentées", detail: "Sur nos campus de Dakar et Thiès" },
-    { value: "16+", label: "Partenaires internationaux", detail: "Universités, instituts et réseaux" },
-    { value: "100%", label: "Conformité LMD & CAMES", detail: "Équivalence panafricaine et mondiale" },
-    { value: "30+", label: "Ans d'ouverture panafricaine", detail: "Leadership académique depuis 1993" },
+    { value: "26+", label: "Nationalités", detail: "Étudiants sur nos campus" },
+    { value: "16+", label: "Partenaires", detail: "Universités & réseaux mondiaux" },
+    { value: "100%", label: "Conformité LMD", detail: "Crédits ECTS & CAMES" },
+    { value: "30+", label: "Ans d'expérience", detail: "Excellence depuis 1993" },
   ];
 
   const mobilityPillars = [
     {
       icon: Plane,
+      iconColor: "text-afi-red",
       badge: "Étudiants d'AFI-L'UE",
-      title: "Mobilité Sortante (Outbound)",
-      desc: "Offrez une dimension internationale à votre cursus grâce à des semestres d'études, des stages et des immersions dans nos universités partenaires en Europe, Afrique et Amérique du Nord.",
+      title: "Mobilité Sortante",
+      desc: "Effectuez un semestre d'études ou un stage certifié auprès de nos universités partenaires en Europe, Afrique et Amérique.",
       highlights: [
-        "Semestres d'échanges académiques avec validation de crédits ECTS",
-        "Parcours International Leader avec double diplomation européenne (FEDE)",
-        "Stages en entreprise à l'étranger facilités par notre réseau d'entreprises partenaires",
-        "Préparation et passage officiel des certifications TOEIC™ et TFI™",
+        "Semestres d'échanges avec crédits ECTS",
+        "Double diplomation européenne (FEDE)",
+        "Stages en entreprises internationales",
       ],
-      color: "from-afi-red to-red-700",
-      iconBg: "bg-afi-red/10 text-afi-red",
     },
     {
       icon: Users2,
+      iconColor: "text-afi-navy",
       badge: "Étudiants Internationaux",
-      title: "Mobilité Entrante (Inbound)",
-      desc: "Chaque année, des centaines d'étudiants venus de plus de 26 pays africains et internationaux choisissent AFI-L'UE à Dakar ou Thiès pour l'excellence de ses diplômes reconnus par le CAMES et l'État.",
+      title: "Mobilité Entrante",
+      desc: "Rejoignez AFI-L'UE à Dakar ou Thiès et bénéficiez de diplômes d'État sénégalais accrédités par le CAMES.",
       highlights: [
-        "Guichet unique d'accueil : assistance pour les formalités de visa et carte de séjour",
-        "Aide à l'hébergement sécurisé à proximité immédiate des campus de Dakar et Thiès",
-        "Semaine d'intégration interculturelle, parrainage étudiant et vie associative dynamique",
-        "Accompagnement administratif et pédagogique personnalisé tout au long du cursus",
+        "Guichet unique d'accueil & assistance visa",
+        "Aide à l'hébergement sécurisé",
+        "Intégration culturelle & parrainage",
       ],
-      color: "from-afi-navy to-[#1a2b5c]",
-      iconBg: "bg-afi-navy/10 text-afi-navy",
     },
     {
       icon: GraduationCap,
+      iconColor: "text-slate-800",
       badge: "Corps Professoral & Recherche",
-      title: "Mobilité des Enseignants & Chercheurs",
-      desc: "La coopération internationale d'AFI-L'UE favorise l'échange de compétences et la recherche pluridisciplinaire au service des entreprises et du développement africain.",
+      title: "Mobilité Enseignants & Chercheurs",
+      desc: "Développez des projets conjoints de recherche pluridisciplinaire et d'échanges d'expertises académiques.",
       highlights: [
-        "Accueil régulier de professeurs invités et de spécialistes internationaux",
-        "Projet européen ManaGlobal (Horizon 2020) réunissant 16 organisations partenaires",
-        "Colloques scientifiques conjoints, co-directions de mémoires et publications de recherche",
-        "Partage de bonnes pratiques pédagogiques et harmonisation des programmes d'enseignement",
+        "Professeurs invités et experts internationaux",
+        "Consortium européen ManaGlobal (Horizon 2020)",
+        "Colloques et publications scientifiques conjoints",
       ],
-      color: "from-slate-900 to-slate-800",
-      iconBg: "bg-slate-900/10 text-slate-900",
     },
   ];
 
@@ -82,28 +68,28 @@ export function MobiliteView() {
     {
       title: "Parcours International Leader",
       tag: "Double Diplomation",
-      desc: "Disponible en Licence, ce parcours exclusif permet d'obtenir conjointement le diplôme d'État sénégalais (co-signé MESRI / accrédité CAMES) et le Diplôme Européen d'Études Supérieures (DEES de la FEDE), complété par la certification d'anglais TOEIC.",
+      desc: "Double diplôme d'État sénégalais (CAMES) et Diplôme Européen (DEES FEDE), complété par la certification officielle TOEIC.",
       icon: Award,
     },
     {
-      title: "Consortium ManaGlobal (Union Européenne)",
-      tag: "Recherche Internationale",
-      desc: "Programme d'échanges et de recherche sur le management globalisé et les pratiques africaines, financé par le programme Horizon 2020 de l'Union Européenne, associant l'AFI Research Center à 16 universités et laboratoires internationaux.",
+      title: "Consortium ManaGlobal",
+      tag: "Recherche Européenne",
+      desc: "Réseau de recherche et de mobilité (Horizon 2020) associant AFI Research Center à 16 universités et laboratoires internationaux.",
       icon: Globe2,
     },
     {
       title: "Passeport Compétences Mondiales",
-      tag: "Certifications Globales",
-      desc: "Préparation intégrée aux certifications linguistiques (TOEIC pour l'anglais, Test TFI pour le français des affaires) et technologiques (Cisco Networking Academy, Huawei ICT Academy) pour une employabilité immédiate partout dans le monde.",
+      tag: "Certifications",
+      desc: "Préparation certifiante intégrée : TOEIC, Test TFI, Cisco Networking Academy et Huawei ICT Academy.",
       icon: ShieldCheck,
     },
   ];
 
   const internationalPartners = [
-    { name: "CAMES", desc: "Conseil Africain et Malgache pour l'Enseignement Supérieur (19 pays membres)" },
+    { name: "CAMES", desc: "Conseil Africain et Malgache pour l'Enseignement Supérieur (19 pays)" },
     { name: "FEDE", desc: "Fédération Européenne des Écoles (Genève / Paris)" },
     { name: "AUF", desc: "Agence Universitaire de la Francophonie" },
-    { name: "ManaGlobal EU", desc: "Réseau européen et africain de recherche et de mobilité (Horizon 2020)" },
+    { name: "ManaGlobal EU", desc: "Réseau de recherche et mobilité (Horizon 2020)" },
     { name: "UCAD (Labo FOCS)", desc: "Partenaire académique & recherche interuniversitaire" },
     { name: "Univ. Gaston Berger", desc: "Coopération académique & échanges d'enseignants" },
     { name: "Cisco Networking", desc: "Académie régionale de compétences numériques" },
@@ -113,33 +99,33 @@ export function MobiliteView() {
   const steps = [
     {
       step: "01",
-      title: "Définition du projet de mobilité",
-      desc: "Choix de la destination, vérification des prérequis académiques et validation de la cohérence avec votre parcours.",
+      title: "Projet de mobilité",
+      desc: "Choix de la destination et validation pédagogique avec votre coordinateur.",
     },
     {
       step: "02",
-      title: "Dossier de candidature & entretien",
-      desc: "Dépôt des relevés de notes, lettre de motivation, justificatifs linguistiques et entretien avec la commission de mobilité.",
+      title: "Dossier & Entretien",
+      desc: "Dépôt des pièces académiques et entretien avec la commission de sélection.",
     },
     {
       step: "03",
-      title: "Convention d'études & acceptation",
-      desc: "Signature du contrat pédagogique (Learning Agreement) assurant la pleine reconnaissance de vos crédits à votre retour.",
+      title: "Convention d'études",
+      desc: "Signature du contrat pédagogique garantissant la validation des crédits ECTS.",
     },
     {
       step: "04",
-      title: "Préparation au départ & accompagnement",
-      desc: "Assistance démarches consulaires, préparation logistique et suivi continu assuré par le Bureau des Relations Internationales.",
+      title: "Départ & Suivi",
+      desc: "Assistance visa, hébergement et accompagnement continu à destination.",
     },
   ];
 
   return (
     <div className="bg-slate-50 min-h-screen text-slate-800 selection:bg-afi-red selection:text-white">
       {/* =========================================================================
-          1. HERO PRESTIGE (Brand Dark Gradient, Editorial & Modern)
+          1. HERO PRESTIGE (TopologyField 3D, Minimaliste & Pur Apple/Google)
           ========================================================================= */}
       <section className="relative overflow-hidden bg-[#070A12] text-white pt-32 sm:pt-40 pb-16 sm:pb-24">
-        {/* TopologyField 3D Canvas Background (Identique à la page Programmes) */}
+        {/* TopologyField 3D Canvas Background */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <TopologyField className="w-full h-full pointer-events-none" />
         </div>
@@ -161,18 +147,18 @@ export function MobiliteView() {
           </div>
 
           {/* Main Title & Lead */}
-          <div className="max-w-4xl space-y-5">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-white text-xs font-bold tracking-wider uppercase border border-white/15 backdrop-blur-md">
-              <Globe2 className="w-3.5 h-3.5 text-afi-red" />
+          <div className="max-w-4xl space-y-4">
+            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-afi-red">
+              <Globe2 className="w-4 h-4 text-afi-red" strokeWidth={2} />
               <span>Relations Internationales &amp; Coopération</span>
-            </span>
+            </div>
 
             <h1 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-tight">
               Mobilité Internationale &amp; Rayonnement Académique
             </h1>
 
-            <p className="text-slate-300 text-sm sm:text-base lg:text-lg font-light leading-relaxed max-w-3xl">
-              Depuis plus de 30 ans, AFI-L’Université de l’Entreprise fait de l’ouverture sur le monde un pilier de son excellence académique. Échanges étudiants, doubles diplômes européens, accueil de plus de 26 nationalités et partenariats mondiaux : donnez à votre avenir une portée résolument internationale.
+            <p className="text-slate-300 text-sm sm:text-base lg:text-lg font-light leading-relaxed max-w-2xl">
+              Échanges académiques, doubles diplômes européens et immersions internationales : construisez un parcours d&apos;excellence mondiale à AFI-L&apos;UE.
             </p>
           </div>
 
@@ -202,7 +188,7 @@ export function MobiliteView() {
       </section>
 
       {/* =========================================================================
-          2. CHIFFRES CLÉS DE L'INTERNATIONALISATION
+          2. CHIFFRES CLÉS (Format Cartes Épurées)
           ========================================================================= */}
       <section className="relative -mt-8 z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
@@ -228,42 +214,40 @@ export function MobiliteView() {
       </section>
 
       {/* =========================================================================
-          3. LES 3 VOLETS DE LA MOBILITÉ
+          3. LES 3 VOLETS DE LA MOBILITÉ (Design Simple & Minimaliste, Zéro Contour)
           ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 space-y-12">
-        <div className="text-center max-w-3xl mx-auto space-y-3">
+        <div className="text-center max-w-2xl mx-auto space-y-2">
           <span className="text-xs font-bold uppercase tracking-widest text-afi-red">
-            Une dynamique à 360 degrés
+            Une dynamique internationale
           </span>
           <h2 className="font-heading font-black text-2xl sm:text-3xl md:text-4xl text-slate-900 tracking-tight">
-            Les Trois Volets de la Mobilité à AFI-L&apos;UE
+            Les Trois Volets de la Mobilité
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-            Que vous souhaitiez vous former à l&apos;étranger, rejoindre notre campus dakarois ou mener des travaux de recherche conjoints, découvrez nos passerelles d&apos;échange.
+            Des passerelles d&apos;échange ouvertes à l&apos;ensemble de notre communauté académique.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
           {mobilityPillars.map((pillar, idx) => {
             const Icon = pillar.icon;
             return (
               <div
                 key={idx}
-                className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-md flex flex-col justify-between hover:shadow-xl hover:border-slate-300 transition-all duration-300 group"
+                className="bg-white rounded-2xl p-7 sm:p-8 border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between"
               >
-                <div className="space-y-6">
-                  {/* Icon & Badge */}
+                <div className="space-y-5">
+                  {/* Icon libre sans fond ni contour + Badge typographique pur */}
                   <div className="flex items-center justify-between">
-                    <div className={`w-12 h-12 rounded-2xl ${pillar.iconBg} flex items-center justify-center transition-transform group-hover:scale-110`}>
-                      <Icon className="w-6 h-6" />
-                    </div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-mono">
+                    <Icon className={`w-8 h-8 ${pillar.iconColor}`} strokeWidth={1.75} />
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-mono">
                       {pillar.badge}
                     </span>
                   </div>
 
-                  {/* Title & Desc */}
-                  <div className="space-y-2">
+                  {/* Title & Desc concis */}
+                  <div className="space-y-1.5">
                     <h3 className="font-heading font-black text-xl text-slate-900 tracking-tight">
                       {pillar.title}
                     </h3>
@@ -272,24 +256,24 @@ export function MobiliteView() {
                     </p>
                   </div>
 
-                  {/* Bullet Highlights */}
-                  <div className="pt-2 border-t border-slate-100 space-y-2.5">
+                  {/* 3 points clés concis */}
+                  <div className="pt-3 border-t border-slate-100 space-y-2">
                     {pillar.highlights.map((h, i) => (
-                      <div key={i} className="flex items-start gap-2.5 text-xs text-slate-700">
-                        <CheckCircle2 className="w-4 h-4 text-afi-red shrink-0 mt-0.5" />
+                      <div key={i} className="flex items-center gap-2 text-xs text-slate-700">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-afi-red shrink-0" />
                         <span className="leading-snug">{h}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Footer link */}
-                <div className="pt-6 mt-6 border-t border-slate-100">
+                {/* Footer link minimaliste */}
+                <div className="pt-5 mt-6 border-t border-slate-100">
                   <Link
                     href="/contact"
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-afi-navy hover:text-afi-red transition-colors group/link"
                   >
-                    <span>Renseignements &amp; démarches</span>
+                    <span>En savoir plus</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
                   </Link>
                 </div>
@@ -300,23 +284,23 @@ export function MobiliteView() {
       </section>
 
       {/* =========================================================================
-          4. PROGRAMMES PHARES D'OUVERTURE INTERNATIONALE
+          4. PROGRAMMES INTERNATIONAUX PHARES (Fond Opaque Solide, Sans Contour d'Icône)
           ========================================================================= */}
-      <section className="bg-slate-900 text-white py-16 sm:py-24 relative overflow-hidden">
-        {/* Ambient glow */}
+      <section className="bg-[#070A12] text-white py-16 sm:py-24 relative overflow-hidden">
+        {/* Subtle Ambient Glow */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-afi-red/10 blur-3xl pointer-events-none rounded-full" />
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#1E2E6B]/20 blur-3xl pointer-events-none rounded-full" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
-          <div className="max-w-3xl space-y-3">
+          <div className="max-w-2xl space-y-2">
             <span className="text-xs font-bold uppercase tracking-widest text-afi-red">
-              Parcours &amp; Alliances Globales
+              Parcours &amp; Alliances
             </span>
             <h2 className="font-heading font-black text-2xl sm:text-3xl md:text-4xl text-white tracking-tight">
-              Des Programmes Conçus pour les Leaders Mondiaux
+              Des Programmes Conçus pour les Leaders
             </h2>
-            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-              Nos cursus associent reconnaissance nationale d&apos;État, accréditation panafricaine CAMES et double diplomation européenne pour propulser nos diplômés partout sur le continent et dans le monde.
+            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+              Doubles diplômes et programmes certifiants pour une reconnaissance académique mondiale.
             </p>
           </div>
 
@@ -326,14 +310,13 @@ export function MobiliteView() {
               return (
                 <div
                   key={idx}
-                  className="bg-white/5 border border-white/10 rounded-3xl p-6 sm:p-8 backdrop-blur-md space-y-4 flex flex-col justify-between hover:bg-white/10 transition-colors"
+                  className="bg-[#0D121F] border border-slate-800 rounded-2xl p-6 sm:p-7 flex flex-col justify-between hover:border-slate-700 transition-colors"
                 >
                   <div className="space-y-4">
+                    {/* Icon libre sans contour ni fond transparent + Tag typographique */}
                     <div className="flex items-center justify-between">
-                      <div className="w-11 h-11 rounded-2xl bg-afi-red/20 text-afi-red flex items-center justify-center">
-                        <Icon className="w-5 h-5" />
-                      </div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/10 text-slate-200">
+                      <Icon className="w-8 h-8 text-afi-red" strokeWidth={1.75} />
+                      <span className="text-xs font-bold uppercase tracking-wider text-afi-red">
                         {prog.tag}
                       </span>
                     </div>
@@ -342,17 +325,17 @@ export function MobiliteView() {
                       {prog.title}
                     </h3>
 
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
                       {prog.desc}
                     </p>
                   </div>
 
-                  <div className="pt-4 border-t border-white/10">
+                  <div className="pt-4 mt-5 border-t border-slate-800">
                     <Link
                       href="/formations"
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-200 hover:text-afi-red transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-afi-red transition-colors"
                     >
-                      <span>Explorer les formations éligibles</span>
+                      <span>Explorer les formations</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
@@ -364,18 +347,18 @@ export function MobiliteView() {
       </section>
 
       {/* =========================================================================
-          5. PARTENAIRES ACADÉMIQUES & INSTITUTIONNELS
+          5. PARTENAIRES ACADÉMIQUES & INSTITUTIONNELS (Design Pur & Épuré)
           ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 space-y-12">
-        <div className="text-center max-w-3xl mx-auto space-y-3">
+        <div className="text-center max-w-2xl mx-auto space-y-2">
           <span className="text-xs font-bold uppercase tracking-widest text-afi-red">
-            Réseau Panafricain &amp; International
+            Accords Institutionnels
           </span>
           <h2 className="font-heading font-black text-2xl sm:text-3xl md:text-4xl text-slate-900 tracking-tight">
-            Des Accords Institutionnels Majeurs
+            Partenaires &amp; Réseaux d&apos;Excellence
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-            AFI-L&apos;UE collabore avec des institutions et réseaux d&apos;enseignement supérieur de premier plan pour sécuriser la valeur de vos diplômes et multiplier les opportunités de mobilité.
+            Des accords académiques majeurs pour sécuriser la valeur internationale de vos diplômes.
           </p>
         </div>
 
@@ -383,14 +366,14 @@ export function MobiliteView() {
           {internationalPartners.map((part, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs space-y-2 hover:border-slate-300 transition-colors"
+              className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xs space-y-2 hover:border-slate-300 transition-colors"
             >
-              <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-800 font-bold flex items-center justify-center text-xs">
-                {part.name.substring(0, 3)}
+              <div className="flex items-center gap-2">
+                <Building2 className="w-4 h-4 text-afi-navy" strokeWidth={1.75} />
+                <h4 className="font-heading font-bold text-sm text-slate-900">
+                  {part.name}
+                </h4>
               </div>
-              <h4 className="font-heading font-black text-sm text-slate-900">
-                {part.name}
-              </h4>
               <p className="text-[11px] text-slate-500 leading-snug">
                 {part.desc}
               </p>
@@ -400,19 +383,19 @@ export function MobiliteView() {
       </section>
 
       {/* =========================================================================
-          6. ÉTAPES D'UNE CANDIDATURE À LA MOBILITÉ
+          6. ÉTAPES D'UNE CANDIDATURE À LA MOBILITÉ (Processus Minimaliste 4 Étapes)
           ========================================================================= */}
-      <section className="bg-slate-100 py-16 sm:py-20 border-y border-slate-200/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <div className="text-center max-w-3xl mx-auto space-y-3">
+      <section className="bg-white py-16 sm:py-20 border-t border-slate-200/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
             <span className="text-xs font-bold uppercase tracking-widest text-afi-red">
-              Guide pas à pas
+              Processus
             </span>
             <h2 className="font-heading font-black text-2xl sm:text-3xl md:text-4xl text-slate-900 tracking-tight">
               Comment Préparer Votre Mobilité ?
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-              Le Bureau des Relations Internationales d&apos;AFI-L&apos;UE vous accompagne à chaque étape pour garantir le succès de votre séjour d&apos;études.
+              Un accompagnement personnalisé à chaque étape de votre démarche internationale.
             </p>
           </div>
 
@@ -420,12 +403,12 @@ export function MobiliteView() {
             {steps.map((st, idx) => (
               <div
                 key={idx}
-                className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-sm space-y-3 relative overflow-hidden"
+                className="bg-slate-50 rounded-2xl p-6 border border-slate-200/80 space-y-2"
               >
-                <div className="font-heading font-black text-3xl sm:text-4xl text-afi-red/20">
+                <div className="font-heading font-black text-2xl text-afi-navy">
                   {st.step}
                 </div>
-                <h4 className="font-heading font-bold text-base text-slate-900">
+                <h4 className="font-heading font-bold text-sm text-slate-900">
                   {st.title}
                 </h4>
                 <p className="text-xs text-slate-600 leading-relaxed">
@@ -438,7 +421,7 @@ export function MobiliteView() {
       </section>
 
       {/* =========================================================================
-          7. FOIRE AUX QUESTIONS (FAQ MOBILITÉ - Style Ruixen TextReveal)
+          7. FOIRE AUX QUESTIONS (FAQ MOBILITÉ - Style TextReveal)
           ========================================================================= */}
       <TextRevealFaqs
         badge="Questions Fréquentes"
