@@ -308,7 +308,7 @@ export function ProgrammesMegaMenu({ onClose }: ProgrammesMegaMenuProps) {
               </h3>
             </div>
 
-            <div className="space-y-2.5">
+            <div className="space-y-2 sm:space-y-2.5">
               {otherModalities.map((item) => {
                 const IconComponent = item.icon;
                 const isBusinessGrey = item.isBusinessGrey;
@@ -316,7 +316,7 @@ export function ProgrammesMegaMenu({ onClose }: ProgrammesMegaMenuProps) {
                   <Link
                     key={item.title}
                     href={item.href}
-                    className={`flex items-center justify-between gap-3.5 px-4.5 py-3 min-h-[48px] rounded-2xl text-white border shadow-sm hover:shadow-md transition-all text-xs sm:text-[13px] font-semibold group ${
+                    className={`flex items-center justify-between gap-4 px-5 sm:px-6 py-3 min-h-[50px] rounded-2xl text-white border shadow-xs hover:shadow-md transition-all text-xs sm:text-[13px] font-semibold group ${
                       isBusinessGrey
                         ? "bg-slate-700 hover:bg-slate-800 border-slate-600 hover:border-afi-red/50 shadow-slate-900/10"
                         : "bg-[#191D38] hover:bg-[#222A5C] border-[#222A5C] hover:border-afi-red/50"
@@ -326,7 +326,7 @@ export function ProgrammesMegaMenu({ onClose }: ProgrammesMegaMenuProps) {
                       <IconComponent className="w-5 h-5 text-afi-red shrink-0 group-hover:scale-110 transition-transform" />
                       <span className="truncate">{item.title}</span>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-white/90 group-hover:text-white group-hover:translate-x-1 transition-all shrink-0" />
+                    <ArrowRight className="w-4 h-4 text-white/80 group-hover:text-white group-hover:translate-x-1 transition-all shrink-0 ml-2" />
                   </Link>
                 );
               })}
