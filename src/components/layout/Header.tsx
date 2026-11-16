@@ -190,11 +190,10 @@ export function Header({ settings }: { settings?: SiteSettings }) {
             1. ULTRA-SLEEK INSTITUTIONAL STATUS BAR (Apple 2026 Style)
             ========================================================= */}
         <div
-          className={`transition-all duration-300 pointer-events-auto hidden md:block select-none ${
-            scrolled
-              ? "max-h-0 opacity-0 overflow-hidden py-0 border-transparent"
-              : "bg-[#0B0F19]/80 backdrop-blur-md text-slate-300 text-[11px] font-medium tracking-wide py-1.5 px-4 border-b border-white/[0.08] max-h-10 opacity-100"
-          }`}
+          className={`transition-all duration-300 pointer-events-auto hidden md:block select-none ${scrolled
+            ? "max-h-0 opacity-0 overflow-hidden py-0 border-transparent"
+            : "bg-[#0B0F19]/80 backdrop-blur-md text-slate-300 text-[11px] font-medium tracking-wide py-1.5 px-4 border-b border-white/[0.08] max-h-10 opacity-100"
+            }`}
         >
           <div className="max-w-7xl mx-auto flex justify-end items-center">
             {/* Right: Direct Contact & Admin Access */}
@@ -246,25 +245,23 @@ export function Header({ settings }: { settings?: SiteSettings }) {
             2. MAIN FUTURISTIC PILL NAVIGATION BAR (Style OPTIMO avec charte AFI-L'UE)
             ========================================================= */}
         <div
-          className={`w-full transition-all duration-300 pointer-events-none ${
-            scrolled ? "py-2 px-2 sm:px-4 lg:px-6" : "py-2.5 sm:py-3 px-2 sm:px-4 lg:px-6 bg-transparent"
-          }`}
+          className={`w-full transition-all duration-300 pointer-events-none ${scrolled ? "py-2 px-2 sm:px-4 lg:px-6" : "py-2.5 sm:py-3 px-2 sm:px-4 lg:px-6 bg-transparent"
+            }`}
         >
           <div
-            className={`max-w-[1420px] mx-auto rounded-full bg-white px-4 sm:px-6 lg:px-7 border transition-all duration-300 pointer-events-auto ${
-              scrolled
-                ? "border-slate-200/90 shadow-[0_8px_30px_rgb(15,23,42,0.12)]"
-                : "border-slate-200/70 shadow-[0_8px_32px_rgba(0,0,0,0.14)]"
+            className={`max-w-[1420px] mx-auto rounded-full bg-white px-4 sm:px-6 lg:px-7 border transition-all duration-300 pointer-events-auto ${scrolled
+              ? "border-slate-200/90 shadow-[0_8px_30px_rgb(15,23,42,0.12)]"
+              : "border-slate-200/70 shadow-[0_8px_32px_rgba(0,0,0,0.14)]"
               }`}
           >
-            <div className="flex items-center justify-between h-[62px] sm:h-[66px] gap-4">
+            <div className="flex items-center justify-between h-[52px] sm:h-[56px] gap-3 sm:gap-4">
               {/* Brand Logo */}
               <div className="flex-shrink-0 flex items-center pr-1">
-                <Logo variant="dark" size="md" />
+                <Logo variant="dark" size="sm" />
               </div>
 
               {/* Desktop Navigation Links */}
-              <nav className="hidden lg:flex items-center gap-1 xl:gap-2 flex-nowrap">
+              <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1.5 flex-nowrap">
                 {navLinks.map((item) => {
                   const isActive = item.href
                     ? item.href === "/"
@@ -273,9 +270,9 @@ export function Header({ settings }: { settings?: SiteSettings }) {
                     : item.children?.some((sub) => pathname.startsWith(sub.href)) ?? false;
 
                   if (item.children) {
-                    const triggerClasses = `inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs xl:text-[13.5px] font-medium tracking-tight whitespace-nowrap transition-all duration-200 cursor-pointer focus:outline-none ${isActive
-                        ? "text-afi-red font-semibold"
-                        : "text-slate-800 hover:text-afi-red"
+                    const triggerClasses = `inline-flex items-center gap-1 px-2.5 xl:px-3 py-1 rounded-full text-xs xl:text-[13px] font-medium tracking-tight whitespace-nowrap transition-all duration-200 cursor-pointer focus:outline-none ${isActive
+                      ? "text-afi-red font-semibold"
+                      : "text-slate-800 hover:text-afi-red"
                       }`;
 
                     const isProgrammes = item.label === "Programmes";
@@ -338,9 +335,9 @@ export function Header({ settings }: { settings?: SiteSettings }) {
                     <Link
                       key={item.href || item.label}
                       href={item.href || "#"}
-                      className={`inline-flex items-center px-3 py-1.5 rounded-full text-xs xl:text-[13.5px] font-medium tracking-tight whitespace-nowrap flex-shrink-0 transition-all duration-200 ${isActive
-                          ? "text-afi-red font-semibold"
-                          : "text-slate-800 hover:text-afi-red"
+                      className={`inline-flex items-center px-2.5 xl:px-3 py-1 rounded-full text-xs xl:text-[13px] font-medium tracking-tight whitespace-nowrap flex-shrink-0 transition-all duration-200 ${isActive
+                        ? "text-afi-red font-semibold"
+                        : "text-slate-800 hover:text-afi-red"
                         }`}
                     >
                       <span className="whitespace-nowrap">{item.label}</span>
@@ -350,38 +347,38 @@ export function Header({ settings }: { settings?: SiteSettings }) {
               </nav>
 
               {/* Right Action: Style OPTIMO (Texte + Cercle flèche ↗ avec charte AFI-L'UE) */}
-              <div className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0">
+              <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
                 <Link
                   href="/candidater"
-                  className="hidden sm:inline-flex items-center gap-2.5 pl-4 pr-1.5 py-1.5 rounded-full hover:bg-slate-50 text-slate-900 text-xs xl:text-[13.5px] font-semibold whitespace-nowrap flex-shrink-0 transition-all group"
+                  className="hidden sm:inline-flex items-center gap-2 pl-3.5 pr-1 py-1 rounded-full hover:bg-slate-50 text-slate-900 text-xs xl:text-[13px] font-semibold whitespace-nowrap flex-shrink-0 transition-all group"
                 >
                   <span className="whitespace-nowrap group-hover:text-afi-red transition-colors">
                     Rejoignez-nous
                   </span>
-                  <span className="w-8 h-8 xl:w-9 xl:h-9 rounded-full bg-afi-red group-hover:bg-[#191D38] text-white flex items-center justify-center shrink-0 transition-colors duration-300 shadow-xs">
-                    <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <span className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-full bg-afi-red group-hover:bg-[#191D38] text-white flex items-center justify-center shrink-0 transition-colors duration-300 shadow-xs">
+                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </span>
                 </Link>
 
                 {/* Mobile Search Button */}
                 <button
                   onClick={() => setSearchOpen(true)}
-                  className="lg:hidden p-2 rounded-full text-slate-600 hover:bg-slate-100 transition-colors"
+                  className="lg:hidden p-1.5 rounded-full text-slate-600 hover:bg-slate-100 transition-colors"
                   aria-label="Recherche"
                 >
-                  <Search className="w-5 h-5 text-afi-red" />
+                  <Search className="w-4 h-4 text-afi-red" />
                 </button>
 
                 {/* Mobile Hamburger Button */}
                 <button
                   onClick={() => setMobileMenuOpen((prev) => !prev)}
-                  className="lg:hidden p-2 rounded-full text-slate-700 hover:bg-slate-100 focus:outline-none transition-colors"
+                  className="lg:hidden p-1.5 rounded-full text-slate-700 hover:bg-slate-100 focus:outline-none transition-colors"
                   aria-label="Menu principal"
                 >
                   {mobileMenuOpen ? (
-                    <X className="w-6 h-6 text-slate-900" />
+                    <X className="w-5 h-5 text-slate-900" />
                   ) : (
-                    <Menu className="w-6 h-6 text-slate-900" />
+                    <Menu className="w-5 h-5 text-slate-900" />
                   )}
                 </button>
               </div>

@@ -3,12 +3,14 @@ import Image from "next/image";
 
 interface LogoProps {
   className?: string;
+  imageClassName?: string;
   variant?: "light" | "dark";
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
 }
 
 export function Logo({
   className = "",
+  imageClassName = "",
   variant = "dark",
   size = "md",
 }: LogoProps) {
@@ -21,8 +23,9 @@ export function Logo({
     : "/images/logo-afi-dark.png";
 
   const sizeClasses = {
-    sm: "h-9 w-auto",
-    md: "h-12 sm:h-14 w-auto",
+    xs: "h-7 sm:h-8 w-auto",
+    sm: "h-[32px] sm:h-[36px] w-auto",
+    md: "h-11 sm:h-12 w-auto",
     lg: "h-16 sm:h-20 w-auto",
     xl: "h-20 sm:h-24 w-auto",
   };
@@ -40,7 +43,7 @@ export function Logo({
           width={1024}
           height={417}
           priority
-          className={`${sizeClasses[size]} object-contain drop-shadow-xs`}
+          className={`${imageClassName || sizeClasses[size]} object-contain drop-shadow-xs`}
         />
       </div>
     </Link>
