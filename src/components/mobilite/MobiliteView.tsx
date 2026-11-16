@@ -28,7 +28,6 @@ export function MobiliteView() {
     {
       icon: Plane,
       iconColor: "text-afi-red",
-      badge: "Étudiants d'AFI-L'UE",
       title: "Mobilité Sortante",
       desc: "Effectuez un semestre d'études ou un stage certifié auprès de nos universités partenaires en Europe, Afrique et Amérique.",
       highlights: [
@@ -40,7 +39,6 @@ export function MobiliteView() {
     {
       icon: Users2,
       iconColor: "text-afi-navy",
-      badge: "Étudiants Internationaux",
       title: "Mobilité Entrante",
       desc: "Rejoignez AFI-L'UE à Dakar ou Thiès et bénéficiez de diplômes d'État sénégalais accrédités par le CAMES.",
       highlights: [
@@ -52,7 +50,6 @@ export function MobiliteView() {
     {
       icon: GraduationCap,
       iconColor: "text-slate-800",
-      badge: "Corps Professoral & Recherche",
       title: "Mobilité Enseignants & Chercheurs",
       desc: "Développez des projets conjoints de recherche pluridisciplinaire et d'échanges d'expertises académiques.",
       highlights: [
@@ -232,12 +229,9 @@ export function MobiliteView() {
                 className="bg-white rounded-2xl p-7 sm:p-8 border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between"
               >
                 <div className="space-y-5">
-                  {/* Icon libre sans fond ni contour + Badge typographique pur */}
-                  <div className="flex items-center justify-between">
+                  {/* Icon libre sans fond ni contour */}
+                  <div>
                     <Icon className={`w-8 h-8 ${pillar.iconColor}`} strokeWidth={1.75} />
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-mono">
-                      {pillar.badge}
-                    </span>
                   </div>
 
                   {/* Title & Desc concis */}
