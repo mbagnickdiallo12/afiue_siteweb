@@ -21,7 +21,7 @@ import {
   Sparkles,
   HelpCircle,
 } from "lucide-react";
-import { DotPattern } from "@/components/ui/dot-pattern";
+import TopologyField from "@/components/ui/topology-field";
 import { FadeIn, StaggerContainer, StaggerItem, HoverLift } from "@/components/ui/motion";
 import TextRevealFaqs from "@/components/ui/text-reveal-faqs";
 
@@ -138,18 +138,17 @@ export function MobiliteView() {
       {/* =========================================================================
           1. HERO PRESTIGE (Brand Dark Gradient, Editorial & Modern)
           ========================================================================= */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#0B0F19] via-[#121A38] to-[#1B2754] text-white pt-32 sm:pt-40 pb-16 sm:pb-24">
-        {/* Subtle Ambient Navy Blue Glow */}
-        <div className="absolute -top-24 right-1/4 w-[600px] h-[600px] rounded-full bg-[#1E2E6B]/20 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-24 -left-12 w-[500px] h-[500px] rounded-full bg-afi-red/15 blur-3xl pointer-events-none" />
+      <section className="relative overflow-hidden bg-[#070A12] text-white pt-32 sm:pt-40 pb-16 sm:pb-24">
+        {/* TopologyField 3D Canvas Background (Identique à la page Programmes) */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <TopologyField className="w-full h-full pointer-events-none" />
+        </div>
+        <div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#070A12] via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 z-[1] bg-[#070A12]/30 pointer-events-none" />
 
-        {/* Modern Dot Pattern */}
-        <DotPattern
-          cx={1}
-          cy={1}
-          cr={1}
-          className="fill-white/15 [mask-image:radial-gradient(650px_circle_at_center,white,transparent)]"
-        />
+        {/* Subtle Ambient Navy & Brand Glow */}
+        <div className="absolute -top-24 right-1/4 w-[600px] h-[600px] rounded-full bg-[#1E2E6B]/20 blur-3xl pointer-events-none z-[1]" />
+        <div className="absolute -bottom-24 -left-12 w-[500px] h-[500px] rounded-full bg-afi-red/15 blur-3xl pointer-events-none z-[1]" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8">
           {/* Breadcrumb */}
