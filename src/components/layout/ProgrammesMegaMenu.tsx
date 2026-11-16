@@ -318,7 +318,7 @@ export function ProgrammesMegaMenu({ onClose }: ProgrammesMegaMenuProps) {
                     href={item.href}
                     className={`flex items-center justify-between gap-4 px-5 sm:px-6 py-3 min-h-[50px] rounded-2xl text-white border shadow-xs hover:shadow-md transition-all text-xs sm:text-[13px] font-semibold group ${
                       isBusinessGrey
-                        ? "bg-slate-700 hover:bg-slate-800 border-slate-600 hover:border-afi-red/50 shadow-slate-900/10"
+                        ? "bg-[#495057] hover:bg-[#343a40] border-[#495057] hover:border-afi-red/50 shadow-slate-900/10"
                         : "bg-[#191D38] hover:bg-[#222A5C] border-[#222A5C] hover:border-afi-red/50"
                     }`}
                   >
