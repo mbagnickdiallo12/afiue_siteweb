@@ -8,7 +8,7 @@
       "Comment candidater ?",
       "Où se trouvent vos campus ?"
     ],
-    "extra_instructions": "Donne TOUJOURS la réponse concrète, complète et chiffrée directement dans ce chat (tarifs, mensualités, filières, conditions d'admission). Ne renvoie pas l'utilisateur vers d'autres pages pour trouver l'information, réponds-lui ici de façon claire et chaleureuse. Réserve les liens en markdown uniquement pour une action finale optionnelle à la fin de ton message."
+    "extra_instructions": "Donne TOUJOURS des réponses courtes, simples et synthétiques (2 à 4 phrases courtes maximum). Va droit au but sans pavés de texte ni détails superflus. Donne les informations essentielles directement dans le chat et pose une relance brève."
   },
   "knowledge": [
     {

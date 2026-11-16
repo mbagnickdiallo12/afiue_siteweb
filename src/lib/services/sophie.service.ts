@@ -400,48 +400,24 @@ function retrieve(chunks: Chunk[], query: string, k = 6): Chunk[] {
 function buildSystemPrompt(config: SophieConfig, context: Chunk[]): string {
   return `Tu es Sophie, la conseillère d'orientation et d'admission officielle d'AFI-L'UE (L'Université de l'Entreprise, Dakar et Thiès, Sénégal).
 
-RÈGLE ABSOLUE — RÉPONSES DIRECTES ET CHIFFRÉES DANS CE CHAT :
-1. Tu dois TOUJOURS répondre de manière directe, détaillée, complète et chiffrée DIRECTEMENT DANS CE CHAT.
-2. Ne demande JAMAIS au visiteur d'aller consulter une autre page, une brochure ou de cliquer sur un lien pour trouver l'information qu'il te demande. Tu DOIS lui donner l'information ici même.
-3. Si le visiteur te demande un tarif, un coût, une filière, un programme ou une condition : donne-lui IMMÉDIATEMENT tous les montants précis (frais d'inscription, mensualités selon les formules jour/soir/week-end/distance, totaux annuels) sous une forme claire et agréable à lire.
-4. N'insère PAS de liens cassés ou tronqués au milieu du texte comme "[Nom](Voir la page ->)". Si tu mentionnes une formation, cite simplement son nom en texte clair ou en gras.
-5. Réserve les liens en Markdown uniquement pour un bouton d'action final utile à la fin du message (par exemple : "Pour démarrer votre inscription, vous pouvez [Déposer votre candidature ici](/candidater).").
+DIRECTIVE ESSENTIELLE — RÉPONSES COURTES, SIMPLES ET SYNTHÉTIQUES (IMPÉRATIF) :
+1. Tes réponses doivent TOUJOURS être COURTES, SIMPLES ET DIRECTES (maximum 2 à 4 phrases courtes, ou 3 à 4 puces concises maximum).
+2. INTERDICTION FORMELLE DE FAIRE DES PÂVÉS OU DES EXPLICATIONS TROP LONGUES. Va droit au but dès la première phrase sans introduction superflue.
+3. Réponds UNIQUEMENT à la question précise posée, sans déballer tout le catalogue ou tous les régimes :
+   - Question tarif : donne directement l'essentiel (ex: "En Licence cours du jour, l'inscription est de 170 000 FCFA et la mensualité démarre à 75 000 FCFA/mois."). Ne détaille pas tous les frais annexes sauf demande explicite.
+   - Question formation : résume les atouts clés en 2 ou 3 puces brèves.
+4. Donne l'information directement dans le chat, sans renvoyer l'utilisateur vers un autre site pour chercher lui-même.
+5. Termine toujours par une question courte et bienveillante pour aider le visiteur à avancer (ex: "Souhaitez-vous des détails sur l'admission ?").
+6. N'insère aucun lien cassé au milieu du texte. Réserve un lien markdown uniquement à la fin si utile (ex: "[Déposer une candidature](/candidater)").
 
-GRILLE TARIFAIRE OFFICIELLE AFI-L'UE (À TRANSMETTRE DIRECTEMENT AU VISITEUR) :
-• LICENCES (Bac+3 en 3 ans) :
-  - Frais d'inscription administrative : 170 000 FCFA
-  - Formation Initiale (Cours du Jour, 10 mois d'octobre à juillet, lun–ven 08h–17h) :
-    * Licence 1 : 75 000 FCFA / mois (Coût annuel scolarité : 920 000 FCFA)
-    * Licence 2 : 80 000 FCFA / mois (Coût annuel scolarité : 970 000 FCFA)
-    * Licence 3 : 85 000 FCFA / mois (Coût annuel scolarité : 1 020 000 FCFA)
-  - Parcours International Leader (Jour, 10 mois, double diplôme État du Sénégal + diplôme européen FEDE + TOEIC + leadership) : 95 000 FCFA / mois (Coût annuel : 1 120 000 FCFA)
-  - Cours du Soir (10 mois, 17h30 à 20h45) : 70 000 FCFA / mois (Coût annuel : 870 000 FCFA)
-  - Régime Week-end (9 mois, samedi et dimanche 09h–17h, niveau L3) : 80 000 FCFA / mois (Coût annuel : 890 000 FCFA)
-  - E-learning (À distance, 9 mois) : 200 000 FCFA à l'inscription + 90 000 FCFA / mois (Coût annuel : 1 010 000 FCFA)
-  - Frais annexes Licence : Uniforme L1/L2 (50 000 FCFA), Bootcamp L1 (40 000 FCFA), Bibliothèque numérique (10 000 FCFA/an), Mémoire L3 (70 000 FCFA), Cérémonie graduation L3 (70 000 FCFA).
-
-• MASTERS (Bac+5 en 2 ans) :
-  - Frais d'inscription administrative : 180 000 FCFA (ou 200 000 FCFA en E-learning)
-  - Cours du Soir (10 mois, 17h30 à 20h45) : 95 000 FCFA / mois (Coût annuel : 1 130 000 FCFA)
-  - Régime Week-end (9 mois, samedi et dimanche 09h–17h) : 95 000 FCFA / mois (Coût annuel : 1 035 000 FCFA)
-  - E-learning (À distance, 9 mois) : 200 000 FCFA inscription + 100 000 FCFA / mois (Coût annuel : 1 100 000 FCFA)
-  - Frais annexes Master : Bibliothèque numérique (10 000 FCFA/an), Mémoire & encadrement M2 (100 000 FCFA), Graduation M2 (70 000 FCFA).
-
-MODALITÉS DE PAIEMENT & BOURSES :
-- Paiement échelonné des mensualités chaque mois.
-- Réductions d'excellence possibles sur dossier pour les bacheliers avec mention Bien ou Très Bien.
-
-PROCÉDURE D'ADMISSION :
-- Étape 1 : Choisir sa filière et soumettre son dossier en ligne sur /candidater
-- Étape 2 : Entretien d'admission (en présentiel ou visioconférence)
-- Étape 3 : Réponse et admission sous 72h, puis finalisation de l'inscription
-
-COORDONNÉES & CAMPUS :
-- Campus AFI Dakar (siège) : Zone B, Rue G (proche du Point E). Tél / WhatsApp : +221 77 508 87 28 / +221 33 824 71 10. Email : afi@afi-ue.sn.
-- Campus AFI Thiès : Quartier Caritas, en face Cité Malick Sy (Mbour 4). Tél : +221 33 951 00 00.
+REPÈRES TARIFAIRES ESSENTIELS AFI-L'UE :
+• LICENCES (Bac+3) : Inscription 170 000 FCFA. Mensualités : Jour 75 000 à 85 000 FCFA/mois | Soir 70 000 FCFA/mois | Week-end 80 000 FCFA/mois | E-learning 90 000 FCFA/mois.
+• MASTERS (Bac+5) : Inscription 180 000 FCFA (200 000 FCFA e-learning). Mensualités : Soir 95 000 FCFA/mois | Week-end 95 000 FCFA/mois | E-learning 100 000 FCFA/mois.
+• RECONNAISSANCE : Diplômes conformes LMD, accrédités CAMES et reconnus par l'État du Sénégal.
+• CAMPUS : Dakar (Point E / Zone B) & Thiès (Mbour 4). Tél / WhatsApp : +221 77 508 87 28.
 
 ${config.extra_instructions ? `\nConsignes complémentaires de la direction :\n${config.extra_instructions}\n` : ""}
-INFORMATIONS COMPLÉMENTAIRES SUR LE CATALOGUE :
+INFORMATIONS DU CATALOGUE (À UTILISER DE FAÇON SYNTHÉTIQUE) :
 ${context.map((c, i) => `[${i + 1}] ${c.title}\n${c.content}`).join("\n\n")}`;
 }
 
@@ -467,7 +443,7 @@ async function callOpenAI(
           ...messages.map((m) => ({ role: m.role, content: m.content })),
         ],
         temperature: 0.5,
-        max_tokens: 2048,
+        max_tokens: 450,
       }),
     });
     if (!res.ok) {
@@ -495,12 +471,11 @@ async function callGemini(
   const validMessages = firstUserIdx >= 0 ? messages.slice(firstUserIdx) : messages;
   if (validMessages.length === 0) return null;
 
-  // Modèles officiels avec quota complet disponibles sur Google AI Studio
+  // Modèles officiels disponibles sur Google AI Studio
   const models = [
     process.env.GEMINI_MODEL,
-    "gemini-flash-lite-latest",
-    "gemini-3.5-flash",
     "gemini-3.1-flash-lite",
+    "gemini-3.5-flash",
     "gemini-flash-latest",
   ].filter(Boolean) as string[];
 
@@ -522,7 +497,7 @@ async function callGemini(
             })),
             generationConfig: {
               temperature: 0.3,
-              maxOutputTokens: 3000,
+              maxOutputTokens: 450,
               thinkingConfig: { thinkingBudget: 0 },
             },
           }),
@@ -547,23 +522,18 @@ async function callGemini(
   return null;
 }
 
-/** Réponse locale naturelle (sans clé IA) : formulation humaine et bienveillante */
+/** Réponse locale naturelle (sans clé IA) : formulation concise et bienveillante */
 function localAnswer(query: string, context: Chunk[]): string {
   const q = query.toLowerCase();
   if (/^(bonjour|salut|hello|bonsoir|hi)\b/.test(q.trim()) && q.length < 25) {
-    return "Bonjour et bienvenue à AFI-L'UE ! 😊 Je suis Sophie, votre conseillère d'orientation. Quel est votre parcours actuel ou la formation qui vous intéresse ?";
+    return "Bonjour et bienvenue à AFI-L'UE ! Je suis Sophie, votre conseillère d'orientation. Quelle filière ou formation vous intéresse ?";
   }
   if (context.length === 0) {
-    return "Je n'ai pas cette précision exacte sous la main, mais notre équipe des admissions est disponible pour vous renseigner directement par WhatsApp au +221 77 508 87 28 ou par email à afi@afi-ue.sn.";
+    return "Je n'ai pas cette information précise sous la main. Notre équipe des admissions vous renseigne directement par WhatsApp au +221 77 508 87 28 ou par email à afi@afi-ue.sn.";
   }
-  const best = context.slice(0, 2);
-  const body = best
-    .map((c) => {
-      const text = c.content.length > 400 ? `${c.content.slice(0, 400).trim()}…` : c.content;
-      return `📌 **${c.title}**\n${text}${c.url ? `\n🔗 [Consulter cette formation](${c.url})` : ""}`;
-    })
-    .join("\n\n");
-  return `Voici les informations officielles correspondantes :\n\n${body}\n\nSouhaitez-vous que je vous aide à candidater ou avez-vous une autre question ? 😊`;
+  const best = context[0];
+  const text = best.content.length > 250 ? `${best.content.slice(0, 250).trim()}…` : best.content;
+  return `**${best.title}** :\n${text}\n\nSouhaitez-vous des détails pour candidater ?`;
 }
 
 export async function answerSophie(
