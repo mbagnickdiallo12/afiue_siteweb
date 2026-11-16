@@ -142,15 +142,15 @@ export function HeroSlider({ slides }: HeroSliderProps) {
                   </p>
                 )}
 
-                {/* Mobile-Adapted Action Buttons (Full-width stacked on mobile, row on tablet/desktop) */}
+                {/* Mobile-Adapted Action Buttons (Same size & symmetrical styling) */}
                 {slide.cta_primary_text && slide.cta_primary_url && (
                   <div className="pt-2 sm:pt-4 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto max-w-xs sm:max-w-none mx-auto animate-in fade-in slide-in-from-bottom-5 duration-700">
                     <Link
                       href={slide.cta_primary_url}
-                      className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-white hover:bg-slate-50 text-slate-900 font-bold text-xs sm:text-sm shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-95 transition-all group"
+                      className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-white hover:bg-slate-50 text-slate-900 font-bold text-xs sm:text-sm shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-95 transition-all group w-full sm:w-[260px] h-[52px]"
                     >
-                      <span>{slide.cta_primary_text}</span>
-                      <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-afi-red group-hover:bg-[#191D38] text-white flex items-center justify-center shrink-0 transition-colors duration-300">
+                      <span className="truncate">{slide.cta_primary_text}</span>
+                      <span className="w-9 h-9 rounded-full bg-afi-red group-hover:bg-[#191D38] text-white flex items-center justify-center shrink-0 transition-colors duration-300">
                         <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </span>
                     </Link>
@@ -158,10 +158,10 @@ export function HeroSlider({ slides }: HeroSliderProps) {
                     {slide.cta_secondary_text && slide.cta_secondary_url && (
                       <Link
                         href={slide.cta_secondary_url}
-                        className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-afi-red hover:bg-red-700 text-white font-semibold text-xs sm:text-sm shadow-lg hover:scale-[1.02] active:scale-95 transition-all group"
+                        className="inline-flex items-center justify-between gap-3.5 pl-6 pr-1.5 py-1.5 rounded-full bg-afi-red hover:bg-red-700 text-white font-semibold text-xs sm:text-sm shadow-lg hover:scale-[1.02] active:scale-95 transition-all group w-full sm:w-[260px] h-[52px]"
                       >
-                        <span>{slide.cta_secondary_text}</span>
-                        <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-afi-red flex items-center justify-center shrink-0">
+                        <span className="truncate">{slide.cta_secondary_text}</span>
+                        <span className="w-9 h-9 rounded-full bg-white text-afi-red flex items-center justify-center shrink-0">
                           <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                         </span>
                       </Link>

@@ -190,7 +190,7 @@ export function Header({ settings }: { settings?: SiteSettings }) {
   return (
     <>
       <header
-        className="fixed top-0 left-0 right-0 z-40 w-full transition-all duration-300 pointer-events-none"
+        className="fixed top-0 left-0 right-0 z-[70] w-full transition-all duration-300 pointer-events-none"
       >
         {/* =========================================================
             1. ULTRA-SLEEK INSTITUTIONAL STATUS BAR (Apple 2026 Style)
@@ -393,10 +393,10 @@ export function Header({ settings }: { settings?: SiteSettings }) {
         </div>
 
         {/* =========================================================
-            3. MOBILE SLIDE-DOWN DRAWER (Glassmorphic & Scroll-locked)
+            3. MOBILE SLIDE-DOWN DRAWER (Solid White & Scroll-locked)
             ========================================================= */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-slate-100 bg-white/98 backdrop-blur-2xl px-4 pt-3 pb-8 space-y-4 shadow-2xl animate-in slide-in-from-top duration-200 max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain touch-pan-y relative z-50 pointer-events-auto">
+          <div className="lg:hidden border-t border-slate-200 bg-white text-slate-900 px-4 pt-3 pb-8 space-y-4 shadow-2xl animate-in slide-in-from-top duration-200 max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain touch-pan-y relative z-[70] pointer-events-auto">
             {/* Quick Search Bar */}
             <button
               onClick={() => {
@@ -526,7 +526,7 @@ export function Header({ settings }: { settings?: SiteSettings }) {
       {/* Mobile Backdrop for Navigation Drawer */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-slate-950/50 backdrop-blur-xs lg:hidden overscroll-none pointer-events-auto"
+          className="fixed inset-0 z-[65] bg-slate-950/40 lg:hidden overscroll-none pointer-events-auto"
           onClick={() => setMobileMenuOpen(false)}
           onTouchMove={(e) => e.preventDefault()}
           aria-hidden="true"
