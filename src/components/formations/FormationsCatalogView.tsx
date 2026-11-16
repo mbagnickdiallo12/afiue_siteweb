@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Search, X, Filter, BookOpen, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { Search, X, Filter, BookOpen, ChevronLeft, ChevronRight, ChevronDown, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Formation, Domain } from "@/types/database";
 import { FormationCard } from "@/components/formations/FormationCard";
@@ -184,10 +184,11 @@ export function FormationsCatalogView({
   return (
     <div className="space-y-8">
       {/* =========================================================================
-          BARRE DE FILTRES MULTI-CRITÈRES (Recherche instantanée + Niveaux + Domaines)
+          BARRE DE FILTRES MULTI-CRITÈRES (Mobile-First Ultra-Compact & Pro Desktop)
           ========================================================================= */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 shadow-xs space-y-4">
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+      <div className="bg-white rounded-2xl border border-slate-200/90 p-3 sm:p-5 shadow-xs space-y-2.5 sm:space-y-4">
+        {/* ROW 1 (Desktop: Search + Level pills / Mobile: Search only) */}
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-2.5 sm:gap-4">
           {/* Recherche textuelle en direct */}
           <div className="relative flex-1">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -196,13 +197,13 @@ export function FormationsCatalogView({
               value={search}
               onChange={(e) => handleSearchChange(e.target.value)}
               placeholder="Filtrer par nom (ex: Intelligence Artificielle, Audit...)"
-              className="w-full pl-10 pr-9 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-afi-red focus:ring-1 focus:ring-afi-red transition-all"
+              className="w-full pl-10 pr-9 py-2 sm:py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:border-afi-red focus:ring-1 focus:ring-afi-red transition-all bg-slate-50/50 focus:bg-white"
             />
             {search && (
               <button
                 type="button"
                 onClick={() => handleSearchChange("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
                 aria-label="Effacer la recherche"
               >
                 <X className="w-3.5 h-3.5" />
@@ -210,8 +211,8 @@ export function FormationsCatalogView({
             )}
           </div>
 
-          {/* Filtres par Cycle / Niveau */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 shrink-0">
+          {/* Desktop Only: Filtres par Cycle / Niveau */}
+          <div className="hidden md:flex items-center gap-1.5 shrink-0">
             <button
               type="button"
               onClick={() => handleLevelChange("")}
@@ -248,8 +249,65 @@ export function FormationsCatalogView({
           </div>
         </div>
 
-        {/* Filtres par Domaines Académiques */}
-        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100">
+        {/* MOBILE ONLY: Segmented Cycle Control (Compact 3-way toggle) */}
+        <div className="grid grid-cols-3 gap-1 p-1 bg-slate-100 rounded-xl md:hidden">
+          <button
+            type="button"
+            onClick={() => handleLevelChange("")}
+            className={`py-1.5 px-2 rounded-lg text-xs font-bold transition-all text-center truncate ${
+              !level
+                ? "bg-white text-slate-900 shadow-xs"
+                : "text-slate-600 hover:text-slate-900"
+            }`}
+          >
+            Tous
+          </button>
+          <button
+            type="button"
+            onClick={() => handleLevelChange("licence")}
+            className={`py-1.5 px-2 rounded-lg text-xs font-bold transition-all text-center truncate ${
+              level === "licence"
+                ? "bg-afi-red text-white shadow-xs"
+                : "text-slate-600 hover:text-slate-900"
+            }`}
+          >
+            Licences
+          </button>
+          <button
+            type="button"
+            onClick={() => handleLevelChange("master")}
+            className={`py-1.5 px-2 rounded-lg text-xs font-bold transition-all text-center truncate ${
+              level === "master"
+                ? "bg-afi-navy text-white shadow-xs"
+                : "text-slate-600 hover:text-slate-900"
+            }`}
+          >
+            Masters
+          </button>
+        </div>
+
+        {/* MOBILE ONLY: Compact Native Domain Selector (Replaces 5 lines of wrapped pills) */}
+        <div className="relative md:hidden">
+          <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none flex items-center gap-1.5 text-slate-400">
+            <Filter className="w-3.5 h-3.5 text-afi-red" />
+          </div>
+          <select
+            value={domain}
+            onChange={(e) => handleDomainChange(e.target.value)}
+            className="w-full appearance-none pl-9 pr-8 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-xs font-semibold text-slate-800 border border-slate-200 focus:outline-none focus:border-afi-red cursor-pointer transition-colors"
+          >
+            <option value="">Tous les domaines académiques ({domains.length})</option>
+            {domains.map((d) => (
+              <option key={d.id} value={d.slug}>
+                {d.name}
+              </option>
+            ))}
+          </select>
+          <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+        </div>
+
+        {/* DESKTOP ONLY: Extended Domain Badges */}
+        <div className="hidden md:flex flex-wrap items-center gap-2 pt-2.5 border-t border-slate-100">
           <span className="text-xs font-semibold text-slate-400 flex items-center gap-1 mr-1">
             <Filter className="w-3.5 h-3.5" />
             Domaines :
@@ -296,6 +354,23 @@ export function FormationsCatalogView({
             </button>
           )}
         </div>
+
+        {/* Status / Active Filter Bar (Compact on mobile) */}
+        {hasActiveFilters && (
+          <div className="flex md:hidden items-center justify-between pt-1 border-t border-slate-100 text-xs">
+            <span className="text-slate-500 font-medium">
+              <strong className="text-slate-900 font-bold">{filteredFormations.length}</strong> formation{filteredFormations.length > 1 ? "s" : ""}
+            </span>
+            <button
+              type="button"
+              onClick={handleReset}
+              className="inline-flex items-center gap-1 text-xs font-bold text-afi-red hover:underline cursor-pointer"
+            >
+              <X className="w-3 h-3" />
+              <span>Réinitialiser</span>
+            </button>
+          </div>
+        )}
       </div>
 
       {/* =========================================================================
