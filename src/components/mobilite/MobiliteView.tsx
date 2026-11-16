@@ -250,8 +250,8 @@ export function MobiliteView() {
                     </p>
                   </div>
 
-                  {/* 3 points clés concis */}
-                  <div className="pt-3 border-t border-slate-100 space-y-2">
+                  {/* 3 points clés concis (sans trait séparateur) */}
+                  <div className="pt-2 space-y-2.5">
                     {pillar.highlights.map((h, i) => (
                       <div key={i} className="flex items-center gap-2 text-xs text-slate-700">
                         <CheckCircle2 className="w-3.5 h-3.5 text-afi-red shrink-0" />
@@ -261,8 +261,8 @@ export function MobiliteView() {
                   </div>
                 </div>
 
-                {/* Footer link minimaliste */}
-                <div className="pt-5 mt-6 border-t border-slate-100">
+                {/* Footer link minimaliste (sans trait séparateur) */}
+                <div className="pt-4 mt-4">
                   <Link
                     href="/contact"
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-afi-navy hover:text-afi-red transition-colors group/link"
