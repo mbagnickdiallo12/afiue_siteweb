@@ -61,6 +61,11 @@ const config: Config = {
             muted: "#F1F5F9",
           },
         },
+        secondary: {
+          DEFAULT: "#F8FAFC",
+          foreground: "#0F172A",
+        },
+        background: "#FFFFFF",
       },
       fontFamily: {
         heading: ["var(--font-montserrat)", "sans-serif"],

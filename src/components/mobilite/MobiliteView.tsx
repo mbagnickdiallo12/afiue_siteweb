@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import TopologyField from "@/components/ui/topology-field";
 import TextRevealFaqs from "@/components/ui/text-reveal-faqs";
+import { LogoCloud, type LogoItem } from "@/components/ui/logo-cloud-2";
 
 export function MobiliteView() {
   const stats = [
@@ -81,15 +82,135 @@ export function MobiliteView() {
     },
   ];
 
-  const internationalPartners = [
-    { name: "CAMES", desc: "Conseil Africain et Malgache pour l'Enseignement Supérieur (19 pays)" },
-    { name: "FEDE", desc: "Fédération Européenne des Écoles (Genève / Paris)" },
-    { name: "AUF", desc: "Agence Universitaire de la Francophonie" },
-    { name: "ManaGlobal EU", desc: "Réseau de recherche et mobilité (Horizon 2020)" },
-    { name: "UCAD (Labo FOCS)", desc: "Partenaire académique & recherche interuniversitaire" },
-    { name: "Univ. Gaston Berger", desc: "Coopération académique & échanges d'enseignants" },
-    { name: "Cisco Networking", desc: "Académie régionale de compétences numériques" },
-    { name: "Huawei ICT Academy", desc: "Certifications technologies de pointe & cloud" },
+  const partnerLogos: LogoItem[] = [
+    {
+      name: "CAMES",
+      render: () => (
+        <div className="flex flex-col items-center justify-center text-center">
+          <span className="font-heading font-black text-xl sm:text-2xl text-slate-900 tracking-tight">
+            CAMES
+          </span>
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">
+            19 Pays Membres
+          </span>
+        </div>
+      ),
+    },
+    {
+      name: "FEDE",
+      render: () => (
+        <div className="flex flex-col items-center justify-center text-center">
+          <span className="font-heading font-black text-xl sm:text-2xl text-slate-900 tracking-wider">
+            FEDE
+          </span>
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">
+            Genève · Paris
+          </span>
+        </div>
+      ),
+    },
+    {
+      name: "AUF",
+      render: () => (
+        <div className="flex flex-col items-center justify-center text-center">
+          <span className="font-serif italic font-bold text-2xl sm:text-3xl text-slate-900 leading-none">
+            auf
+          </span>
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-1">
+            Francophonie
+          </span>
+        </div>
+      ),
+    },
+    {
+      name: "ManaGlobal EU",
+      render: () => (
+        <div className="flex flex-col items-center justify-center text-center">
+          <div className="flex items-center gap-1.5">
+            <span className="font-heading font-black text-base sm:text-lg text-slate-900 tracking-tight">
+              ManaGlobal
+            </span>
+            <span className="text-[9px] font-mono font-bold bg-[#191D38] text-white px-1.5 py-0.5 rounded">
+              EU
+            </span>
+          </div>
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">
+            Horizon 2020
+          </span>
+        </div>
+      ),
+    },
+    {
+      name: "UCAD (Labo FOCS)",
+      render: () => (
+        <div className="flex flex-col items-center justify-center text-center">
+          <span className="font-heading font-black text-lg sm:text-xl text-slate-900 tracking-tight">
+            UCAD
+          </span>
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">
+            Labo FOCS
+          </span>
+        </div>
+      ),
+    },
+    {
+      name: "Univ. Gaston Berger",
+      render: () => (
+        <div className="flex flex-col items-center justify-center text-center">
+          <span className="font-heading font-black text-lg sm:text-xl text-slate-900 tracking-tight">
+            UGB
+          </span>
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">
+            Saint-Louis
+          </span>
+        </div>
+      ),
+    },
+    {
+      name: "Cisco Networking",
+      render: () => (
+        <div className="flex flex-col items-center justify-center text-center">
+          <div className="flex items-center gap-1.5">
+            <svg
+              className="w-5 h-4 text-slate-900 shrink-0"
+              viewBox="0 0 32 20"
+              fill="currentColor"
+            >
+              <rect x="2" y="10" width="2" height="10" rx="1" />
+              <rect x="7" y="6" width="2" height="14" rx="1" />
+              <rect x="12" y="2" width="2" height="18" rx="1" />
+              <rect x="17" y="2" width="2" height="18" rx="1" />
+              <rect x="22" y="6" width="2" height="14" rx="1" />
+              <rect x="27" y="10" width="2" height="10" rx="1" />
+            </svg>
+            <span className="font-heading font-black text-base sm:text-lg text-slate-900 tracking-wider">
+              cisco
+            </span>
+          </div>
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">
+            Networking Academy
+          </span>
+        </div>
+      ),
+    },
+    {
+      name: "Huawei ICT Academy",
+      render: () => (
+        <div className="flex flex-col items-center justify-center text-center">
+          <div className="flex items-center gap-1.5">
+            <span className="font-heading font-black text-sm sm:text-base tracking-widest text-slate-900 uppercase">
+              HUAWEI
+            </span>
+            <span className="text-[9px] font-mono font-bold bg-[#191D38] text-white px-1.5 py-0.5 rounded">
+              ICT
+            </span>
+          </div>
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">
+            Academy
+          </span>
+        </div>
+      ),
+    },
   ];
 
   const steps = [
@@ -335,35 +456,25 @@ export function MobiliteView() {
       </section>
 
       {/* =========================================================================
-          5. PARTENAIRES ACADÉMIQUES & INSTITUTIONNELS (Design Pur & Épuré)
+          5. PARTENAIRES ACADÉMIQUES & INSTITUTIONNELS (LogoCloud sur Fond Blanc)
           ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 space-y-12">
-        <div className="text-center max-w-2xl mx-auto space-y-2">
-          <span className="text-xs font-bold uppercase tracking-widest text-afi-red">
-            Accords Institutionnels
-          </span>
-          <h2 className="font-heading font-black text-2xl sm:text-3xl md:text-4xl text-slate-900 tracking-tight">
-            Partenaires &amp; Réseaux d&apos;Excellence
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-            Des accords académiques majeurs pour sécuriser la valeur internationale de vos diplômes.
-          </p>
-        </div>
+      <section className="bg-white py-16 sm:py-24 border-y border-slate-200/80 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <span className="text-xs font-bold uppercase tracking-widest text-afi-red">
+              Accords Institutionnels
+            </span>
+            <h2 className="font-heading font-black text-2xl sm:text-3xl md:text-4xl text-slate-900 tracking-tight">
+              Partenaires &amp; Réseaux d&apos;Excellence
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Des accords académiques majeurs pour sécuriser la valeur internationale de vos diplômes.
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-          {internationalPartners.map((part, idx) => (
-            <div
-              key={idx}
-              className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xs space-y-1.5 hover:border-slate-300 transition-colors"
-            >
-              <h4 className="font-heading font-bold text-sm text-slate-900">
-                {part.name}
-              </h4>
-              <p className="text-[11px] text-slate-500 leading-relaxed">
-                {part.desc}
-              </p>
-            </div>
-          ))}
+          <div className="max-w-4xl mx-auto">
+            <LogoCloud items={partnerLogos} />
+          </div>
         </div>
       </section>
 
